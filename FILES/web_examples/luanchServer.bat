@@ -1,1 +1,1 @@
-bokeh serve random_generator.py --host=* --show
+bokeh serve random_generator.py bitcoin-streaming-complete-with-widgets.py --host=* --show

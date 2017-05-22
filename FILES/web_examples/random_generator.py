@@ -15,6 +15,7 @@ source=ColumnDataSource(data=dict(x=[],y=[],size=[]))
 
 #create glyphs
 f.circle(x='x',y='y',size='size',fill_color='olive',line_color='yellow',source=source)
+f.line(x='x',y='y',line_color='green',source=source)
 
 #create periodic function
 def update():
