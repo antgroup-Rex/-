@@ -1,0 +1,138 @@
+{
+    "directed": true, 
+    "graph": {
+        "name": "Simulated System Graph"
+    }, 
+    "nodes": [
+        {
+            "img_path": "C:/Users/Ran_the_User/Documents/Current Work/py/system_images/quad.jpg", 
+            "id": "quad 2"
+        }, 
+        {
+            "img_path": "C:/Users/Ran_the_User/Documents/Current Work/py/system_images/quad.jpg", 
+            "id": "quad 1"
+        }, 
+        {
+            "id": "physics"
+        }, 
+        {
+            "img_path": "C:/Users/Ran_the_User/Documents/Current Work/py/system_images/slung-load.jpg", 
+            "id": "payload"
+        }
+    ], 
+    "links": [
+        {
+            "units": "N", 
+            "source": 0, 
+            "var_name": "lift_force_Z", 
+            "target": 3, 
+            "key": 0
+        }, 
+        {
+            "units": "N", 
+            "source": 0, 
+            "var_name": "side_force_XY", 
+            "target": 3, 
+            "key": 1
+        }, 
+        {
+            "units": "N", 
+            "source": 1, 
+            "var_name": "lift_force_Z", 
+            "target": 3, 
+            "key": 0
+        }, 
+        {
+            "units": "N", 
+            "source": 1, 
+            "var_name": "side_force_XY", 
+            "target": 3, 
+            "key": 1
+        }, 
+        {
+            "units": "m/s^2", 
+            "source": 2, 
+            "var_name": "imu2_linear_accelerations", 
+            "target": 0, 
+            "key": 0
+        }, 
+        {
+            "units": "rad/sec", 
+            "source": 2, 
+            "var_name": "imu2_angular_rates", 
+            "target": 0, 
+            "key": 1
+        }, 
+        {
+            "units": "rad", 
+            "source": 2, 
+            "var_name": "imu2_magnetometer_angles", 
+            "target": 0, 
+            "key": 2
+        }, 
+        {
+            "units": "bar", 
+            "source": 2, 
+            "var_name": "imu2_barometer_pressure", 
+            "target": 0, 
+            "key": 3
+        }, 
+        {
+            "units": "m/s^2", 
+            "source": 2, 
+            "var_name": "imu1_linear_accelerations", 
+            "target": 1, 
+            "key": 0
+        }, 
+        {
+            "units": "rad/sec", 
+            "source": 2, 
+            "var_name": "imu1_angular_rates", 
+            "target": 1, 
+            "key": 1
+        }, 
+        {
+            "units": "rad", 
+            "source": 2, 
+            "var_name": "imu1_magnetometer_angles", 
+            "target": 1, 
+            "key": 2
+        }, 
+        {
+            "units": "bar", 
+            "source": 2, 
+            "var_name": "imu1_barometer_pressure", 
+            "target": 1, 
+            "key": 3
+        }, 
+        {
+            "units": "N", 
+            "source": 3, 
+            "var_name": "weight_force_Z", 
+            "target": 0, 
+            "key": 0
+        }, 
+        {
+            "units": "N", 
+            "source": 3, 
+            "var_name": "weight_force_XY", 
+            "target": 0, 
+            "key": 1
+        }, 
+        {
+            "units": "N", 
+            "source": 3, 
+            "var_name": "weight_force_Z", 
+            "target": 1, 
+            "key": 0
+        }, 
+        {
+            "units": "N", 
+            "source": 3, 
+            "var_name": "weight_force_XY", 
+            "target": 1, 
+            "key": 1
+        }
+    ], 
+    "multigraph": true
+}
