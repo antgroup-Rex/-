@@ -2359,8 +2359,11 @@ class AuiFrame(wx.Frame):
         obj = DD.FileDropPanel(self, log)
         #todo: add button for 'back to previous or default layout'
                  #remove the text menu
-                 # resize the window for small rectangle
+        obj.Bind(wx.EVT_BUTTON, self.OnPaste)
+
         return obj
+    def OnPaste(self):
+        print "onPaste event reaction"
 
     def CreateRan_PanelCtrl(self):
         # frame = wx.Frame(None, wx.ID_ANY, "Hello World")  # A Frame is a top-level window.
@@ -2608,16 +2611,29 @@ class AuiFrame(wx.Frame):
 
 #---------------------------------------------------------------------------
 
+def alignToBottomRight(win):
+
+    # posOffset = wx.Point(683, 384)
+    posOffset = wx.Point(5 , 50)
+
+    previousSize = win.GetPosition()
+    dw, dh  = wx.DisplaySize()
+    w, h    = win.GetSize()
+    x = dw - w - posOffset.x
+    y = dh - h - posOffset.y
+    win.SetPosition((x, y))
+
 def MainAUI(parent, log):
 
     frame = AuiFrame(parent, -1, "AUI Test Frame", size=(800, 600), log=log)
     # frame.CenterOnScreen()
 
-    desiredFramePos = wx.Point(683, 384)
-    desiredFramePos = wx.Point(2, 2)
-    previousSize = frame.GetPosition()
-    frame.SetPosition(desiredFramePos)
-    # self.pos = (7
+    alignToBottomRight(frame)
+    # desiredFramePos = wx.Point(683, 384)
+    # desiredFramePos = wx.Point(2, 2)
+    # previousSize = frame.GetPosition()
+    # frame.SetPosition(desiredFramePos)
+
     frame.Show()
 
 
