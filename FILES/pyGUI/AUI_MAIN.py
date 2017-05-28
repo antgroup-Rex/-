@@ -11,6 +11,7 @@ import sys
 import from_demo_agw.ZoomBar                as zB
 import from_demo_agw.XMLtreeview            as Xtr
 import from_demo_agw.DragAndDrop            as DD
+import from_demo_agw.ShapedWindows          as ShpWin
 
 try:
     dirName = os.path.dirname(os.path.abspath(__file__))
@@ -531,7 +532,11 @@ class SettingsPanel(wx.Panel):
 class AuiFrame(wx.Frame):
 
     def __init__(self, parent, id=wx.ID_ANY, title="", pos= wx.DefaultPosition,
-                 size=wx.DefaultSize, style=wx.DEFAULT_FRAME_STYLE|wx.SUNKEN_BORDER, log=None):
+                 size=wx.DefaultSize,
+                 style=wx.DEFAULT_FRAME_STYLE
+                       |wx.SUNKEN_BORDER
+                       |wx.STAY_ON_TOP,             #ran
+                 log=None):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
@@ -1003,6 +1008,13 @@ class AuiFrame(wx.Frame):
 
         #ran:
         self._mgr.GetPane("DandD_content").Show()
+        prnt = self.GetParent()     # get the parent panel
+        prnt2 = prnt.GetParent()    # get the frame window
+        # prnt2.ToggleWindowStyle(wx.STAY_ON_TOP)
+
+        # self.SetWindowStyle(wx.STAY_ON_TOP)
+        # prnt.SetWindowStyle(wx.STAY_ON_TOP)
+        # prnt2.SetWindowStyle(wx.STAY_ON_TOP)
         #:todo: set win size to min. set as external win.
         # get screen resolution
 

@@ -1,0 +1,21 @@
+jsonDict={
+	{
+	"link":"https://www.packtpub.com/books/content/wxpython-28-window-layout-and-design",
+	"keepDate":"28/05/17",
+	"userNotes":"for using better wx",
+	"screenshot":None
+	},
+	{
+	"link":"http://www.infinity77.net/main/copyright.html",
+	"keepDate":"28/05/17",
+	"userNotes":"last page of page. wx scrnsht examples",
+	"screenshot":None
+	},
+	
+	{
+	"link":"",
+	"keepDate":"",
+	"userNotes":"",
+	"screenshot":None
+	}
+}

@@ -4,6 +4,8 @@ import  wx
 import glob # similar or instead of 'os'  http://stackoverflow.com/questions/3207219/how-to-list-all-files-of-a-directory
 import os
 
+import ShapedWindows as ShpWin
+
 #----------------------------------------------------------------------
 
 ID_CopyBtn      = wx.NewId()
@@ -185,7 +187,7 @@ class OtherDropTarget(wx.PyDropTarget):
         text = self.textdo.GetText()
         # self.textCtrl.AppendText(self.textDropData.GetText() + '\n')
         print text
-        self.window.WriteText(text)
+        self.window.WriteText(text+'\n')
         #TODO : show popup menu to categorize the text and relate action to it.
          # either store data in lists, or links book-keeping, or issues to track (as part of my notes)
         #  zoomBar like circle action icons ?
@@ -291,8 +293,10 @@ class FileDropPanel(wx.Panel):
 
         self.text3 = wx.TextCtrl(
                         self, -1, "",
-                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.TE_READONLY
+                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL      # |wx.TE_READONLY
                         )
+
+        self.text3.Bind(wx.EVT_TEXT_PASTE, self.OnPaste)
 
         dt = OtherDropTarget(self.text3, log)
         self.text3.SetDropTarget(dt)
@@ -301,14 +305,45 @@ class FileDropPanel(wx.Panel):
         self.SetAutoLayout(True)
         self.SetSizer(sizer)
 
+    # def WriteText(self, text):
+    #     self.text.WriteText(text)
+    #
+    # def SetInsertionPointEnd(self):
+    #     self.text.SetInsertionPointEnd()
 
-    def WriteText(self, text):
-        self.text.WriteText(text)
+    def OnPaste(self, evt):
+        success = False
+        do = wx.TextDataObject()
+        if wx.TheClipboard.Open():
+            success = wx.TheClipboard.GetData(do)
+            wx.TheClipboard.Close()
 
-    def SetInsertionPointEnd(self):
-        self.text.SetInsertionPointEnd()
+        if success:
+            pasteStr = do.GetText()
+            # self.text3.SetValue(do.GetText())
+            self.text3.SetInsertionPointEnd()
+            self.text3.WriteText("\nPaste string : \n%s\n" % pasteStr)
 
+            pnl = wx.Panel(self)
 
+            iconNames = ["help", "smfuel", "checked"]  # todo - get from os list or user json file
+            functionsToLaunch = [ShpWin.addUrlToLinksList, None, None, None]
+            avgLoc = (1200, 600)
+            deltaLoc = [(50, 00), (00, 50), (0, -50), (-50, 00)]
+            winLocations = [(x + avgLoc[0], y + avgLoc[1]) for (x, y) in deltaLoc]
+
+            for icon, func, loc in zip(iconNames, functionsToLaunch, winLocations):
+                iName = "from_demo_agw/bitmaps/" + icon + ".ico"
+                win = ShpWin.ShapedWindowByImage(pnl, imageFileName=iName, launchFunction=func, initialLocation=loc)
+                win.Show(True)
+
+        else:
+            wx.MessageBox(
+                "There is no data in the clipboard in the required format",
+                "Error"
+                )
+
+        # evt.Skip()  # propagate to regular behaviour of the Paste action
 #----------------------------------------------------------------------
 #----------------------------------------------------------------------
 

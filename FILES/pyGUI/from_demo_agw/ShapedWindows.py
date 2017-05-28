@@ -95,17 +95,22 @@ class ShapedWindowByImage(wx.Frame):
             self.Move(fp)
 
 def addUrlToLinksList(linkText):
-    with open("..//user_prefs//userUrLinks.txt",'a') as f:
+    if __name__=='__main__':
+        fileLoc = "..//user_prefs//userUrLinks.txt"
+    else:
+        fileLoc = ".//user_prefs//userUrLinks.txt"
+    with open(fileLoc,'a') as f:
         f.write(linkText)
+    #TODO: close icon window(s) after the action (when operated by external parent program)
 
 if __name__ == '__main__':
 
     app = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
-    frame = wx.Frame(None, wx.ID_ANY, "Hello World")  # A Frame is a top-level window.
+    frame = wx.Frame(None, wx.ID_ANY, "Hello Shapes World")  # A Frame is a top-level window.
     frame.Show(False)  # Show the frame.
     pnl = wx.Panel(frame)
 
-    iconNames = ["help", "smfuel","checked","smtemp"]   # todo - get from os list or user json file
+    iconNames = ["help", "smfuel","checked"]   # todo - get from os list or user json file
     functionsToLaunch = [addUrlToLinksList, None, None, None]
     # functionToLaunch = [addUrlToLinksList]
     # avgLoc = (600,400)
