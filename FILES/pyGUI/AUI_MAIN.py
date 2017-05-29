@@ -362,7 +362,7 @@ class SettingsPanel(wx.Panel):
         s15.Add((1, 1), 1, wx.EXPAND)
         s15.SetItemMinSize(1, (180, 20))
 
-        grid_sizer = wx.GridSizer(0, 2)
+        grid_sizer = wx.GridSizer(rows=0, cols=2, vgap=5, hgap=5)
         grid_sizer.SetHGap(5)
         grid_sizer.Add(s1)
         grid_sizer.Add(s4)
@@ -412,14 +412,15 @@ class SettingsPanel(wx.Panel):
 
     def CreateColourBitmap(self, c):
 
-        image = wx.EmptyImage(25, 14)
+        image = wx.Image(25, 14)
         for x in xrange(25):
             for y in xrange(14):
                 pixcol = c
                 if x == 0 or x == 24 or y == 0 or y == 13:
                     pixcol = wx.BLACK
 
-                image.SetRGB(x, y, pixcol.Red(), pixcol.Green(), pixcol.Blue())
+                # image.SetRGB(x, y, pixcol.Red(), pixcol.Green(), pixcol.Blue())
+                image.SetRGB(wx.Rect(wx.Size(25, 14)), pixcol.Red(), pixcol.Green(), pixcol.Blue())
 
         return image.ConvertToBitmap()
 
@@ -714,10 +715,10 @@ class AuiFrame(wx.Frame):
         guides_menu.AppendRadioItem(ID_AeroGuides, "Aero-Style Docking Guides")
         guides_menu.AppendRadioItem(ID_WhidbeyGuides, "Whidbey-Style Docking Guides")
 
-        perspectives_menu.AppendMenu(wx.ID_ANY, "Frame Perspectives", self._perspectives_menu)
-        perspectives_menu.AppendMenu(wx.ID_ANY, "AuiNotebook Perspectives", self._nb_perspectives_menu)
+        perspectives_menu.Append(wx.ID_ANY, "Frame Perspectives", self._perspectives_menu)
+        perspectives_menu.Append(wx.ID_ANY, "AuiNotebook Perspectives", self._nb_perspectives_menu)
         perspectives_menu.AppendSeparator()
-        perspectives_menu.AppendMenu(wx.ID_ANY, "Docking Guides", guides_menu)
+        perspectives_menu.Append(wx.ID_ANY, "Docking Guides", guides_menu)
 
         action_menu = wx.Menu()
         action_menu.AppendCheckItem(ID_VetoTree, "Veto Floating Of Tree Pane")
@@ -736,7 +737,7 @@ class AuiFrame(wx.Frame):
             self._requestPanes[ids] = pane.name
             attention_menu.Append(ids, pane.caption)
 
-        action_menu.AppendMenu(wx.ID_ANY, "Request User Attention For", attention_menu)
+        action_menu.Append(wx.ID_ANY, "Request User Attention For", attention_menu)
 
         help_menu = wx.Menu()
         help_menu.Append(wx.ID_ABOUT, "About...")
@@ -1298,7 +1299,7 @@ class AuiFrame(wx.Frame):
 
         try:
             self.gauge.Pulse()
-        except wx.PyDeadObjectError:
+        except RuntimeError:   # wx.PyDeadObjectError:
             print "TimerHandler event : wx.PyDeadObjectError exception "
             self.timer.Stop()
         except:
@@ -1360,7 +1361,7 @@ class AuiFrame(wx.Frame):
         for pane in panes:
             if checked:
                 randimage = random.randint(0, len(ArtIDs) - 1)
-                bmp = wx.ArtProvider_GetBitmap(eval(ArtIDs[randimage]), wx.ART_OTHER, (16, 16))
+                bmp = wx.ArtProvider.GetBitmap(eval(ArtIDs[randimage]), wx.ART_OTHER, (16, 16))
             else:
                 bmp = None
 
@@ -2106,19 +2107,19 @@ class AuiFrame(wx.Frame):
 
             m1 =  wx.MenuItem(menuPopup, 10001, "Drop Down Item 1")
             m1.SetBitmap(bmp)
-            menuPopup.AppendItem(m1)
+            menuPopup.Append(m1)
 
             m2 =  wx.MenuItem(menuPopup, 10002, "Drop Down Item 2")
             m2.SetBitmap(bmp)
-            menuPopup.AppendItem(m2)
+            menuPopup.Append(m2)
 
             m3 =  wx.MenuItem(menuPopup, 10003, "Drop Down Item 3")
             m3.SetBitmap(bmp)
-            menuPopup.AppendItem(m3)
+            menuPopup.Append(m3)
 
             m4 =  wx.MenuItem(menuPopup, 10004, "Drop Down Item 4")
             m4.SetBitmap(bmp)
-            menuPopup.AppendItem(m4)
+            menuPopup.Append(m4)
 
             # line up our menu with the button
             rect = tb.GetToolRect(event.GetId())
@@ -2298,7 +2299,9 @@ class AuiFrame(wx.Frame):
 
         if wx.Platform != '__WXMAC__':
             try:
-                dlg.SetFont(wx.Font(8, wx.NORMAL, wx.NORMAL, wx.NORMAL, False))
+                #dlg.SetFont(wx.Font(8, wx.NORMAL, wx.NORMAL, wx.NORMAL, False))
+				dlg.SetFont(wx.Font(8, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL,
+                                False, '', wx.FONTENCODING_DEFAULT))
             except: #ran
                 pass
 
@@ -2425,7 +2428,7 @@ class AuiFrame(wx.Frame):
         ctrl.AddPage(self.CreateHTMLCtrl(ctrl), "Welcome to AUI", False, page_bmp)
 
         panel = wx.Panel(ctrl, -1)
-        flex = wx.FlexGridSizer(0, 2)
+        flex = wx.FlexGridSizer(rows=0, cols=2, vgap=2, hgap=2)
         flex.Add((5, 5))
         flex.Add((5, 5))
         flex.Add(wx.StaticText(panel, -1, "wxTextCtrl:"), 0, wx.ALL|wx.ALIGN_CENTRE, 5)

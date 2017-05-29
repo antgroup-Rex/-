@@ -83,34 +83,37 @@ class ShowTifInPath(wx.Panel):
 
         # Use wx.ArtProvider for default icons
         open_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_TOOLBAR, (16, 16))
-        openTool = self.toolbar.AddSimpleTool(wx.ID_ANY, open_ico, "Open", "Select file to load")
+        if 'phoenix' in wx.PlatformInfo:
+            openTool = self.toolbar.AddTool(wx.ID_ANY, "Open", open_ico, "Select file to load")
+        else:
+            openTool = self.toolbar.AddSimpleTool(wx.ID_ANY, open_ico, "Open", "Select file to load")
         # self.Bind(wx.EVT_MENU, self.onSave, saveTool)
 
 
         # Use wx.ArtProvider for default icons
         save_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE, wx.ART_TOOLBAR, (16, 16))
-        saveTool = self.toolbar.AddSimpleTool(wx.ID_ANY, save_ico, "Save", "Saves the Current Worksheet")
+        saveTool = self.toolbar.AddTool(wx.ID_ANY, "Save", save_ico, "Saves the Current Worksheet")
         # self.Bind(wx.EVT_MENU, self.onSave, saveTool)
 
         self.toolbar.AddSeparator()
 
         print_ico = wx.ArtProvider.GetBitmap(wx.ART_PRINT, wx.ART_TOOLBAR, (16, 16))
-        printTool = self.toolbar.AddSimpleTool(wx.ID_ANY, print_ico, "Print", "Sends Timesheet to Default Printer")
+        printTool = self.toolbar.AddTool(wx.ID_ANY, "Print", print_ico, "Sends Timesheet to Default Printer")
         # self.Bind(wx.EVT_MENU, self.onPrint, printTool)
 
-        delete_ico = wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_TOOLBAR, (16, 16))
-        deleteTool = self.toolbar.AddSimpleTool(wx.ID_ANY, delete_ico, "Delete", "Delete contents of cell")
-        # self.Bind(wx.EVT_MENU, self.onDelete, deleteTool)
-
-        undo_ico = wx.ArtProvider.GetBitmap(wx.ART_UNDO, wx.ART_TOOLBAR, (16, 16))
-        self.undoTool = self.toolbar.AddSimpleTool(wx.ID_UNDO, undo_ico, "Undo", "")
-        self.toolbar.EnableTool(wx.ID_UNDO, False)
-        # self.Bind(wx.EVT_TOOL, self.onUndo, self.undoTool)
-
-        redo_ico = wx.ArtProvider.GetBitmap(wx.ART_REDO, wx.ART_TOOLBAR, (16, 16))
-        self.redoTool = self.toolbar.AddSimpleTool(wx.ID_REDO, redo_ico, "Redo", "")
-        self.toolbar.EnableTool(wx.ID_REDO, False)
-        # self.Bind(wx.EVT_TOOL, self.onRedo, self.redoTool)
+        # delete_ico = wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_TOOLBAR, (16, 16))
+        # deleteTool = self.toolbar.AddSimpleTool(wx.ID_ANY, delete_ico, "Delete", "Delete contents of cell")
+        # # self.Bind(wx.EVT_MENU, self.onDelete, deleteTool)
+        #
+        # undo_ico = wx.ArtProvider.GetBitmap(wx.ART_UNDO, wx.ART_TOOLBAR, (16, 16))
+        # self.undoTool = self.toolbar.AddSimpleTool(wx.ID_UNDO, undo_ico, "Undo", "")
+        # self.toolbar.EnableTool(wx.ID_UNDO, False)
+        # # self.Bind(wx.EVT_TOOL, self.onUndo, self.undoTool)
+        #
+        # redo_ico = wx.ArtProvider.GetBitmap(wx.ART_REDO, wx.ART_TOOLBAR, (16, 16))
+        # self.redoTool = self.toolbar.AddSimpleTool(wx.ID_REDO, redo_ico, "Redo", "")
+        # self.toolbar.EnableTool(wx.ID_REDO, False)
+        # # self.Bind(wx.EVT_TOOL, self.onRedo, self.redoTool)
 
         # This basically shows the toolbar
         self.toolbar.Realize()
@@ -120,7 +123,7 @@ class ShowTifInPath(wx.Panel):
         self.Close()
 
     def ChangeCursor(self, event):
-        self.canvas.SetCursor(wx.StockCursor(wx.CURSOR_BULLSEYE))
+        self.canvas.SetCursor(wx.Cursor(wx.CURSOR_BULLSEYE))
 
     def updateTif(self,tifFullName):
         img = mpimg.imread(tifFullName)
@@ -203,10 +206,10 @@ class ShowTifInPath(wx.Panel):
 
         return (full_path, file_extension, allSimilarFiles, fileIndexInList)
 
-class MinimumDropTarget(wx.PyDropTarget):
+class MinimumDropTarget(wx.DropTarget):
     ''' handles ony file types '''
     def __init__(self):
-        wx.PyDropTarget.__init__(self)
+        wx.DropTarget.__init__(self)
 
         self.doComposite = wx.DataObjectComposite()
         self.filedo = wx.FileDataObject()

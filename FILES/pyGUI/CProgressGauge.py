@@ -4,13 +4,13 @@
 import wx
 import time
 
-class ProgressGauge(wx.PyWindow):
+class ProgressGauge(wx.Window):
     """ This class provides a visual alternative for wx.Gauge."""
 
     def __init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=(-1,30)):
         """ Default class constructor. """
 
-        wx.PyWindow.__init__(self, parent, id, pos, size, style=wx.BORDER_NONE)
+        wx.Window.__init__(self, parent, id, pos, size, style=wx.BORDER_NONE)
 
         self._value = 0
         self._steps = 16
@@ -26,7 +26,7 @@ class ProgressGauge(wx.PyWindow):
         self._topStartColour = self.LightColour(self._bottomStartColour, 80)
         self._topEndColour = self.LightColour(self._bottomStartColour, 40)
 
-        self._background = wx.Brush(wx.WHITE, wx.SOLID)
+        self._background = wx.Brush(wx.WHITE, wx.BRUSHSTYLE_SOLID)
 
         self.Bind(wx.EVT_PAINT, self.OnPaint)
         self.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
@@ -64,8 +64,8 @@ class ProgressGauge(wx.PyWindow):
         self.DrawProgress(dc, xsize, ysize, increment)
 
         dc.SetBrush(wx.TRANSPARENT_BRUSH)
-        dc.SetPen(wx.Pen(wx.SystemSettings_GetColour(wx.SYS_COLOUR_GRADIENTINACTIVECAPTION)))
-        dc.DrawRectangleRect(self.GetClientRect())
+        dc.SetPen(wx.Pen(wx.SystemSettings.GetColour(wx.SYS_COLOUR_GRADIENTINACTIVECAPTION)))
+        dc.DrawRectangle(self.GetClientRect())
 
 
     def LightColour(self, colour, percent):

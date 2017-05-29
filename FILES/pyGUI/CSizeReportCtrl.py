@@ -4,12 +4,12 @@
 
 import wx
 
-class SizeReportCtrl(wx.PyControl):
+class SizeReportCtrl(wx.Control):
 
     def __init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition,
                 size=wx.DefaultSize, mgr=None):
 
-        wx.PyControl.__init__(self, parent, id, pos, size, style=wx.NO_BORDER)
+        wx.Control.__init__(self, parent, id, pos, size, style=wx.NO_BORDER)
         self._mgr = mgr
 
         self.Bind(wx.EVT_PAINT              , self.OnPaint)
