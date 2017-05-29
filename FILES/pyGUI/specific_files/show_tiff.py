@@ -31,9 +31,93 @@ class ShowTifInPath(wx.Panel):
         self.lastFileName = ''
         self.filesPath = ''
 
-        self.canvas.Bind(wx.EVT_KEY_DOWN    , self.OnDwnKeyPress)    
+        self.bindKeyShortcuts()
+
+        self.createMenuAndToolbar()
+
+    def bindKeyShortcuts(self):
+
+        self.canvas.Bind(wx.EVT_KEY_DOWN    , self.OnDwnKeyPress)
         self.canvas.Bind(wx.EVT_KEY_UP      , self.OnUpKeyPress)
         self.canvas.Bind(wx.EVT_ENTER_WINDOW, self.ChangeCursor)
+
+        # Create an accelerator table
+        myKeyId_1 = wx.NewId()
+        myKeyId_2 = wx.NewId()
+        self.Bind(wx.EVT_MENU, self.onCtrlShiftF1, id=myKeyId_1)
+        self.Bind(wx.EVT_MENU, self.onShiftAltY  , id=myKeyId_2)
+
+        accel_tbl = wx.AcceleratorTable([
+                                          (wx.ACCEL_SHIFT | wx.ACCEL_CTRL, wx.WXK_F1, myKeyId_1),
+                                          (wx.ACCEL_SHIFT | wx.ACCEL_ALT , ord('Y') , myKeyId_2)
+                                          ])
+
+        self.SetAcceleratorTable(accel_tbl)
+
+    def onCtrlShiftF1(self, event):
+        """ https://www.blog.pythonlibrary.org/2010/12/02/wxpython-keyboard-shortcuts-accelerators/ """
+        print "You pressed CTRL+SHIFT+F1"
+    def onShiftAltY(self, event):
+        """ https://www.blog.pythonlibrary.org/2010/12/02/wxpython-keyboard-shortcuts-accelerators/ """
+        print "You pressed ALT+SHIFT+Y"
+
+    def createMenuAndToolbar(self):
+        '''
+        ref: https://www.blog.pythonlibrary.org/2008/07/02/wxpython-working-with-menus-toolbars-and-accelerators/
+        '''
+        """ Create the menu bar. """
+        menuBar = wx.MenuBar()
+        fileMenu = wx.Menu()
+        fileMenu.AppendSeparator()
+        exitMenuItem = fileMenu.Append(wx.NewId(), "&Exit\tAlt+F4",  "Exit the application")
+        self.Bind(wx.EVT_MENU,  self.OnExit, exitMenuItem)
+        menuBar.Append(fileMenu, "&File")
+        # exitMenuItem.Enable(False)
+        # menuBar.EnableTop(0, False)
+        self.GetParent().SetMenuBar(menuBar)    # add it to Frame object
+
+
+        """        Create a toolbar.        """
+        self.toolbar = self.GetParent().CreateToolBar()
+        self.toolbar.SetToolBitmapSize((16, 16))  # sets icon size
+
+        # Use wx.ArtProvider for default icons
+        open_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_TOOLBAR, (16, 16))
+        openTool = self.toolbar.AddSimpleTool(wx.ID_ANY, open_ico, "Open", "Select file to load")
+        # self.Bind(wx.EVT_MENU, self.onSave, saveTool)
+
+
+        # Use wx.ArtProvider for default icons
+        save_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE, wx.ART_TOOLBAR, (16, 16))
+        saveTool = self.toolbar.AddSimpleTool(wx.ID_ANY, save_ico, "Save", "Saves the Current Worksheet")
+        # self.Bind(wx.EVT_MENU, self.onSave, saveTool)
+
+        self.toolbar.AddSeparator()
+
+        print_ico = wx.ArtProvider.GetBitmap(wx.ART_PRINT, wx.ART_TOOLBAR, (16, 16))
+        printTool = self.toolbar.AddSimpleTool(wx.ID_ANY, print_ico, "Print", "Sends Timesheet to Default Printer")
+        # self.Bind(wx.EVT_MENU, self.onPrint, printTool)
+
+        delete_ico = wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_TOOLBAR, (16, 16))
+        deleteTool = self.toolbar.AddSimpleTool(wx.ID_ANY, delete_ico, "Delete", "Delete contents of cell")
+        # self.Bind(wx.EVT_MENU, self.onDelete, deleteTool)
+
+        undo_ico = wx.ArtProvider.GetBitmap(wx.ART_UNDO, wx.ART_TOOLBAR, (16, 16))
+        self.undoTool = self.toolbar.AddSimpleTool(wx.ID_UNDO, undo_ico, "Undo", "")
+        self.toolbar.EnableTool(wx.ID_UNDO, False)
+        # self.Bind(wx.EVT_TOOL, self.onUndo, self.undoTool)
+
+        redo_ico = wx.ArtProvider.GetBitmap(wx.ART_REDO, wx.ART_TOOLBAR, (16, 16))
+        self.redoTool = self.toolbar.AddSimpleTool(wx.ID_REDO, redo_ico, "Redo", "")
+        self.toolbar.EnableTool(wx.ID_REDO, False)
+        # self.Bind(wx.EVT_TOOL, self.onRedo, self.redoTool)
+
+        # This basically shows the toolbar
+        self.toolbar.Realize()
+
+    def OnExit(self):
+        # SystemExit()
+        self.Close()
 
     def ChangeCursor(self, event):
         self.canvas.SetCursor(wx.StockCursor(wx.CURSOR_BULLSEYE))
@@ -66,7 +150,8 @@ class ShowTifInPath(wx.Panel):
         return self.imgplot, cBar
 
     def OnDwnKeyPress(self, event):
-        print "dwnKey"
+        pass
+        # print "dwnKey"
 
     def OnUpKeyPress(self, event):
         print "onUpKey"
@@ -99,6 +184,8 @@ class ShowTifInPath(wx.Panel):
             print "+ key"
         elif (pressedKey == wx.WXK_NUMPAD_SUBTRACT):
             print "- key"
+        else :
+            print pressedKey
 
         return pressedKey
 

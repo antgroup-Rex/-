@@ -23,7 +23,6 @@ import json
 
 print "nx version : " + nx.__version__
 
-output_rel_path = "./runtime_outputs/"
 
 ###############################################
 import matplotlib
@@ -35,7 +34,12 @@ print matplotlib.matplotlib_fname()
 matplotlib.rc_params()
 ###############################################
 
-doc = minidom.parse("./specific_files/example.xml")
+if __name__=='__main__':
+    doc = minidom.parse("./example.xml")
+    output_rel_path = "../runtime_outputs/"
+else:
+    doc = minidom.parse("./specific_files/example.xml")
+    output_rel_path = "./runtime_outputs/"
 draw_edges_labels=False#True
 
 ''' generate the graph '''
@@ -441,7 +445,8 @@ ax.set_ylabel("y axis")
 ax.autoscale()
 
 # plt.savefig("weighted_graph_imgs.png") # save as png
-# plt.show()          # stop point. plots all delivered so far to plt.__ or nx.draw(..).
+if __name__=='__main__':
+    plt.show()          # stop point. plots all delivered so far to plt.__ or nx.draw(..).
                     #  similar to Figure in matlab, but on oposite operation order. and no need in 'hold' function.
 
 def getMeFig():
