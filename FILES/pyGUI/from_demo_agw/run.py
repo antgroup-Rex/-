@@ -23,12 +23,12 @@ import wx.lib.mixins.inspection
 import sys, os
 
 # stuff for debugging
-print "Python", sys.version
-print "wx.version:", wx.version()
-##print "pid:", os.getpid(); raw_input("Press Enter...")
+print("Python %s" % sys.version)
+print("wx.version: %s" % wx.version())
+##print("pid: %s" % os.getpid()); input("Press Enter...")
 
-assertMode = wx.PYAPP_ASSERT_DIALOG
-##assertMode = wx.PYAPP_ASSERT_EXCEPTION
+assertMode = wx.APP_ASSERT_DIALOG
+##assertMode = wx.APP_ASSERT_EXCEPTION
 
 
 #----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ def main(argv):
             break
             
     if len(argv) < 2:
-        print "Please specify a demo module name on the command-line"
+        print("Please specify a demo module name on the command-line")
         raise SystemExit
 
     name, ext  = os.path.splitext(argv[1])

@@ -7,6 +7,8 @@ import os
 import sys
 # import time # ran note: used directly by CProgressGauge
 
+import specific_files.AppGlobalData         as appDB
+
 # import specific_files.pyTesting_xml_to_nexX as rNX  #ran - TODO : set the import just as class preparation
 import from_demo_agw.ZoomBar                as zB
 import from_demo_agw.XMLtreeview            as Xtr
@@ -2711,6 +2713,11 @@ if __name__ == '__main__':
     pnl = wx.Panel(frame)
     log = Log()
 
-    win = MainAUI(pnl, log)
+    appDataObj  = appDB.myAppData()
+    print appDataObj.mainDict
+    print appDataObj.lastPastedText
+    print appDataObj.lastPastedUrl
+
+    win         = MainAUI(pnl, log)
     app.MainLoop()
     pass

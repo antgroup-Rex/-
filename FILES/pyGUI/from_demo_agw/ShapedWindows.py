@@ -39,8 +39,8 @@ class ShapedWindowByImage(wx.Frame):
         w, h        = self.bmp.GetWidth(), self.bmp.GetHeight()
         self.SetClientSize( (w, h) )
 
-        self.SetToolTipString("Right-click to close the window\n"
-                              "Double-click the image to set/unset the window shape")
+        self.SetToolTip("Right-click to close the window\n"
+                        "Double-click the image to set/unset the window shape")
 
         if wx.Platform == "__WXGTK__":
             # wxGTK requires that the window be created before you can set its shape,
@@ -56,7 +56,7 @@ class ShapedWindowByImage(wx.Frame):
 
     def SetWindowShape(self, *evt):
         # Use the bitmap's mask to determine the region
-        r = wx.RegionFromBitmap(self.bmp)
+        r = wx.Region(self.bmp)
         self.hasShape = self.SetShape(r)
 
     def OnDoubleClick(self, evt):
@@ -105,18 +105,18 @@ def addUrlToLinksList(linkText):
 
 if __name__ == '__main__':
 
-    app = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
-    frame = wx.Frame(None, wx.ID_ANY, "Hello Shapes World")  # A Frame is a top-level window.
+    app     = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
+    frame   = wx.Frame(None, wx.ID_ANY, "Hello Shapes World")  # A Frame is a top-level window.
     frame.Show(False)  # Show the frame.
-    pnl = wx.Panel(frame)
+    pnl     = wx.Panel(frame)
 
-    iconNames = ["help", "smfuel","checked"]   # todo - get from os list or user json file
+    iconNames       = ["help", "smfuel","checked"]   # todo - get from os list or user json file
     functionsToLaunch = [addUrlToLinksList, None, None, None]
     # functionToLaunch = [addUrlToLinksList]
     # avgLoc = (600,400)
-    avgLoc = (1200, 600)
-    deltaLoc = [(50,00),(00,50) ,(0,-50) ,(-50,00)  ]
-    winLocations = [ (x+avgLoc[0],y+avgLoc[1]) for (x,y) in deltaLoc]
+    avgLoc          = (1200, 600)
+    deltaLoc        = [(50,00),(00,50) ,(0,-50) ,(-50,00)  ]
+    winLocations    = [ (x+avgLoc[0],y+avgLoc[1]) for (x,y) in deltaLoc]
 
     for icon,func,loc in zip(iconNames, functionsToLaunch, winLocations):
         iName = "bitmaps/" + icon + ".ico"
