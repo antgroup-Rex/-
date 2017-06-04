@@ -138,7 +138,7 @@ class ShowTifInPath(wx.Panel):
         img = mpimg.imread(tifFullName)
         self.imgplot = plt.imshow(img)
 
-        cBar = plt.colorbar()
+        self.cBar = plt.colorbar()
         self.toolbar = NavigationToolbar(self.canvas)
         # plt.axis('off')
 
@@ -150,7 +150,7 @@ class ShowTifInPath(wx.Panel):
 
         self.vbox.Fit(self)
 
-        return self.imgplot, cBar
+        return self.imgplot, self.cBar
 
     def OnDwnKeyPress(self, event):
         pass
@@ -192,19 +192,6 @@ class ShowTifInPath(wx.Panel):
 
         return pressedKey
 
-    def getSimilarFilesInfo(self,firstDropedFileFullName):
-        full_path = os.path.dirname(firstDropedFileFullName)
-        fullFileName, file_extension = os.path.splitext(firstDropedFileFullName)
-        allSimilarFiles = glob.glob(full_path + "\\*" + file_extension)
-        fileIndexInList = allSimilarFiles.index(firstDropedFileFullName)
-        print firstDropedFileFullName
-        # print fullFileName
-        # print full_path
-        print file_extension
-        print allSimilarFiles
-        print fileIndexInList
-
-        return (full_path, file_extension, allSimilarFiles, fileIndexInList)
 
 class MinimumDropTarget(wx.DropTarget):
     ''' handles ony file types '''
@@ -246,9 +233,24 @@ class MinimumDropTarget(wx.DropTarget):
 
         panel.updateTif(firstDropedFileFullName)
 
-        panel.filesInfo = panel.getSimilarFilesInfo(firstDropedFileFullName)
+        # panel.filesInfo = panel.getSimilarFilesInfo(firstDropedFileFullName)
+        panel.filesInfo = self.getSimilarFilesInfo(firstDropedFileFullName)
 
         return wx.DragCopy
+
+    def getSimilarFilesInfo(self,firstDropedFileFullName):
+        full_path = os.path.dirname(firstDropedFileFullName)
+        fullFileName, file_extension = os.path.splitext(firstDropedFileFullName)
+        allSimilarFiles = glob.glob(full_path + "\\*" + file_extension)
+        fileIndexInList = allSimilarFiles.index(firstDropedFileFullName)
+        print firstDropedFileFullName
+        # print fullFileName
+        # print full_path
+        print file_extension
+        print allSimilarFiles
+        print fileIndexInList
+
+        return (full_path, file_extension, allSimilarFiles, fileIndexInList)
 
 
 if __name__=='__main__':
@@ -266,7 +268,8 @@ if __name__=='__main__':
 
     # panel.draw()
     panel.showTif(tiff_file)
-    panel.filesInfo = panel.getSimilarFilesInfo(tiff_file)
+    # panel.filesInfo = panel.getSimilarFilesInfo(tiff_file)
+    panel.filesInfo = obj.getSimilarFilesInfo(tiff_file)
 
     app.SetTopWindow(fr)
     fr.Show()
