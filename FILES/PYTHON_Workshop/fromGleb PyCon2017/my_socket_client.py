@@ -1,0 +1,1 @@
+import socket# IPv4 Address. . . . . . . . . . . : 172.19.3.149# server="172.19.3.149"):# MQTTClient("umqtt_client", server, port=9999)port=9999 addr_info = socket.getaddrinfo("172.19.3.149", port)addr = addr_info[0][-1]s = socket.socket()# s.connect(addr)s.bind(addr)
