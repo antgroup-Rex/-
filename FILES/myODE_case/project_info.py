@@ -60,22 +60,25 @@ timeVector = trialVar.timeVector
 
 ##################################
 
-# Figure #1
-fig = plt.figure(figsize=(13, 8))
-ax  = fig.gca()
-ax.scatter(stateSol[0], stateSol[2], s=20, c='b') #stateSol[:,0]
+def plot_environment():
+    # Figure #1
+    fig = plt.figure(figsize=(13, 8))
+    ax  = fig.gca()
+    ax.scatter(stateSol[0], stateSol[2], s=20, c='b') #stateSol[:,0]
 
-# LumpedMass payload
-lumpedPayload = Circle((stateSol[0,0], stateSol[0,0]), 13)
-Circle.set_color(lumpedPayload, '0.75')
-Circle.set_alpha(lumpedPayload, 0.1)
-ax.add_patch(lumpedPayload)
+    # LumpedMass payload
+    lumpedPayload = Circle((stateSol[0,0], stateSol[0,0]), 13)
+    Circle.set_color(lumpedPayload, '0.75')
+    Circle.set_alpha(lumpedPayload, 0.1)
+    ax.add_patch(lumpedPayload)
 
-# rectangular payload
-rectPayload = Rectangle((stateSol[0,0], stateSol[0,0]),13 , 20)
-Rectangle.set_color(rectPayload, '0.75')
-Rectangle.set_alpha(rectPayload, 0.1)
-ax.add_patch(rectPayload)
+    # rectangular payload
+    rectPayload = Rectangle((stateSol[0,0], stateSol[0,0]),13 , 20)
+    Rectangle.set_color(rectPayload, '0.75')
+    Rectangle.set_alpha(rectPayload, 0.1)
+    ax.add_patch(rectPayload)
+
+    return ax
 
 def axAddStarts(ax):
     # Some stars (real stars should *NOT* move so quickly!)
@@ -89,29 +92,44 @@ def axAddStarts(ax):
         # Z = randint(-500000 * 2, 4000000 * 2)
         ax.scatter(X, Y, s=0.1, marker='x', c='white')
 
-axAddStarts(ax)
+# ax = plot_environment()
+# axAddStarts(ax)
 
-# 2nd Figure - phase plot
-fig = plt.figure(figsize=(13, 8))
-ax  = fig.gca()
-ax.scatter(stateSol[:,0], stateSol[:,2], s=20, c='y')
+def plot_Phase_Space(x, xDot, xLb='', xDtLb='', title = 'Phase-Space plot'):
+    # 2nd Figure - phase plot
+    fig = plt.figure(figsize=(13, 8))
+    ax  = fig.gca()
+    ax.scatter(x, xDot, s=20, c='y')
+    plt.xlabel(xLb)
+    plt.ylabel(xDtLb)
+    plt.title(title)
+    # title
+    # axes
 
-#3rd figure
-fig = plt.figure(figsize=(13, 8))
-ax  = fig.gca()
-plt.plot(timeVector, stateSol[:, 3], 'g', label='yp(t)')
-plt.legend(loc='best')
-plt.xlabel('t')
-plt.grid()
+plot_Phase_Space(stateSol[:,0] , stateSol[:,1], xLb='x', xDtLb='x dot') # todo: option to combine the 3 in 1 fig
+plot_Phase_Space(stateSol[:,2] , stateSol[:,3], xLb='y', xDtLb='y dot')
+plot_Phase_Space(stateSol[:,4] , stateSol[:,5], xLb='theta', xDtLb='theta dot')
 
-# 4th Figure
-fig = plt.figure(figsize=(13, 8))
-ax  = fig.gca()
+def plot_Var_Vs_Time(y,t, lgndStr='', title='Var vs Time'):
+    #3rd figure
+    fig = plt.figure(figsize=(13, 8))
+    ax  = fig.gca()
+    plt.plot(t, y, 'g', label=lgndStr)
+    plt.legend(loc='best')
+    plt.xlabel('t')
+    # plt.ylabel(title)
+    plt.title(title)
+    plt.grid()
 
-plt.plot(timeVector, stateSol[:, 2], 'g', label='yp(t)')
-plt.legend(loc='best')
-plt.xlabel('t')
-plt.grid()
+plot_Var_Vs_Time(stateSol[:,2], timeVector, lgndStr='yp(t)' , title='y vs time')
+
+# # 4th Figure
+# fig = plt.figure(figsize=(13, 8))
+# ax  = fig.gca()
+# plt.plot(timeVector, stateSol[:, 2], 'g', label='yp(t)')
+# plt.legend(loc='best')
+# plt.xlabel('t')
+# plt.grid()
 
 plt.show()
 
