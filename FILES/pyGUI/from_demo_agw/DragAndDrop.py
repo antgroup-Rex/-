@@ -57,9 +57,9 @@ class OtherDropTarget(wx.DropTarget):
             self.window.WriteText("formatType is : %s\n" % (formatType))
             # if formatId == 'text/x-moz-message':
             #     return self.OnThunderbirdDrop()
-            if formatType in (wx.DF_TEXT, wx.DF_UNICODETEXT):
+            if formatType in (wx.DF_TEXT, wx.DF_UNICODETEXT):   # type num: 13
                 return self.OnTextDrop()
-            elif formatType == wx.DF_FILENAME:
+            elif formatType == wx.DF_FILENAME:  # type num: 15
                 return self.OnFileDrop()
             elif formatType == wx.DF_BITMAP:
                 return self.OnBMPDrop()
@@ -102,25 +102,61 @@ class OtherDropTarget(wx.DropTarget):
         return wx.DragCopy
 
     def OnFileDrop(self):
-        global appDataObj
+        global appDataObj # todo : check global data when arriving here
+
+        dragedFilesInfo = {}
+        dragedFilesInfo['numOfFiles']           = 0
+        dragedFilesInfo['files']                = []
 
         print "OnFileDrop:"
+
         filesNames = self.filedo.GetFilenames()
-        for name in filesNames:
+        dragedFilesInfo['numOfFiles']      = len(filesNames)
+
+        if dragedFilesInfo['numOfFiles'] == 1:
+            self.window.WriteText("1 file was dragged in\n")
+        else:
+            self.window.WriteText("%d files were dragged in\n" % len(filesNames))
+
+        for ndx ,name in enumerate(filesNames):
             print name
             # self.log.WriteText("%s\n" % name)
             self.window.WriteText("%s\n" % name)
 
-        full_path = os.path.dirname(filesNames[0])
-        fullFileName, file_extension = os.path.splitext(filesNames[0])
-        allSimilarFiles = glob.glob(full_path+ "/*"+file_extension)
-        dragedFileIndexInList = allSimilarFiles.index(filesNames[0])
-        startViewIndex = dragedFileIndexInList
-        print fullFileName
-        print full_path
-        print file_extension
-        print allSimilarFiles
-        print startViewIndex
+            full_path                       = os.path.dirname(name)
+            fullFileName, file_extension    = os.path.splitext(name)
+            allSimilarFiles                 = glob.glob(full_path + "/*" + file_extension)
+            dragedFileIndexInList           = allSimilarFiles.index(name)   # same meaning as startViewIndex
+
+            print fullFileName
+            print full_path
+            print file_extension
+            print allSimilarFiles
+            print dragedFileIndexInList
+
+            dragedFilesInfo['files'].append({})
+            dragedFilesInfo['files'][ndx]['fullName_withExt']   = name
+            dragedFilesInfo['files'][ndx]['fullName_withNoExt'] = fullFileName
+            dragedFilesInfo['files'][ndx]['fileExtension']      = file_extension
+            dragedFilesInfo['files'][ndx]['fileFullPath']       = full_path
+            dragedFilesInfo['files'][ndx]['fileIndexInList']    = dragedFileIndexInList
+            dragedFilesInfo['files'][ndx]['allSimilarPathFiles']= allSimilarFiles
+
+            # self.window.Parent.Parent._appDataRef is available
+            if dragedFilesInfo['files'][ndx]['fileExtension'] == '.py': # might do that treatment in :def OnData(self, x, y, result):)
+                # open file in..
+                pass
+            elif dragedFilesInfo['files'][ndx]['fileExtension'] == '.xml':
+                # open file in new tree viewer
+                # import_xml_from_file(name_of_file) #load content into appDataBase as
+                # show_xml_on_tree_view
+                pass
+            elif dragedFilesInfo['files'][ndx]['fileExtension'] == '.csv':
+                # open file in new table (minimized) view
+                # import_csv_from_file(name_of_file) #load content into appDataBase as
+                # show_table_data_on_table_view
+                pass
+
 
         return wx.DragCopy
 

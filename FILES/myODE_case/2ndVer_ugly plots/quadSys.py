@@ -25,9 +25,6 @@ from    random          import  randint
 ################
 
 class quadSys:
-    """
-    class for defining the parameters and EOM of the quad system in hand.
-    """
     def setDimensionalParametrs(self,*args):
         # system parameters
         # dimensional variables
@@ -176,9 +173,6 @@ class quadSys:
 
         return derivX
 
-    ################
-    # this part can be external to the model
-    ################
     def integrateSystem(self):
         #
         # -4 inputs as U=(x1,y1) (x2,y2)

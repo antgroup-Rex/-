@@ -1,0 +1,6 @@
+{
+    "btn_type"	: "SpinCtrl", 
+    "ID_string"	: "ID_PaneBorderSize",
+	"label_text": "Pane Border Size:",
+	"init_value": "self._frame.GetDockArt().GetMetric(aui.AUI_DOCKART_PANE_BORDER_SIZE)"
+	}

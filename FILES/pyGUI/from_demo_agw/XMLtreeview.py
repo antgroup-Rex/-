@@ -86,4 +86,8 @@ class XMLTree(wx.TreeCtrl):
         Parser.CharacterDataHandler = self.CharacterData
 
         # Parse the XML File
-        ParserStatus = Parser.Parse(open(filename,'r').read(), 1)
+        ParserStatus = Parser.Parse(open(filename,'r').read(), 1)   # todo: giev option to get ready xml data structure
+
+    def SaveTree(self,output_file_name):
+        # todo ..  and search for ready made example
+        pass

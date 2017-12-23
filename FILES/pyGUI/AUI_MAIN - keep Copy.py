@@ -5,6 +5,318 @@ the manager of all gui .
 ''''''
 from AUI_GlobalImports import *
 
+#  TODO: create AUI directory for all files that will be resulted from this AUI.py big file
+#         -AUI
+#           -imports
+#           -images
+#           -classes
+#           -mainAUI
+#
+
+########################################################################
+########################################################################
+#todo: consider seperating this class. it depends on the controls IDs.
+class SettingsPanel(wx.Panel):
+
+    def __init__(self, parent, frame):
+
+        wx.Panel.__init__(self, parent)
+        self._frame = frame
+
+        s1 = wx.BoxSizer(wx.HORIZONTAL)
+        self._border_size = wx.SpinCtrl(self, ID_PaneBorderSize, "%d"%frame.GetDockArt().GetMetric(aui.AUI_DOCKART_PANE_BORDER_SIZE),
+                                        wx.DefaultPosition, wx.Size(50, 20), wx.SP_ARROW_KEYS, 0, 100,
+                                        frame.GetDockArt().GetMetric(aui.AUI_DOCKART_PANE_BORDER_SIZE))
+        s1.Add((1, 1), 1, wx.EXPAND)
+        s1.Add(wx.StaticText(self, -1, "Pane Border Size:"))
+        s1.Add(self._border_size)
+        s1.Add((1, 1), 1, wx.EXPAND)
+        s1.SetItemMinSize(1, (180, 20))
+
+        s2 = wx.BoxSizer(wx.HORIZONTAL)
+        self._sash_size = wx.SpinCtrl(self, ID_SashSize, "%d"%frame.GetDockArt().GetMetric(aui.AUI_DOCKART_SASH_SIZE), wx.DefaultPosition,
+                                      wx.Size(50, 20), wx.SP_ARROW_KEYS, 0, 100, frame.GetDockArt().GetMetric(aui.AUI_DOCKART_SASH_SIZE))
+        s2.Add((1, 1), 1, wx.EXPAND)
+        s2.Add(wx.StaticText(self, -1, "Sash Size:"))
+        s2.Add(self._sash_size)
+        s2.Add((1, 1), 1, wx.EXPAND)
+        s2.SetItemMinSize(1, (180, 20))
+
+        s3 = wx.BoxSizer(wx.HORIZONTAL)
+        self._caption_size = wx.SpinCtrl(self, ID_CaptionSize, "%d"%frame.GetDockArt().GetMetric(aui.AUI_DOCKART_CAPTION_SIZE),
+                                         wx.DefaultPosition, wx.Size(50, 20), wx.SP_ARROW_KEYS, 0, 100, frame.GetDockArt().GetMetric(aui.AUI_DOCKART_CAPTION_SIZE))
+        s3.Add((1, 1), 1, wx.EXPAND)
+        s3.Add(wx.StaticText(self, -1, "Caption Size:"))
+        s3.Add(self._caption_size)
+        s3.Add((1, 1), 1, wx.EXPAND)
+        s3.SetItemMinSize(1, (180, 20))
+
+        b = self.CreateColourBitmap(wx.BLACK)
+
+        s4 = wx.BoxSizer(wx.HORIZONTAL)
+        self._background_colour = wx.BitmapButton(self, ID_BackgroundColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s4.Add((1, 1), 1, wx.EXPAND)
+        s4.Add(wx.StaticText(self, -1, "Background Colour:"))
+        s4.Add(self._background_colour)
+        s4.Add((1, 1), 1, wx.EXPAND)
+        s4.SetItemMinSize(1, (180, 20))
+
+        s5 = wx.BoxSizer(wx.HORIZONTAL)
+        self._sash_colour = wx.BitmapButton(self, ID_SashColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s5.Add((1, 1), 1, wx.EXPAND)
+        s5.Add(wx.StaticText(self, -1, "Sash Colour:"))
+        s5.Add(self._sash_colour)
+        s5.Add((1, 1), 1, wx.EXPAND)
+        s5.SetItemMinSize(1, (180, 20))
+
+        s6 = wx.BoxSizer(wx.HORIZONTAL)
+        self._inactive_caption_colour = wx.BitmapButton(self, ID_InactiveCaptionColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s6.Add((1, 1), 1, wx.EXPAND)
+        s6.Add(wx.StaticText(self, -1, "Normal Caption:"))
+        s6.Add(self._inactive_caption_colour)
+        s6.Add((1, 1), 1, wx.EXPAND)
+        s6.SetItemMinSize(1, (180, 20))
+
+        s7 = wx.BoxSizer(wx.HORIZONTAL)
+        self._inactive_caption_gradient_colour = wx.BitmapButton(self, ID_InactiveCaptionGradientColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s7.Add((1, 1), 1, wx.EXPAND)
+        s7.Add(wx.StaticText(self, -1, "Normal Caption Gradient:"))
+        s7.Add(self._inactive_caption_gradient_colour)
+        s7.Add((1, 1), 1, wx.EXPAND)
+        s7.SetItemMinSize(1, (180, 20))
+
+        s8 = wx.BoxSizer(wx.HORIZONTAL)
+        self._inactive_caption_text_colour = wx.BitmapButton(self, ID_InactiveCaptionTextColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s8.Add((1, 1), 1, wx.EXPAND)
+        s8.Add(wx.StaticText(self, -1, "Normal Caption Text:"))
+        s8.Add(self._inactive_caption_text_colour)
+        s8.Add((1, 1), 1, wx.EXPAND)
+        s8.SetItemMinSize(1, (180, 20))
+
+        s9 = wx.BoxSizer(wx.HORIZONTAL)
+        self._active_caption_colour = wx.BitmapButton(self, ID_ActiveCaptionColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s9.Add((1, 1), 1, wx.EXPAND)
+        s9.Add(wx.StaticText(self, -1, "Active Caption:"))
+        s9.Add(self._active_caption_colour)
+        s9.Add((1, 1), 1, wx.EXPAND)
+        s9.SetItemMinSize(1, (180, 20))
+
+        s10 = wx.BoxSizer(wx.HORIZONTAL)
+        self._active_caption_gradient_colour = wx.BitmapButton(self, ID_ActiveCaptionGradientColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s10.Add((1, 1), 1, wx.EXPAND)
+        s10.Add(wx.StaticText(self, -1, "Active Caption Gradient:"))
+        s10.Add(self._active_caption_gradient_colour)
+        s10.Add((1, 1), 1, wx.EXPAND)
+        s10.SetItemMinSize(1, (180, 20))
+
+        s11 = wx.BoxSizer(wx.HORIZONTAL)
+        self._active_caption_text_colour = wx.BitmapButton(self, ID_ActiveCaptionTextColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s11.Add((1, 1), 1, wx.EXPAND)
+        s11.Add(wx.StaticText(self, -1, "Active Caption Text:"))
+        s11.Add(self._active_caption_text_colour)
+        s11.Add((1, 1), 1, wx.EXPAND)
+        s11.SetItemMinSize(1, (180, 20))
+
+        s12 = wx.BoxSizer(wx.HORIZONTAL)
+        self._border_colour = wx.BitmapButton(self, ID_BorderColour, b, wx.DefaultPosition, wx.Size(50, 25))
+        s12.Add((1, 1), 1, wx.EXPAND)
+        s12.Add(wx.StaticText(self, -1, "Border Colour:"))
+        s12.Add(self._border_colour)
+        s12.Add((1, 1), 1, wx.EXPAND)
+        s12.SetItemMinSize(1, (180, 20))
+
+        s13 = wx.BoxSizer(wx.HORIZONTAL)
+        self._gripper_colour = wx.BitmapButton(self, ID_GripperColour, b, wx.DefaultPosition, wx.Size(50,25))
+        s13.Add((1, 1), 1, wx.EXPAND)
+        s13.Add(wx.StaticText(self, -1, "Gripper Colour:"))
+        s13.Add(self._gripper_colour)
+        s13.Add((1, 1), 1, wx.EXPAND)
+        s13.SetItemMinSize(1, (180, 20))
+
+        s14 = wx.BoxSizer(wx.HORIZONTAL)
+        self._sash_grip = wx.CheckBox(self, ID_SashGrip, "", wx.DefaultPosition, wx.Size(50,20))
+        s14.Add((1, 1), 1, wx.EXPAND)
+        s14.Add(wx.StaticText(self, -1, "Draw Sash Grip:"))
+        s14.Add(self._sash_grip)
+        s14.Add((1, 1), 1, wx.EXPAND)
+        s14.SetItemMinSize(1, (180, 20))
+
+        s15 = wx.BoxSizer(wx.HORIZONTAL)
+        self._hint_colour = wx.BitmapButton(self, ID_HintColour, b, wx.DefaultPosition, wx.Size(50,25))
+        s15.Add((1, 1), 1, wx.EXPAND)
+        s15.Add(wx.StaticText(self, -1, "Hint Window Colour:"))
+        s15.Add(self._hint_colour)
+        s15.Add((1, 1), 1, wx.EXPAND)
+        s15.SetItemMinSize(1, (180, 20))
+
+        grid_sizer = wx.GridSizer(rows=0, cols=2, vgap=5, hgap=5)
+        grid_sizer.SetHGap(5)
+        grid_sizer.Add(s1)
+        grid_sizer.Add(s4)
+        grid_sizer.Add(s2)
+        grid_sizer.Add(s5)
+        grid_sizer.Add(s3)
+        grid_sizer.Add(s13)
+        grid_sizer.Add(s14)
+        grid_sizer.Add((1, 1))
+        grid_sizer.Add(s12)
+        grid_sizer.Add(s6)
+        grid_sizer.Add(s9)
+        grid_sizer.Add(s7)
+        grid_sizer.Add(s10)
+        grid_sizer.Add(s8)
+        grid_sizer.Add(s11)
+        grid_sizer.Add(s15)
+
+        cont_sizer = wx.BoxSizer(wx.VERTICAL)
+        cont_sizer.Add(grid_sizer, 1, wx.EXPAND | wx.ALL, 5)
+        self.SetSizer(cont_sizer)
+        self.GetSizer().SetSizeHints(self)
+
+        self._border_size.SetValue(frame.GetDockArt().GetMetric(aui.AUI_DOCKART_PANE_BORDER_SIZE))
+        self._sash_size.SetValue(frame.GetDockArt().GetMetric(aui.AUI_DOCKART_SASH_SIZE))
+        self._caption_size.SetValue(frame.GetDockArt().GetMetric(aui.AUI_DOCKART_CAPTION_SIZE))
+        self._sash_grip.SetValue(frame.GetDockArt().GetMetric(aui.AUI_DOCKART_DRAW_SASH_GRIP))
+
+        self.UpdateColours()
+
+        self.Bind(wx.EVT_SPINCTRL, self.OnPaneBorderSize, id=ID_PaneBorderSize)
+        self.Bind(wx.EVT_SPINCTRL, self.OnSashSize, id=ID_SashSize)
+        self.Bind(wx.EVT_SPINCTRL, self.OnCaptionSize, id=ID_CaptionSize)
+        self.Bind(wx.EVT_CHECKBOX, self.OnDrawSashGrip, id=ID_SashGrip)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_BackgroundColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_SashColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_InactiveCaptionColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_InactiveCaptionGradientColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_InactiveCaptionTextColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_ActiveCaptionColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_ActiveCaptionGradientColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_ActiveCaptionTextColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_BorderColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_GripperColour)
+        self.Bind(wx.EVT_BUTTON, self.OnSetColour, id=ID_HintColour)
+
+
+    def CreateColourBitmap(self, c):
+
+        image = wx.Image(25, 14)
+        for x in xrange(25):
+            for y in xrange(14):
+                pixcol = c
+                if x == 0 or x == 24 or y == 0 or y == 13:
+                    pixcol = wx.BLACK
+
+                # image.SetRGB(x, y, pixcol.Red(), pixcol.Green(), pixcol.Blue())
+                image.SetRGB(wx.Rect(wx.Size(25, 14)), pixcol.Red(), pixcol.Green(), pixcol.Blue())
+
+        return image.ConvertToBitmap()
+
+
+    def UpdateColours(self):
+
+        bk = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_BACKGROUND_COLOUR)
+        self._background_colour.SetBitmapLabel(self.CreateColourBitmap(bk))
+
+        cap = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_INACTIVE_CAPTION_COLOUR)
+        self._inactive_caption_colour.SetBitmapLabel(self.CreateColourBitmap(cap))
+
+        capgrad = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_INACTIVE_CAPTION_GRADIENT_COLOUR)
+        self._inactive_caption_gradient_colour.SetBitmapLabel(self.CreateColourBitmap(capgrad))
+
+        captxt = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_INACTIVE_CAPTION_TEXT_COLOUR)
+        self._inactive_caption_text_colour.SetBitmapLabel(self.CreateColourBitmap(captxt))
+
+        acap = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_ACTIVE_CAPTION_COLOUR)
+        self._active_caption_colour.SetBitmapLabel(self.CreateColourBitmap(acap))
+
+        acapgrad = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_ACTIVE_CAPTION_GRADIENT_COLOUR)
+        self._active_caption_gradient_colour.SetBitmapLabel(self.CreateColourBitmap(acapgrad))
+
+        acaptxt = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_ACTIVE_CAPTION_TEXT_COLOUR)
+        self._active_caption_text_colour.SetBitmapLabel(self.CreateColourBitmap(acaptxt))
+
+        sash = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_SASH_COLOUR)
+        self._sash_colour.SetBitmapLabel(self.CreateColourBitmap(sash))
+
+        border = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_BORDER_COLOUR)
+        self._border_colour.SetBitmapLabel(self.CreateColourBitmap(border))
+
+        gripper = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_GRIPPER_COLOUR)
+        self._gripper_colour.SetBitmapLabel(self.CreateColourBitmap(gripper))
+
+        hint = self._frame.GetDockArt().GetColour(aui.AUI_DOCKART_HINT_WINDOW_COLOUR)
+        self._hint_colour.SetBitmapLabel(self.CreateColourBitmap(hint))
+
+
+    def OnPaneBorderSize(self, event):
+
+        self._frame.GetDockArt().SetMetric(aui.AUI_DOCKART_PANE_BORDER_SIZE,
+                                           event.GetInt())
+        self._frame.DoUpdate()
+
+
+    def OnSashSize(self, event):
+
+        self._frame.GetDockArt().SetMetric(aui.AUI_DOCKART_SASH_SIZE,
+                                           event.GetInt())
+        self._frame.DoUpdate()
+
+
+    def OnCaptionSize(self, event):
+
+        self._frame.GetDockArt().SetMetric(aui.AUI_DOCKART_CAPTION_SIZE,
+                                           event.GetInt())
+        self._frame.DoUpdate()
+
+
+    def OnDrawSashGrip(self, event):
+
+        self._frame.GetDockArt().SetMetric(aui.AUI_DOCKART_DRAW_SASH_GRIP,
+                                           event.GetInt())
+        self._frame.DoUpdate()
+
+
+    def OnSetColour(self, event):
+
+        dlg = wx.ColourDialog(self._frame)
+        dlg.SetTitle("Colour Picker")
+
+        if dlg.ShowModal() != wx.ID_OK:
+            return
+
+        evId = event.GetId()
+        if evId == ID_BackgroundColour:
+            var = aui.AUI_DOCKART_BACKGROUND_COLOUR
+        elif evId == ID_SashColour:
+            var = aui.AUI_DOCKART_SASH_COLOUR
+        elif evId == ID_InactiveCaptionColour:
+            var = aui.AUI_DOCKART_INACTIVE_CAPTION_COLOUR
+        elif evId == ID_InactiveCaptionGradientColour:
+            var = aui.AUI_DOCKART_INACTIVE_CAPTION_GRADIENT_COLOUR
+        elif evId == ID_InactiveCaptionTextColour:
+            var = aui.AUI_DOCKART_INACTIVE_CAPTION_TEXT_COLOUR
+        elif evId == ID_ActiveCaptionColour:
+            var = aui.AUI_DOCKART_ACTIVE_CAPTION_COLOUR
+        elif evId == ID_ActiveCaptionGradientColour:
+            var = aui.AUI_DOCKART_ACTIVE_CAPTION_GRADIENT_COLOUR
+        elif evId == ID_ActiveCaptionTextColour:
+            var = aui.AUI_DOCKART_ACTIVE_CAPTION_TEXT_COLOUR
+        elif evId == ID_BorderColour:
+            var = aui.AUI_DOCKART_BORDER_COLOUR
+        elif evId == ID_GripperColour:
+            var = aui.AUI_DOCKART_GRIPPER_COLOUR
+        elif evId == ID_HintColour:
+            var = aui.AUI_DOCKART_HINT_WINDOW_COLOUR
+        else:
+            return
+
+        self._frame.GetDockArt().SetColour(var, dlg.GetColourData().GetColour())
+        self._frame.DoUpdate()
+        self.UpdateColours()
+
+########################################################################
+########################################################################
+
 class AuiFrame(wx.Frame):
 
     def __init__(self, parent, id=wx.ID_ANY, title="", pos= wx.DefaultPosition,
@@ -13,8 +325,6 @@ class AuiFrame(wx.Frame):
                        |wx.SUNKEN_BORDER
                        |wx.STAY_ON_TOP,             #ran
                  log=None):
-
-        global appDataObj
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
@@ -47,15 +357,19 @@ class AuiFrame(wx.Frame):
         self.CreateMenuBar()
         self.BindEvents()
 
-        self._appDataRef = appDataObj
 
+    def CreateMenuBar(self):
 
-    def setViewMenu(self):
+        # create menu
+        mb = wx.MenuBar()
+
+        file_menu = wx.Menu()
+        file_menu.Append(wx.ID_EXIT, "Exit")
+
         view_menu = wx.Menu()
         view_menu.Append(ID_CreateText, "Create Text Control")
         view_menu.Append(ID_CreateHTML, "Create HTML Control")
         view_menu.Append(ID_CreateTree, "Create Tree")
-        view_menu.Append(ID_CreateRanTree, "Create Ran Tree")#ran
         view_menu.Append(ID_CreateGrid, "Create Grid")
         view_menu.Append(ID_CreateNotebook, "Create Notebook")
         view_menu.Append(ID_CreateSizeReport, "Create Size Reporter")
@@ -66,23 +380,19 @@ class AuiFrame(wx.Frame):
         view_menu.Append(ID_TreeContent, "Use a Tree Control for the Content Pane")
         view_menu.Append(ID_NotebookContent, "Use a AuiNotebook control for the Content Pane")
 
-        view_menu.Append(ID_RanDDContent,
-                         "Use a ID_RanDDContent control for the Content Pane")  # todo: replace with min layout commnad
+        view_menu.Append(ID_RanDDContent, "Use a ID_RanDDContent control for the Content Pane")  #todo: replace with min layout commnad
 
         view_menu.Append(ID_SizeReportContent, "Use a Size Reporter for the Content Pane")
         view_menu.AppendSeparator()
 
-        ##        if wx.Platform == "__WXMAC__":
-        ##            switcherAccel = "Alt+Tab"
-        ##        elif wx.Platform == "__WXGTK__":
-        ##            switcherAccel = "Ctrl+/"
-        ##        else:
-        ##            switcherAccel = "Ctrl+Tab"
-        ##
-        ##        view_menu.Append(ID_SwitchPane, _("S&witch Window...") + "\t" + switcherAccel)
-        return view_menu
-
-    def setOptionsMenu(self):
+##        if wx.Platform == "__WXMAC__":
+##            switcherAccel = "Alt+Tab"
+##        elif wx.Platform == "__WXGTK__":
+##            switcherAccel = "Ctrl+/"
+##        else:
+##            switcherAccel = "Ctrl+Tab"
+##
+##        view_menu.Append(ID_SwitchPane, _("S&witch Window...") + "\t" + switcherAccel)
 
         options_menu = wx.Menu()
         options_menu.AppendRadioItem(ID_TransparentHint, "Transparent Hint")
@@ -131,9 +441,6 @@ class AuiFrame(wx.Frame):
         options_menu.AppendSeparator()
         options_menu.Append(ID_Settings, "Settings Pane")
 
-        return options_menu
-
-    def setNotebookMenu(self):
         notebook_menu = wx.Menu()
         notebook_menu.AppendRadioItem(ID_NotebookArtGloss, "Glossy Theme (Default)")
         notebook_menu.AppendRadioItem(ID_NotebookArtSimple, "Simple Theme")
@@ -174,10 +481,6 @@ class AuiFrame(wx.Frame):
         notebook_menu.AppendSeparator()
         notebook_menu.Append(ID_NotebookPreview, "Preview Of All Notebook Pages")
 
-        return notebook_menu
-
-    def setPerspectivesMenu(self):
-
         perspectives_menu = wx.Menu()
 
         self._perspectives_menu = wx.Menu()
@@ -204,10 +507,6 @@ class AuiFrame(wx.Frame):
         perspectives_menu.AppendSeparator()
         perspectives_menu.Append(wx.ID_ANY, "Docking Guides", guides_menu)
 
-        return perspectives_menu
-
-    def setActionMenu(self):
-
         action_menu = wx.Menu()
         action_menu.AppendCheckItem(ID_VetoTree, "Veto Floating Of Tree Pane")
         action_menu.AppendCheckItem(ID_VetoText, "Veto Docking Of Fixed Pane")
@@ -227,36 +526,22 @@ class AuiFrame(wx.Frame):
 
         action_menu.Append(wx.ID_ANY, "Request User Attention For", attention_menu)
 
-        return action_menu
-
-    def CreateMenuBar(self):
-
-        # create menu
-        mb = wx.MenuBar()
-
-        file_menu = wx.Menu()
-        file_menu.Append(wx.ID_EXIT, "Exit")
-
         help_menu = wx.Menu()
         help_menu.Append(wx.ID_ABOUT, "About...")
 
         mb.Append(file_menu, "&File")
-        mb.Append(self.setViewMenu(), "&View")
-        mb.Append(self.setPerspectivesMenu(), "&Perspectives")
-        mb.Append(self.setOptionsMenu(), "&Options")
-        mb.Append(self.setNotebookMenu(), "&Notebook")
-        mb.Append(self.setActionMenu(), "&Actions")
+        mb.Append(view_menu, "&View")
+        mb.Append(perspectives_menu, "&Perspectives")
+        mb.Append(options_menu, "&Options")
+        mb.Append(notebook_menu, "&Notebook")
+        mb.Append(action_menu, "&Actions")
         mb.Append(help_menu, "&Help")
 
         self.SetMenuBar(mb)
 
 
     def BuildPanes(self):
-        '''
-        create and add all desired panes windows .
-        created in stock, only some are shown by hiden or show property.
 
-        '''
         # min size for the frame itself isn't completely done.
         # see the end up AuiManager.Update() for the test
         # code. For now, just hard code a frame minimum size
@@ -378,8 +663,7 @@ class AuiFrame(wx.Frame):
         # add a bunch of panes
 
         self._mgr.AddPane(self.CreateRan_PanelCtrl(), aui.AuiPaneInfo().Name("RAN_name").Caption("RAN_caption").MaximizeButton(True))
-
-        self.OnCreateRanTree(name="RAN_name2", caption="RAN_caption2", update=False, option=1)
+        self._mgr.AddPane(self.CreateRan_TreeCtrl(), aui.AuiPaneInfo().Name("RAN_name2").Caption("RAN_caption2").MaximizeButton(True))
 
         self._mgr.AddPane(self.CreateSizeReportCtrl(), aui.AuiPaneInfo().
                           Name("test1").Caption("Pane Caption").Top().MinimizeButton(True))
@@ -425,6 +709,7 @@ class AuiFrame(wx.Frame):
                           Left().Layer(1).Position(1).CloseButton(True).MaximizeButton(True).
                           MinimizeButton(True))
 
+
         self._mgr.AddPane(self.CreateTreeCtrl(), aui.AuiPaneInfo().
                           Name("autonotebook").Caption("Auto NB").
                           Bottom().Layer(1).Position(1).MinimizeButton(True))
@@ -438,12 +723,9 @@ class AuiFrame(wx.Frame):
                           Name("test10").Caption("Text Pane with Hide Prompt").
                           Bottom().MinimizeButton(True), target=self._mgr.GetPane("autonotebook"))
 
-        # self._mgr.AddPane(SettingsPanel(self,self), aui.AuiPaneInfo().
-        #                   Name("settings").Caption("Dock Manager Settings").
-        #                   Dockable(False).Float().Hide().MinimizeButton(True))
 
-        self._mgr.AddPane(JsonControlPanel(self,self), aui.AuiPaneInfo().
-                          Name("new settings").Caption("Dock Manager new Settings").
+        self._mgr.AddPane(SettingsPanel(self,self), aui.AuiPaneInfo().
+                          Name("settings").Caption("Dock Manager Settings").
                           Dockable(False).Float().Hide().MinimizeButton(True))
 
         # create some center panes
@@ -482,6 +764,7 @@ class AuiFrame(wx.Frame):
             self._mgr.AddPane(tb3, aui.AuiPaneInfo().Name("tb3").Caption("Toolbar 3").
                               ToolbarPane().Top().Row(1).Position(1))
 
+
             self._mgr.AddPane(tb5, aui.AuiPaneInfo().Name("tb5").Caption("Sample Vertical Toolbar").
                               ToolbarPane().Left().GripperTop())
 
@@ -513,33 +796,31 @@ class AuiFrame(wx.Frame):
 
         #ran:
         self._mgr.GetPane("DandD_content").Show()
+        prnt = self.GetParent()     # get the parent panel
+        prnt2 = prnt.GetParent()    # get the frame window
+        # prnt2.ToggleWindowStyle(wx.STAY_ON_TOP)
 
-        if 1==1:
-            # prnt = self.GetParent()     # get the parent panel
-            # prnt2 = prnt.GetParent()    # get the frame window
-            # prnt2.ToggleWindowStyle(wx.STAY_ON_TOP)
+        # self.SetWindowStyle(wx.STAY_ON_TOP)
+        # prnt.SetWindowStyle(wx.STAY_ON_TOP)
+        # prnt2.SetWindowStyle(wx.STAY_ON_TOP)
+        #:todo: set win size to min. set as external win.
+        # get screen resolution
 
-            # self.SetWindowStyle(wx.STAY_ON_TOP)
-            # prnt.SetWindowStyle(wx.STAY_ON_TOP)
-            # prnt2.SetWindowStyle(wx.STAY_ON_TOP)
-            #:todo: set win size to min. set as external win.
-            # get screen resolution
+        print self
+        print self.GetSize()
+        print self.GetParent()
+        print self.GetParent().GetSize()
+        print self.GetParent().GetParent()
+        print self.GetParent().GetParent().GetSize()
 
-            print self
-            print self.GetSize()
-            print self.GetParent()
-            print self.GetParent().GetSize()
-            print self.GetParent().GetParent()
-            print self.GetParent().GetParent().GetSize()
+        print self
+        print self.GetPosition()
+        print self.GetParent()
+        print self.GetParent().GetPosition()
+        print self.GetParent().GetParent()
+        print self.GetParent().GetParent().GetPosition()
 
-            print self
-            print self.GetPosition()
-            print self.GetParent()
-            print self.GetParent().GetPosition()
-            print self.GetParent().GetParent()
-            print self.GetParent().GetParent().GetPosition()
-
-        # desiredFramePos = wx.Point(1200,100)
+        desiredFramePos = wx.Point(1200,100)
         desiredFramePos = wx.Point(683,384)
         previousSize = self.GetParent().GetParent().GetPosition()
         self.GetParent().GetParent().SetPosition(desiredFramePos)
@@ -619,15 +900,10 @@ class AuiFrame(wx.Frame):
 
 
     def BindEvents(self):
-        '''
-        set all revenat actions allowed to user interactions.
-        by the 'options' text menu. or other
-        '''
 
         self.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
         self.Bind(wx.EVT_SIZE, self.OnSize)
         self.Bind(wx.EVT_MENU, self.OnCreateTree, id=ID_CreateTree)
-        self.Bind(wx.EVT_MENU, self.OnCreateRanTree, id=ID_CreateRanTree)#ran
         self.Bind(wx.EVT_MENU, self.OnCreateGrid, id=ID_CreateGrid)
         self.Bind(wx.EVT_MENU, self.OnCreateText, id=ID_CreateText)
         self.Bind(wx.EVT_MENU, self.OnCreateHTML, id=ID_CreateHTML)
@@ -781,7 +1057,7 @@ class AuiFrame(wx.Frame):
         self.Bind(aui.EVT_AUINOTEBOOK_ALLOW_DND, self.OnAllowNotebookDnD)
         self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CLOSE, self.OnNotebookPageClose)
 
-        # ran removed those Alarm bindings
+# ran removed those Alarm bindings
         # self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnFloatDock)
         # self.Bind(aui.EVT_AUI_PANE_FLOATED, self.OnFloatDock)
         # self.Bind(aui.EVT_AUI_PANE_DOCKING, self.OnFloatDock)
@@ -842,7 +1118,7 @@ class AuiFrame(wx.Frame):
     def OnSettings(self, event):
 
         # show the settings pane, and float it
-        floating_pane = self._mgr.GetPane("new settings").Float().Show()
+        floating_pane = self._mgr.GetPane("settings").Float().Show()
 
         if floating_pane.floating_pos == wx.DefaultPosition:
             floating_pane.FloatingPosition(self.GetStartPosition())
@@ -1125,9 +1401,6 @@ class AuiFrame(wx.Frame):
 
 
     def OnNotebookFlag(self, event):
-        '''
-        change appearance of relevant notebook by the user menu selection. or other..
-        '''
 
         evId = event.GetId()
         unsplit = None
@@ -1529,24 +1802,6 @@ class AuiFrame(wx.Frame):
                           FloatingSize(wx.Size(150, 300)).MinimizeButton(True))
         self._mgr.Update()
 
-    def OnCreateRanTree(self, event=0, name="", caption="Ran Tree Control", update=True, option=2):
-
-        if option==1:
-            self._mgr.AddPane(self.CreateRan_TreeCtrl(),
-                                aui.AuiPaneInfo().
-                                Name(name).
-                                Caption(caption).
-                                MaximizeButton(True))
-        else:
-            self._mgr.AddPane(self.CreateRan_TreeCtrl(),
-                                aui.AuiPaneInfo().
-                                Caption(caption).
-                                Float().FloatingPosition(self.GetStartPosition()).
-                                FloatingSize(wx.Size(150, 400)).MinimizeButton(True))
-
-        if update:
-            self._mgr.Update()
-
 
     def OnCreateGrid(self, event):
 
@@ -1874,16 +2129,14 @@ class AuiFrame(wx.Frame):
         root = tree.AddRoot("AUI Project", 0)
         items = []
 
-#todo: how to do this with lambda instead?
         items.append(tree.AppendItem(root, "Item 1", 0))
         items.append(tree.AppendItem(root, "Item 2", 0))
         items.append(tree.AppendItem(root, "Item 3", 0))
         items.append(tree.AppendItem(root, "Item 4", 0))
         items.append(tree.AppendItem(root, "Item 5", 0))
 
-        for ndx,item in enumerate(items):
-            prefix = "#"+str(ndx)
-            tree.AppendItem(item, prefix +" Subitem 1", 1)
+        for item in items:
+            tree.AppendItem(item, "Subitem 1", 1)
             tree.AppendItem(item, "Subitem 2", 1)
             tree.AppendItem(item, "Subitem 3", 1)
             tree.AppendItem(item, "Subitem 4", 1)
@@ -1927,10 +2180,10 @@ class AuiFrame(wx.Frame):
         # DD.FileDropPanel(pnl,log)
         return pnl
 
-    def CreateRan_TreeCtrl(self, file_name = "./specific_files/example.xml"):
+    def CreateRan_TreeCtrl(self):
 
         win = Xtr.XMLTree(self,-1)
-        win.LoadTree(file_name)
+        win.LoadTree("./specific_files/example.xml")
         return  win
 
 #######################
@@ -2093,6 +2346,71 @@ class AuiFrame(wx.Frame):
                     nb.SetSelection(item.GetId())
                     win.SetFocus()
 
+#----------------------------------------------------------------------
+
+# class ParentFrame(aui.AuiMDIParentFrame):
+#
+#     def __init__(self, parent):
+#
+#         aui.AuiMDIParentFrame.__init__(self, parent, -1, title="AGW AuiMDIParentFrame",
+#                                        size=(640,480), style=wx.DEFAULT_FRAME_STYLE)
+#         self.count = 0
+#
+#         # set frame icon
+#         self.SetIcon(images.Mondrian.GetIcon())
+#
+#         mb = self.MakeMenuBar()
+#         self.SetMenuBar(mb)
+#         self.CreateStatusBar()
+#
+#
+#     def MakeMenuBar(self):
+#
+#         mb = wx.MenuBar()
+#         menu = wx.Menu()
+#         item = menu.Append(-1, "New child window\tCtrl-N")
+#         self.Bind(wx.EVT_MENU, self.OnNewChild, item)
+#         item = menu.Append(-1, "Close parent")
+#         self.Bind(wx.EVT_MENU, self.OnDoClose, item)
+#         mb.Append(menu, "&File")
+#         return mb
+#
+#
+#     def OnNewChild(self, evt):
+#
+#         self.count += 1
+#         child = ChildFrame(self, self.count)
+#         child.Show()
+#
+#
+#     def OnDoClose(self, evt):
+#         self.Close()
+
+
+#----------------------------------------------------------------------
+
+# class ChildFrame(aui.AuiMDIChildFrame):
+#
+#     def __init__(self, parent, count):
+#
+#         aui.AuiMDIChildFrame.__init__(self, parent, -1, title="Child: %d" % count)
+#         mb = parent.MakeMenuBar()
+#         menu = wx.Menu()
+#         item = menu.Append(-1, "This is child %d's menu" % count)
+#         mb.Append(menu, "&Child")
+#         self.SetMenuBar(mb)
+#
+#         p = wx.Panel(self)
+#         wx.StaticText(p, -1, "This is child %d" % count, (10,10))
+#         p.SetBackgroundColour('light blue')
+#
+#         sizer = wx.BoxSizer()
+#         sizer.Add(p, 1, wx.EXPAND)
+#         self.SetSizer(sizer)
+#
+#         wx.CallAfter(self.Layout)
+
+
 #---------------------------------------------------------------------------
 
 def alignToBottomRight(win):
@@ -2120,6 +2438,47 @@ def MainAUI(parent, log):
 
     frame.Show()
 
+
+#---------------------------------------------------------------------------
+
+# def MDIAUI(parent, log):
+#
+#     frame = ParentFrame(parent)
+#     frame.CenterOnScreen()
+#     frame.Show()
+
+#---------------------------------------------------------------------------
+
+
+# class TestPanel(wx.Panel):
+#     def __init__(self, parent, log):
+#         self.log = log
+#         wx.Panel.__init__(self, parent, -1)
+#
+#         b1 = wx.Button(self, -1, " AGW AUI Docking Library ", (50,50))
+#         self.Bind(wx.EVT_BUTTON, self.OnButton1, b1)
+#
+# ##        b2 = wx.Button(self, -1, " AGW AuiMDIs ", (50, 80))
+# ##        self.Bind(wx.EVT_BUTTON, self.OnButton2, b2)
+#
+#
+#     def OnButton1(self, event):
+#         self.win = MainAUI(self, self.log)
+#
+#
+#     def OnButton2(self, event):
+#         self.win = MDIAUI(self, self.log)
+
+#----------------------------------------------------------------------
+
+# def runTest(frame, nb, log):
+#
+#     win = TestPanel(nb, log)
+#     return win
+
+#----------------------------------------------------------------------
+
+
 overview = GetIntroText()
 
 class Log:
@@ -2140,9 +2499,9 @@ if __name__ == '__main__':
     log = Log()
 
     appDataObj  = appDB.myAppData()
-    # print appDataObj.mainDict
-    # print appDataObj.lastPastedText
-    # print appDataObj.lastPastedUrl
+    print appDataObj.mainDict
+    print appDataObj.lastPastedText
+    print appDataObj.lastPastedUrl
 
     win         = MainAUI(pnl, log)
     app.MainLoop()
