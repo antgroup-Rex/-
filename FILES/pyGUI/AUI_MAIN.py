@@ -807,10 +807,12 @@ class AuiFrame(wx.Frame):
         for ids in self._requestPanes:
             self.Bind(wx.EVT_UPDATE_UI, self.OnUpdateUI, id=ids)
 
-        self.Bind(aui.EVT_AUITOOLBAR_TOOL_DROPDOWN, self.OnDropDownToolbarItem, id=ID_DropDownToolbarItem)
-        self.Bind(aui.EVT_AUI_PANE_CLOSE, self.OnPaneClose)
-        self.Bind(aui.EVT_AUINOTEBOOK_ALLOW_DND, self.OnAllowNotebookDnD)
-        self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CLOSE, self.OnNotebookPageClose)
+        self.Bind(aui.EVT_AUITOOLBAR_TOOL_DROPDOWN  , self.OnDropDownToolbarItem, id=ID_DropDownToolbarItem) #todo: use it. ran
+        self.Bind(aui.EVT_AUI_PANE_CLOSE            , self.OnPaneClose)
+        self.Bind(aui.EVT_AUINOTEBOOK_ALLOW_DND     , self.OnAllowNotebookDnD)
+        self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CLOSE    , self.OnNotebookPageClose)
+
+        self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+23) #ran
 
         # ran removed those Alarm bindings
         # self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnFloatDock)
@@ -818,12 +820,16 @@ class AuiFrame(wx.Frame):
         # self.Bind(aui.EVT_AUI_PANE_DOCKING, self.OnFloatDock)
         # self.Bind(aui.EVT_AUI_PANE_DOCKED, self.OnFloatDock)
 
-        self.Bind(wx.EVT_CLOSE, self.OnClose)
+        # self.Bind(wx.EVT_CLOSE, self.OnClose)  # already set above in 755
 
         self.Bind(wx.EVT_TIMER, self.TimerHandler)
         self.timer = wx.Timer(self)
         self.timer.Start(100)
 
+
+    def onButtonPress(self, event):
+        print  "onBtnPrs"
+        pass
 
     def __del__(self):
 
