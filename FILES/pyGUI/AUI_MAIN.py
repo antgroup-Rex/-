@@ -499,22 +499,65 @@ class AuiFrame(wx.Frame):
 
         self._main_notebook = notebook
 
-        ''' perspective keeping '''
-        # make some default perspectives
-        perspective_all = self._mgr.SavePerspective()
+        self.handle_perspectives()
 
+        # Show how to get a custom minimizing behaviour, i.e., to minimize a pane
+        # inside an existing AuiToolBar
+        tree = self._mgr.GetPane("test8")
+        tree.MinimizeMode(aui.AUI_MINIMIZE_POS_TOOLBAR)
+
+        toolbarPane = self._mgr.GetPane(tb4)
+        tree.MinimizeTarget(toolbarPane)
+
+        # "commit" all changes made to AuiManager
+        self._mgr.Update()
+
+    def hide_all_available_panes(self):
         all_panes = self._mgr.GetAllPanes()
         for pane in all_panes:
             if not pane.IsToolbar():
                 pane.Hide()
-            else:   #ran added
+            else:  # ran added - hide toolbars as well:
                 print pane.Hide()
                 print " is toolbar "
 
-        #ran:
+    def set_manual_hide_and_show_for_deafult_panes(self):
+        # manual display configurations for setting the default one:
+        self._mgr.GetPane("DandD_content").Hide()
+        # self._perspectives_menu.Append(ID_FirstPerspective + len(self._perspectives), "Minimum layout")
+        # self._perspectives.append(perspective_min)
+        #        self.SetSize(previousSize)
+        if 3 == 4:
+            self._mgr.GetPane("tb1").Hide()
+            self._mgr.GetPane("tb7").Hide()
+        self._mgr.GetPane("tb4").Show()  # ran
+
+        self._mgr.GetPane("test8").Show().Left().Layer(0).Row(0).Position(0)
+        self._mgr.GetPane("__notebook_%d" % self._mgr.GetPane("test10").notebook_id).Show().Bottom().Layer(0).Row(
+            0).Position(0)
+        self._mgr.GetPane("autonotebook").Show()
+        self._mgr.GetPane("thirdauto").Show()
+        self._mgr.GetPane("test10").Show()
+        self._mgr.GetPane("notebook_content").Show()
+
+    def handle_perspectives(self):
+        ''' perspective settings and keeping '''
+        ''' set also frame size and position '''
+
+        # todo: 1. set/load perspectives strings.
+        #         2. set buttons to run py file (simulatino) and get csv results file
+        #         3. check to allow running external 32bit dll (like in matlab)
+
+        # keep the current setting, where most of the panes are created visible
+        # assuming most are set to show(). those that are created with hide() are not included
+        perspective_all = self._mgr.SavePerspective()
+
+        # now hide all panes and show only those neede for new perspective
+        self.hide_all_available_panes()
         self._mgr.GetPane("DandD_content").Show()
 
-        if 1==1:
+        # print sizes and locations
+        if 1 == 2:
             # prnt = self.GetParent()     # get the parent panel
             # prnt2 = prnt.GetParent()    # get the frame window
             # prnt2.ToggleWindowStyle(wx.STAY_ON_TOP)
@@ -538,64 +581,52 @@ class AuiFrame(wx.Frame):
             print self.GetParent().GetPosition()
             print self.GetParent().GetParent()
             print self.GetParent().GetParent().GetPosition()
+        # set locations
+        if 2==2:
+            # desiredFramePos = wx.Point(1200,100)
+            desiredFramePos = wx.Point(683, 384)
+            previousSize = self.GetParent().GetParent().GetPosition()  #todo: check to relate self. or global
+            self.GetParent().GetParent().SetPosition(desiredFramePos)
+            # self.pos = (700,900)
 
-        # desiredFramePos = wx.Point(1200,100)
-        desiredFramePos = wx.Point(683,384)
-        previousSize = self.GetParent().GetParent().GetPosition()
-        self.GetParent().GetParent().SetPosition(desiredFramePos)
-        # self.pos = (700,900)
+            desiredFrameSize = wx.Size(400, 200)
+            print self.GetParent().GetParent().SetSize(desiredFrameSize)
+            print self.SetSize(desiredFrameSize)
 
-        desiredFrameSize = wx.Size(400  ,200)
-        print self.GetParent().GetParent().SetSize(desiredFrameSize)
-        print self.SetSize(desiredFrameSize)
+            print self
+            print self.GetPosition()
+            print self.GetParent()
+            print self.GetParent().GetPosition()
+            print self.GetParent().GetParent()
+            print self.GetParent().GetParent().GetPosition()
 
-        print self
-        print self.GetPosition()
-        print self.GetParent()
-        print self.GetParent().GetPosition()
-        print self.GetParent().GetParent()
-        print self.GetParent().GetParent().GetPosition()
-
-        # self.CenterOnScreen()
-        #set size  , previousSize =
-        # self.GetStartPosition()
-        # self.GetParent().GetParent().SetSize(wx.Size(750, 150))
-        w = wx.SystemSettings.GetMetric(wx.SYS_SCREEN_X)
-        h = wx.SystemSettings.GetMetric(wx.SYS_SCREEN_Y)
-        centerPos = (w / 2, h / 2)
-        print "screen centerPos : " + str(centerPos[0]) + "," + str(centerPos[1])
-
-
-
+            # self.CenterOnScreen()
+            # set size  , previousSize =
+            # self.GetStartPosition()
+            # self.GetParent().GetParent().SetSize(wx.Size(750, 150))
+            w = wx.SystemSettings.GetMetric(wx.SYS_SCREEN_X)
+            h = wx.SystemSettings.GetMetric(wx.SYS_SCREEN_Y)
+            centerPos = (w / 2, h / 2)
+            print "screen centerPos : " + str(centerPos[0]) + "," + str(centerPos[1])
 
         # "commit" all changes made to AuiManager
         self._mgr.Update()
         perspective_min = self._mgr.SavePerspective()  # ran note: consider using 'Config' class and 'LoadPerspective' method
 
-        self._mgr.GetPane("DandD_content").Hide()
-        # self._perspectives_menu.Append(ID_FirstPerspective + len(self._perspectives), "Minimum layout")
-        # self._perspectives.append(perspective_min)
-#        self.SetSize(previousSize)
-    
-        # manual display configurations:
-        if 1==2:
-            self._mgr.GetPane("tb1").Hide()
-            self._mgr.GetPane("tb7").Hide()
-        self._mgr.GetPane("tb4").Show() #ran
+        self.set_manual_hide_and_show_for_deafult_panes()
+        perspective_default = self._mgr.SavePerspective()  # ran note: consider using 'Config' class and 'LoadPerspective' method
 
-        self._mgr.GetPane("test8").Show().Left().Layer(0).Row(0).Position(0)
-        self._mgr.GetPane("__notebook_%d"%self._mgr.GetPane("test10").notebook_id).Show().Bottom().Layer(0).Row(0).Position(0)
-        self._mgr.GetPane("autonotebook").Show()
-        self._mgr.GetPane("thirdauto").Show()
-        self._mgr.GetPane("test10").Show()
-        self._mgr.GetPane("notebook_content").Show()
-
-        perspective_default = self._mgr.SavePerspective()   # ran note: consider using 'Config' class and 'LoadPerspective' method
+        # add more perspective . ran
+        self._mgr.LoadPerspective(perspective_min)
+        self._mgr.GetPane("tb4").Show()
+        perspective_min2 = self._mgr.SavePerspective()
 
         self._perspectives = []
         self._perspectives.append(perspective_default)
         self._perspectives.append(perspective_all)
-        self._perspectives.append(perspective_min)  #ran
+        self._perspectives.append(perspective_min)  # ran
+        self._perspectives.append(perspective_min2)  # ran
+        self.keepPerspectivesToFile()
 
         self._nb_perspectives = []
         auibook = self._mgr.GetPane("notebook_content").window
@@ -603,20 +634,17 @@ class AuiFrame(wx.Frame):
         self._nb_perspectives.append(nb_perspective_default)
 
         self._mgr.LoadPerspective(perspective_default)  ##
-        self._mgr.LoadPerspective(perspective_min)  ## ran
+        self._mgr.LoadPerspective(perspective_min2)  ## ran
         ''''''''''''''''''''''''
 
-        # Show how to get a custom minimizing behaviour, i.e., to minimize a pane
-        # inside an existing AuiToolBar
-        tree = self._mgr.GetPane("test8")
-        tree.MinimizeMode(aui.AUI_MINIMIZE_POS_TOOLBAR)
-
-        toolbarPane = self._mgr.GetPane(tb4)
-        tree.MinimizeTarget(toolbarPane)
-
-        # "commit" all changes made to AuiManager
-        self._mgr.Update()
-
+    def keepPerspectivesToFile(self):
+        # todo: might use config instead
+        # http: // www.pythonforbeginners.com / cheatsheet / python - file - handling
+        filename = "perspectives.txt"
+        file = open(filename, "w")
+        file.writelines(self._perspectives)
+        file.close()
+        pass
 
     def BindEvents(self):
         '''

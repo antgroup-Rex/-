@@ -307,6 +307,9 @@ class JsonControlPanel(wx.Panel):
 
         return json_dict
 
+    def save_new_requirements_to_json_file(self, file_name):
+     	pass
+
 ########################################################################
 
 if __name__=='__main__':
@@ -318,7 +321,7 @@ if __name__=='__main__':
     print(json.dumps(parsed_json))
 
 else:
-    # print __name__
+    ## print __name__
     # comments to the above json reading and buuilt in parsing:
     # json file can have no comments inside it
     # the json file data is loaded as disctionary. that's why the order of the 'buttons' is according to the dorting of their labels..
