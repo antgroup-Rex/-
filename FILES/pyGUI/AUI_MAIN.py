@@ -187,6 +187,7 @@ class AuiFrame(wx.Frame):
         self._perspectives_menu.Append(ID_FirstPerspective+0, "Default Startup")
         self._perspectives_menu.Append(ID_FirstPerspective+1, "All Panes")
         self._perspectives_menu.Append(ID_FirstPerspective + 2, "Minimum for DragAndDrop") #ran
+        self._perspectives_menu.Append(ID_FirstPerspective + 3, "Minimum 2") #ran
 
         self._nb_perspectives_menu = wx.Menu()
         self._nb_perspectives_menu.Append(ID_CreateNBPerspective, "Create Perspective")
@@ -331,6 +332,7 @@ class AuiFrame(wx.Frame):
         tb3.SetCustomOverflowItems(prepend_items, append_items)
         tb3.Realize()
 
+        ''''''
         tb4 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
         tb4.SetToolBitmapSize(wx.Size(16, 16))
@@ -350,6 +352,7 @@ class AuiFrame(wx.Frame):
 
         tb4.SetToolDropDown(ID_DropDownToolbarItem, True)
         tb4.Realize()
+        ''''''
 
         tb5 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_VERTICAL)
