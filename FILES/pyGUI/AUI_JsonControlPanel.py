@@ -6,8 +6,9 @@ import json
 # note: this class depends on the controls IDs.
 class JsonControlPanel(wx.Panel):
 
-    spinCtrls       =   []
-    btns_index      =   -1
+    JsonControlPanel_fileName   = 'JsonControlPanel.json'
+    spinCtrls                   =   []
+    btns_index                  =   -1
 
     def createControl_Spin(self, cntrlArr_ndx, cntrl_id, lbl_txt, init_value):
          #ndx and btns_index are similar. note.
@@ -30,18 +31,23 @@ class JsonControlPanel(wx.Panel):
         wx.Panel.__init__(self, parent)
         self._frame             = frame
 
-        self._json_requirements = self.load_requirements_from_json_file('JsonControlPanel.json')
+        self._json_requirements = self.load_requirements_from_json_file(self.JsonControlPanel_fileName)
 
         #todo:count number of requirements, and decide grid size. and init s[] in adequate length
         s=[0,0,0]
+        spinType_txt    = 'SpinCtrl'
+        btn_type_lbl    = 'btn_type'
+        id_lbl          = 'ID_string'
+        txt_lbl         = 'label_text'
+        val_lbl         = 'init_value'
         for ndx,btnName in enumerate(self._json_requirements.keys()):
             # todo: add warnning for repeating key name
             requirement = self._json_requirements[btnName]
-            if requirement['btn_type']=='SpinCtrl':
+            if requirement[btn_type_lbl]==spinType_txt:
                 s[ndx] = self.createControl_Spin( self.btns_index,
-                                              eval(requirement['ID_string']),
-                                              requirement['label_text'],
-                                              eval(requirement['init_value']) )
+                                              eval(requirement[id_lbl]),
+                                              requirement[txt_lbl],
+                                              eval(requirement[val_lbl]) )
 
         s1=s[0]
         s2=s[1]

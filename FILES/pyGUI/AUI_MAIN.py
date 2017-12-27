@@ -333,25 +333,27 @@ class AuiFrame(wx.Frame):
         tb3.Realize()
 
         ''''''
-        tb4 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
+        favorites_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
-        tb4.SetToolBitmapSize(wx.Size(16, 16))
-        tb4_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
-        tb4.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+23, "Item 2", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+24, "Item 3", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+25, "Item 4", tb4_bmp1)
-        tb4.AddSeparator()
-        tb4.AddSimpleTool(ID_SampleItem+26, "Item 5", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+27, "Item 6", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+28, "Item 7", tb4_bmp1)
-        tb4.AddSimpleTool(ID_SampleItem+29, "Item 8", tb4_bmp1)
+        favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
+        favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
+        # favorites_tbar.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", favorites_tbar_bmp1) #ran marked this line. keep of for future use.
+        # todo: build this from json user file or .py definitions file.
+        #       for button type and action and label with tooltips and relevantBMP.
+        favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp1, "open file(s), of any kind. treat them accordingly")
+        favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Item 3", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4", favorites_tbar_bmp1)
+        favorites_tbar.AddSeparator()
+        favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+27, "Item 6", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+28, "Item 7", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+29, "Item 8", favorites_tbar_bmp1)
 
-        choice = wx.Choice(tb4, -1, choices=["One choice", "Another choice"])
-        tb4.AddControl(choice)
+        choice = wx.Choice(favorites_tbar, -1, choices=["One choice", "Another choice"])
+        favorites_tbar.AddControl(choice)
 
-        tb4.SetToolDropDown(ID_DropDownToolbarItem, True)
-        tb4.Realize()
+        favorites_tbar.SetToolDropDown(ID_DropDownToolbarItem, True)
+        favorites_tbar.Realize()
         ''''''
 
         tb5 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
@@ -471,7 +473,7 @@ class AuiFrame(wx.Frame):
                           CenterPane().PaneBorder(False))
 
         # add the toolbars to the manager
-        self._mgr.AddPane(tb4, aui.AuiPaneInfo().Name("tb4").Caption("Sample Bookmark Toolbar").
+        self._mgr.AddPane(favorites_tbar, aui.AuiPaneInfo().Name("favorites_tbar").Caption("Sample Bookmark Toolbar").
                           # ToolbarPane().Top().Row(2))
                           ToolbarPane().Top().Row(1))
         if 1==1:    #choosing toolbars to add
@@ -509,7 +511,7 @@ class AuiFrame(wx.Frame):
         tree = self._mgr.GetPane("test8")
         tree.MinimizeMode(aui.AUI_MINIMIZE_POS_TOOLBAR)
 
-        toolbarPane = self._mgr.GetPane(tb4)
+        toolbarPane = self._mgr.GetPane(favorites_tbar)
         tree.MinimizeTarget(toolbarPane)
 
         # "commit" all changes made to AuiManager
@@ -533,7 +535,7 @@ class AuiFrame(wx.Frame):
         if 3 == 4:
             self._mgr.GetPane("tb1").Hide()
             self._mgr.GetPane("tb7").Hide()
-        self._mgr.GetPane("tb4").Show()  # ran
+        self._mgr.GetPane("favorites_tbar").Show()  # ran
 
         self._mgr.GetPane("test8").Show().Left().Layer(0).Row(0).Position(0)
         self._mgr.GetPane("__notebook_%d" % self._mgr.GetPane("test10").notebook_id).Show().Bottom().Layer(0).Row(
@@ -621,7 +623,7 @@ class AuiFrame(wx.Frame):
 
         # add more perspective . ran
         self._mgr.LoadPerspective(perspective_min)
-        self._mgr.GetPane("tb4").Show()
+        self._mgr.GetPane("favorites_tbar").Show()
         perspective_min2 = self._mgr.SavePerspective()
 
         self._perspectives = []
@@ -812,7 +814,10 @@ class AuiFrame(wx.Frame):
         self.Bind(aui.EVT_AUINOTEBOOK_ALLOW_DND     , self.OnAllowNotebookDnD)
         self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CLOSE    , self.OnNotebookPageClose)
 
-        self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+23) #ran
+        # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+23) #ran
+        # self.Bind(wx.EVT_BUTTON           , self.onButtonPress        , id=ID_SampleItem+24) #ran
+        self.Bind(wx.EVT_MENU           , self.OnButtonPress        , id=ID_SampleItem+23) #ran
+        # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+26) #ran
 
         # ran removed those Alarm bindings
         # self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnFloatDock)
@@ -827,8 +832,15 @@ class AuiFrame(wx.Frame):
         self.timer.Start(100)
 
 
-    def onButtonPress(self, event):
+    def OnButtonPress(self, event):
         print  "onBtnPrs"
+        # print event.EventObject
+        if event.EventObject._tip_item.label=="Open":
+            # print "found the correct label:)"
+            # event.EventObject._tip_item.long_help="ran d was here "
+            #todo: open dialog to select file nmae.
+            #      load the file
+
         pass
 
     def __del__(self):
@@ -1467,7 +1479,8 @@ class AuiFrame(wx.Frame):
 
         s = self._mgr.SavePerspective()
 
-        if wx.TheClipboard.Open():
+        if wx.TheClipboard.
+            ():
 
             wx.TheClipboard.SetData(wx.TextDataObject(s))
             wx.TheClipboard.Close()
@@ -1690,6 +1703,8 @@ class AuiFrame(wx.Frame):
             m4.SetBitmap(bmp)
             menuPopup.Append(m4)
 
+            #todo: set bindings to those 'temporary' buttons, in order to meen somthing
+
             # line up our menu with the button
             rect = tb.GetToolRect(event.GetId())
             pt = tb.ClientToScreen(rect.GetBottomLeft())
@@ -1911,7 +1926,7 @@ class AuiFrame(wx.Frame):
         root = tree.AddRoot("AUI Project", 0)
         items = []
 
-#todo: how to do this with lambda instead?
+        #todo: how to do this with lambda instead?
         items.append(tree.AppendItem(root, "Item 1", 0))
         items.append(tree.AppendItem(root, "Item 2", 0))
         items.append(tree.AppendItem(root, "Item 3", 0))
