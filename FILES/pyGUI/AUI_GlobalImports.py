@@ -32,3 +32,5 @@ import from_demo_agw.images as images
 
 from AUI_settingsPanel import *
 from AUI_JsonControlPanel import *
+
+print "wx version: "+wx.__version__
