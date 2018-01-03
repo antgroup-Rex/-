@@ -1,10 +1,27 @@
 '''
 main AUI creation.
 the manager of all gui .
+
+major reference of gui applications and tutorials:
+http://www.infinity77.net/pycon/tutorial/pybr/wxpython.html - wxPython tutorial
+
+to consider:
+http://docs.enthought.com/chaco/ - building interactive and custom 2-D plots and visualizations
+
+http://doc.frapp.fr/doku.php?id=en:programmation:python:boa:help:boagettingstarted - boa tutorial
+ https://bitbucket.org/cwt/boa-constructor/downloads/ - Boa aims to be a simple Delphi for wxPython.
+ https://wiki.wxpython.org/Boa%20Constructor
+
+AvoPlot : https://openresearchsoftware.metajnl.com/articles/10.5334/jors.ai/
+
+
 '''
 ''''''
 from AUI_GlobalImports import *
 
+# def focusFollowsMouse(window):
+#     window.Bind(wx.EVT_ENTER_WINDOW, lambda event: window.SetFocus())
+#
 class AuiFrame(wx.Frame):
 
     def __init__(self, parent, id=wx.ID_ANY, title="", pos= wx.DefaultPosition,
@@ -337,11 +354,12 @@ class AuiFrame(wx.Frame):
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
         favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
         favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
+        favorites_tbar_bmp2 = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_OTHER, wx.Size(16, 16))
         # favorites_tbar.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", favorites_tbar_bmp1) #ran marked this line. keep of for future use.
         # todo: build this from json user file or .py definitions file.
         #       for button type and action and label with tooltips and relevantBMP.
-        favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp1, "open file(s), of any kind. treat them accordingly")
-        favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Item 3", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
+        favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
         favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4", favorites_tbar_bmp1)
         favorites_tbar.AddSeparator()
         favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
@@ -356,18 +374,20 @@ class AuiFrame(wx.Frame):
         favorites_tbar.Realize()
         ''''''
 
-        tb5 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
+        vertical_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_VERTICAL)
 
-        tb5.SetToolBitmapSize(wx.Size(48, 48))
-        tb5.AddSimpleTool(ID_SampleItem+30, "Test", wx.ArtProvider.GetBitmap(wx.ART_ERROR))
-        tb5.AddSeparator()
-        tb5.AddSimpleTool(ID_SampleItem+31, "Test", wx.ArtProvider.GetBitmap(wx.ART_QUESTION))
-        tb5.AddSimpleTool(ID_SampleItem+32, "Test", wx.ArtProvider.GetBitmap(wx.ART_INFORMATION))
-        tb5.AddSimpleTool(ID_SampleItem+33, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING))
-        tb5.AddSimpleTool(ID_SampleItem+34, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE))
-        tb5.SetCustomOverflowItems(prepend_items, append_items)
-        tb5.Realize()
+        szX=48
+        szX2=16
+        vertical_tbar.SetToolBitmapSize(wx.Size(szX, szX))#(48, 48)
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+30, "Test", wx.ArtProvider.GetBitmap(wx.ART_ERROR), wx.ART_OTHER,  wx.Size(szX, szX))
+        vertical_tbar.AddSimpleTool(ID_SampleItem+31, "Test", wx.ArtProvider.GetBitmap(wx.ART_QUESTION),  wx.ART_OTHER, wx.Size(szX2, szX2))
+        vertical_tbar.AddSeparator()
+        vertical_tbar.AddSimpleTool(ID_SampleItem+32, "Test", wx.ArtProvider.GetBitmap(wx.ART_INFORMATION))#,  wx.ART_OTHER, wx.Size(szX, szX))
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+33, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING),  wx.ART_OTHER, wx.Size(szX, szX))
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+34, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE),  wx.ART_OTHER, wx.Size(szX, szX))
+        vertical_tbar.SetCustomOverflowItems(prepend_items, append_items)
+        vertical_tbar.Realize()
 
         tb6 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_VERT_TEXT)
@@ -487,7 +507,7 @@ class AuiFrame(wx.Frame):
             self._mgr.AddPane(tb3, aui.AuiPaneInfo().Name("tb3").Caption("Toolbar 3").
                               ToolbarPane().Top().Row(1).Position(1))
 
-            self._mgr.AddPane(tb5, aui.AuiPaneInfo().Name("tb5").Caption("Sample Vertical Toolbar").
+            self._mgr.AddPane(vertical_tbar, aui.AuiPaneInfo().Name("vertical_tbar").Caption("Sample Vertical Toolbar").
                               ToolbarPane().Left().GripperTop())
 
             self._mgr.AddPane(tb6, aui.AuiPaneInfo().
@@ -589,12 +609,12 @@ class AuiFrame(wx.Frame):
         # set locations
         if 2==2:
             # desiredFramePos = wx.Point(1200,100)
-            desiredFramePos = wx.Point(683, 384)
+            desiredFramePos = wx.Point(683, 384) #todo: take from config file / user preffs.
             previousSize = self.GetParent().GetParent().GetPosition()  #todo: check to relate self. or global
             self.GetParent().GetParent().SetPosition(desiredFramePos)
             # self.pos = (700,900)
 
-            desiredFrameSize = wx.Size(400, 200)
+            desiredFrameSize = wx.Size(400, 300)  #todo: take from config file
             print self.GetParent().GetParent().SetSize(desiredFrameSize)
             print self.SetSize(desiredFrameSize)
 
@@ -624,6 +644,7 @@ class AuiFrame(wx.Frame):
         # add more perspective . ran
         self._mgr.LoadPerspective(perspective_min)
         self._mgr.GetPane("favorites_tbar").Show()
+        self._mgr.GetPane("vertical_tbar").Show()
         perspective_min2 = self._mgr.SavePerspective()
 
         self._perspectives = []
@@ -816,7 +837,8 @@ class AuiFrame(wx.Frame):
 
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+23) #ran
         # self.Bind(wx.EVT_BUTTON           , self.onButtonPress        , id=ID_SampleItem+24) #ran
-        self.Bind(wx.EVT_MENU           , self.OnButtonPress        , id=ID_SampleItem+23) #ran
+        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+23)  # ran
+        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+24)  # ran
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+26) #ran
 
         # ran removed those Alarm bindings
@@ -834,12 +856,119 @@ class AuiFrame(wx.Frame):
 
     def OnButtonPress(self, event):
         print  "onBtnPrs"
+        # ref: https://wxpython.org/Phoenix/docs/html/wx.FileDialog.html?highlight=filedialog%20style
+
+        # This is how you pre-establish a file filter so that the dialog
+        # only shows the extension(s) you want it to.
+        files_wildcard = "Python source (*.py)|*.py|" \
+                         "CSV files (*.csv)|*.csv|" \
+                         "All files (*.*)|*.*"
+        # '''
+        # # xls
+        # # csv
+        # # mat
+        # # txt
+        # # log
+        # '''
+        #                  "Compiled Python (*.pyc)|*.pyc|" \
+        #                  "SPAM files (*.spam)|*.spam|" \
+        #                  "Egg file (*.egg)|*.egg|" \
+
+        print ("CWD: %s\n" % os.getcwd())
+
         # print event.EventObject
         if event.EventObject._tip_item.label=="Open":
             # print "found the correct label:)"
             # event.EventObject._tip_item.long_help="ran d was here "
             #todo: open dialog to select file nmae.
             #      load the file
+            # Create the dialog. In this case the current directory is forced as the starting
+            # directory for the dialog, and no default file name is forced. This can easilly
+            # be changed in your program. This is an 'open' dialog, and allows multitple
+            # file selections as well.
+            #
+            # Finally, if the directory is changed in the process of getting files, this
+            # dialog is set up to change the current working directory to the path chosen.
+            dlg = wx.FileDialog(
+                self, message="Choose a file",
+                defaultDir=os.getcwd(),
+                defaultFile="",
+                wildcard=files_wildcard,
+                style=wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
+            )
+
+            # Show the dialog and retrieve the user response. If it is the OK response,
+            # process the data.
+            if dlg.ShowModal() == wx.ID_OK:
+                # This returns a Python list of files that were selected.
+                paths = dlg.GetPaths()
+
+                # self.log.WriteText('You selected %d files:' % len(paths))
+                print('You selected %d files:' % len(paths))
+
+                for path in paths:
+                    print('           %s\n' % path)
+                    # sort_file_action_by_type
+                    files_handler.sort_file_action_by_type(path)
+
+                    # todO: handle files read and relate to it's type
+                    self._appDataRef
+
+            # Compare this with the debug above; did we change working dirs?
+            print ("CWD: %s\n" % os.getcwd())
+
+            # Destroy the dialog. Don't do this until you are done with it!
+            # BAD things can happen otherwise!
+            dlg.Destroy()
+
+        elif event.EventObject._tip_item.label=="Save":
+
+            # Create the dialog. In this case the current directory is forced as the starting
+            # directory for the dialog, and no default file name is forced. This can easilly
+            # be changed in your program. This is an 'save' dialog.
+            #
+            # Unlike the 'open dialog' example found elsewhere, this example does NOT
+            # force the current working directory to change if the user chooses a different
+            # directory than the one initially set.
+            dlg = wx.FileDialog(
+                self, message="Save file as ...", defaultDir=os.getcwd(),
+                defaultFile="", wildcard=wildcard, style=wx.SAVE
+            )
+
+            # This sets the default filter that the user will initially see. Otherwise,
+            # the first filter in the list will be used by default.
+            dlg.SetFilterIndex(2)
+
+            # Show the dialog and retrieve the user response. If it is the OK response,
+            # process the data.
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                print ('You selected "%s"' % path)
+
+                # Normally, at this point you would save your data using the file and path
+                # data that the user provided to you, but since we didn't actually start
+                # with any data to work with, that would be difficult.
+                #
+                # The code to do so would be similar to this, assuming 'data' contains
+                # the data you want to save:
+                #
+                # fp = file(path, 'w') # Create file anew
+                # fp.write(data)
+                # fp.close()
+                #
+                # You might want to add some error checking :-)
+                #
+
+            # Note that the current working dir didn't change. This is good since
+            # that's the way we set it up.
+            print("CWD: %s\n" % os.getcwd())
+
+            # Destroy the dialog. Don't do this until you are done with it!
+            # BAD things can happen otherwise!
+            dlg.Destroy()
+        elif event.EventObject._tip_item.label == "Show App Data":
+            print "todo: show app data in list, with +- collapses and option to open database fields and data actions (or maybe editing)"
+            pass
 
         pass
 
@@ -1479,8 +1608,7 @@ class AuiFrame(wx.Frame):
 
         s = self._mgr.SavePerspective()
 
-        if wx.TheClipboard.
-            ():
+        if wx.TheClipboard.Open():
 
             wx.TheClipboard.SetData(wx.TextDataObject(s))
             wx.TheClipboard.Close()
@@ -2161,7 +2289,7 @@ def alignToBottomRight(win):
 
 def MainAUI(parent, log):
 
-    frame = AuiFrame(parent, -1, "AUI Test Frame", size=(800, 600), log=log)
+    frame = AuiFrame(parent, -1, "* Tailor *", size=(800, 600), log=log)
     # frame.CenterOnScreen()
 
     alignToBottomRight(frame)
@@ -2186,12 +2314,13 @@ if __name__ == '__main__':
     # import run
     # run.main(['', os.path.basename(sys.argv[0])] + sys.argv[1:])
     app = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
-    frame = wx.Frame(None, wx.ID_ANY, "Hello World")  # A Frame is a top-level window.
+    frame = wx.Frame(None, wx.ID_ANY, "initial wxFrame")  # A Frame is a top-level window.
     frame.Show(False)  # Show the frame.
     pnl = wx.Panel(frame)
     log = Log()
 
     appDataObj  = appDB.myAppData()
+    appDataObj.initializeDataFields()
     # print appDataObj.mainDict
     # print appDataObj.lastPastedText
     # print appDataObj.lastPastedUrl

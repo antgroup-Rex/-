@@ -7,7 +7,7 @@ import os
 import sys
 # import time # ran note: used directly by CProgressGauge
 
-import specific_files.AppGlobalData         as appDB
+import data_handlers.AppGlobalData         	as appDB
 
 # import specific_files.pyTesting_xml_to_nexX as rNX  #ran - TODO : set the import just as class preparation
 import from_demo_agw.ZoomBar                as zB
@@ -26,6 +26,8 @@ sys.path.append(os.path.split(dirName)[0])
 from Intro_html_text        import *
 from CSizeReportCtrl        import *
 from CProgressGauge         import *
+
+from files_handler 			import *
 
 import random
 import from_demo_agw.images as images

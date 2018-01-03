@@ -80,6 +80,8 @@ def print_data_table(Header, data_as_numpy_list):
 
     print tmp
 
+#####################################################
+
 def pd_trial():
     # web ref as http://www.dyinglovegrape.com/data_analysis/part2/2da2.php
     import pandas as pd

@@ -142,6 +142,14 @@ class OtherDropTarget(wx.DropTarget):
             dragedFilesInfo['files'][ndx]['fileIndexInList']    = dragedFileIndexInList
             dragedFilesInfo['files'][ndx]['allSimilarPathFiles']= allSimilarFiles
 
+            print 'self.window.Parent.Parent.Parent.Parent.Label is : '
+            print self.window.Parent.Parent.Parent.Parent.Label   #'inintial wxFrame'
+            # print self.window.Parent.Parent.Parent # panel
+            print self.window.Parent.Parent  # AUIFrame named 'frame'
+            # print self.window.Parent  # FileDropPanel
+            # print self.window # TextCtrl
+            # print self  # OtherDropTarget
+
             # self.window.Parent.Parent._appDataRef is available
             if dragedFilesInfo['files'][ndx]['fileExtension'] == '.py': # might do that treatment in :def OnData(self, x, y, result):)
                 # open file in..
