@@ -4,6 +4,10 @@ import  wx
 import glob # similar or instead of 'os'  http://stackoverflow.com/questions/3207219/how-to-list-all-files-of-a-directory
 import os
 
+import sys
+sys.path.append('../')  # to find above packages
+import files_handler
+
 import ShapedWindows as ShpWin
 
 #----------------------------------------------------------------------
@@ -120,8 +124,25 @@ class OtherDropTarget(wx.DropTarget):
 
         for ndx ,name in enumerate(filesNames):
             print name
+            files_handler.sort_file_action_by_type(name) #new
+
+            self.window.Parent.Parent._appDataRef
+
             # self.log.WriteText("%s\n" % name)
             self.window.WriteText("%s\n" % name)
+
+            pass
+
+            print 'self.window.Parent.Parent.Parent.Parent.Label is : '
+            print self.window.Parent.Parent.Parent.Parent.Label   #'inintial wxFrame'
+            # print self.window.Parent.Parent.Parent # panel
+            print self.window.Parent.Parent  # AUIFrame named 'frame'
+            # print self.window.Parent  # FileDropPanel
+            # print self.window # TextCtrl
+            # print self  # OtherDropTarget
+            # self.window.Parent.Parent._appDataRef is available
+
+            pass
 
             full_path                       = os.path.dirname(name)
             fullFileName, file_extension    = os.path.splitext(name)
@@ -141,30 +162,6 @@ class OtherDropTarget(wx.DropTarget):
             dragedFilesInfo['files'][ndx]['fileFullPath']       = full_path
             dragedFilesInfo['files'][ndx]['fileIndexInList']    = dragedFileIndexInList
             dragedFilesInfo['files'][ndx]['allSimilarPathFiles']= allSimilarFiles
-
-            print 'self.window.Parent.Parent.Parent.Parent.Label is : '
-            print self.window.Parent.Parent.Parent.Parent.Label   #'inintial wxFrame'
-            # print self.window.Parent.Parent.Parent # panel
-            print self.window.Parent.Parent  # AUIFrame named 'frame'
-            # print self.window.Parent  # FileDropPanel
-            # print self.window # TextCtrl
-            # print self  # OtherDropTarget
-
-            # self.window.Parent.Parent._appDataRef is available
-            if dragedFilesInfo['files'][ndx]['fileExtension'] == '.py': # might do that treatment in :def OnData(self, x, y, result):)
-                # open file in..
-                pass
-            elif dragedFilesInfo['files'][ndx]['fileExtension'] == '.xml':
-                # open file in new tree viewer
-                # import_xml_from_file(name_of_file) #load content into appDataBase as
-                # show_xml_on_tree_view
-                pass
-            elif dragedFilesInfo['files'][ndx]['fileExtension'] == '.csv':
-                # open file in new table (minimized) view
-                # import_csv_from_file(name_of_file) #load content into appDataBase as
-                # show_table_data_on_table_view
-                pass
-
 
         return wx.DragCopy
 

@@ -34,18 +34,8 @@ class myAppData(dict):
         self.lastPastedUrl  = 'selfInitTest2'
         self.testField      ='c'
 
-    def getPath_from_Name(self):
-        pass
-
-    def getNetName_from_Name(self):
-        pass
-
-    def getFileType_from_Name(self):
-        pass
-
-
-    def loadCSVfile(self):
-
+    def import_data_from_CSV(self,fileName):
+        
         pass
 
     def addDataFromFile(self, fileObj):

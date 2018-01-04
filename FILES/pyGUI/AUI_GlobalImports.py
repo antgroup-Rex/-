@@ -27,10 +27,11 @@ from Intro_html_text        import *
 from CSizeReportCtrl        import *
 from CProgressGauge         import *
 
-from files_handler 			import *
-
 import random
 import from_demo_agw.images as images
+
+# from files_handler 			import *
+import files_handler
 
 from AUI_settingsPanel import *
 from AUI_JsonControlPanel import *

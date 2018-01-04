@@ -23,6 +23,7 @@ def get_file_details(full_file_name):
 
 def sort_file_action_by_type(full_file_name):
     fileDict = get_file_details(full_file_name)
+
     if fileDict['extension'] == '.txt':
         # todo: ask to open as notepad and edit ?
         print "text file is given"
@@ -31,7 +32,15 @@ def sort_file_action_by_type(full_file_name):
         print "python file is given"
     elif fileDict['extension'] == '.csv':
         # todo: import data, and display on new list of loaded files and data records.
+        # open file in new table (minimized) view
+        # import_csv_from_file(name_of_file) #load content into appDataBase as
+        # show_table_data_on_table_view
         print "csv data file is given"
+    elif fileDict['extension'] == '.xml':
+        # open file in new tree viewer
+        # import_xml_from_file(name_of_file) #load content into appDataBase as
+        # show_xml_on_tree_view
+        print "xml file is given"
 
     pass
 
