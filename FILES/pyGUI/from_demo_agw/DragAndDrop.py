@@ -106,7 +106,6 @@ class OtherDropTarget(wx.DropTarget):
         return wx.DragCopy
 
     def OnFileDrop(self):
-        global appDataObj # todo : check global data when arriving here
 
         dragedFilesInfo = {}
         dragedFilesInfo['numOfFiles']           = 0
@@ -124,9 +123,9 @@ class OtherDropTarget(wx.DropTarget):
 
         for ndx ,name in enumerate(filesNames):
             print name
-            files_handler.sort_file_action_by_type(name) #new
+            files_handler.file_action_by_type(name, self.window.Parent._appDataHolder) #new
 
-            self.window.Parent.Parent._appDataRef
+            # self.window.Parent._appDataHolder
 
             # self.log.WriteText("%s\n" % name)
             self.window.WriteText("%s\n" % name)
@@ -173,8 +172,9 @@ class OtherDropTarget(wx.DropTarget):
 #----------------------------------------------------------------------
 
 class FileDropPanel(wx.Panel):
-    def __init__(self, parent, log):
+    def __init__(self, parent, log, appData):       # extended header
         wx.Panel.__init__(self, parent, -1)
+        self._appDataHolder = appData
 
         #self.SetFont(wx.Font(10, wx.SWISS, wx.NORMAL, wx.BOLD, False))
 
@@ -271,7 +271,7 @@ class TestPanel(wx.Panel):
 
         inSizer = wx.BoxSizer(wx.HORIZONTAL)
         # inSizer.Add(ClipTextPanel(self, log), 1, wx.EXPAND)
-        inSizer.Add(FileDropPanel(self, log), 1, wx.EXPAND)
+        inSizer.Add(FileDropPanel(self, log,-1), 1, wx.EXPAND)
 
         outsideSizer.Add(inSizer, 1, wx.EXPAND)
         self.SetSizer(outsideSizer)

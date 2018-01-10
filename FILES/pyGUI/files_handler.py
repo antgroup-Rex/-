@@ -4,8 +4,20 @@ files handling introduction functions
 
 import os
 
+from subprocess import call, Popen
+
+import pandas as pd
+
+import csv
+
+def print_errors(given_err,msg):
+    print '*********************'
+    print '** ' + str(given_err)
+    print '** ' + msg
+    print '*********************'
+
 def get_file_details(full_file_name):
-    fileNoExt,  file_extension = os.path.splitext(full_file_name)
+    fileNoExt,  file_extension = os.path.splitext(full_file_name) #[1]  # [1][1:]  get only the text of the extension, without the dot.  #.lower() to look on common grounds
     fileDetails = {}
     fileDetails['originalGivenName'] = full_file_name
     fileDetails['absPath']           = os.path.dirname(os.path.abspath(fileNoExt))        # 
@@ -21,32 +33,110 @@ def get_file_details(full_file_name):
     return fileDetails
 
 
-def sort_file_action_by_type(full_file_name):
+def file_action_by_type(full_file_name, parentAppData):       # todo: act on file ? already from here and not the calling function?
     fileDict = get_file_details(full_file_name)
 
     if fileDict['extension'] == '.txt':
         # todo: ask to open as notepad and edit ?
         print "text file is given"
+        open_TXT_in_favorite_NOTEPAD(full_file_name)
+
     elif fileDict['extension'] == '.py':
         # todo: ask to open as notepad and edit? , or execute and from which work folder?
         print "python file is given"
+        execute_py_script(full_file_name)
+
     elif fileDict['extension'] == '.csv':
         # todo: import data, and display on new list of loaded files and data records.
         # open file in new table (minimized) view
         # import_csv_from_file(name_of_file) #load content into appDataBase as
         # show_table_data_on_table_view
         print "csv data file is given"
+        load_CSV_to_appData(full_file_name, parentAppData)
+
     elif fileDict['extension'] == '.xml':
         # open file in new tree viewer
         # import_xml_from_file(name_of_file) #load content into appDataBase as
         # show_xml_on_tree_view
         print "xml file is given"
+    elif fileDict['extension'] == '.exe':
+        pass
+    elif fileDict['extension'] == '.dll':
+        pass
+    elif fileDict['extension'] == '.jpg' or fileDict['extension'] == '.tif' or fileDict['extension'] == '.tiff':
+        pass
+    # elif fileDict['extension'] == '.dll':
+    #     pass
+    # elif fileDict['extension'] == '.dll':
+    #     pass
 
     pass
 
+
+def execute_py_script(full_file_name):
+    try:
+        execfile(full_file_name)
+        if __debug__==True:
+            print full_file_name + " executed"
+    except Exception as e:
+        print_errors(e, "some exception in trying stand-alone execution of : " + full_file_name)
+    pass
+
+def open_TXT_in_favorite_NOTEPAD(full_file_name):
+    # help from : http://docs.notepad-plus-plus.org/index.php/Command_Line_Switches 
+    #             https://docs.python.org/2/library/subprocess.html#module-subprocess
+    # app_location = 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Notepad++'
+    # app_name = 'NOTEPAD++.lnk'
+    # app_string = app_location + '/' + app_name
+    app_string = 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
+    cmd_str = app_string + ' ' + full_file_name # /o ?
+    print cmd_str
+    print app_string
+    try:
+        # call (cmd_str) # Waits for command to complete
+        Popen(cmd_str)
+        if __debug__==True:
+            print cmd_str + " executed"
+    except FileNotFoundError as e:
+        print e
+    except Exception as e:
+        print_errors(e, "some exception in trying  : " + cmd_str)
+    else:
+        pass
+    finally:
+        pass
+
+def load_CSV_to_dict(file):
+    pass
+
+def load_CSV_to_dataframe(file):
+    df = pd.read_csv(file, sep=',', header=None)#, usecols=[2])   #update parameters. also can check built-in for header text or not ? notify as recomndation for user approval.
+    if __debug__==True:
+        print df.values
+    return df
+
+def add_dict_to_appData(new_dict, appDataBase):
+    pass
+
+def add_df_to_appData(new_df, appDataBase):
+    appDataBase.ma
+    pass
+
+def load_CSV_to_appData(full_file_name, appDataBase):
+    # csv_dict = load_CSV_to_dict(full_file_name) 
+    csv_df   = load_CSV_to_dataframe(full_file_name) 
+    print csv_df
+    print "available DataFrame actions are: "
+    print dir(pd.DataFrame)
+    print appDataBase
+    # add_dict_to_appData(csv_dict, appDataBase)
+    add_df_to_appData(csv_df, appDataBase)
+    if __debug__==True:
+        print "data from csv file was loaded and added to appdata"
+
 if __name__ == '__main__':
-    sort_file_action_by_type('..\pyGUI\perspectives.txt')
-    sort_file_action_by_type('C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\perspectives.txt')
+    file_action_by_type('..\pyGUI\perspectives.txt')
+    # file_action_by_type('C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\perspectives.txt')
     '''
     print fileNoExt
     print file_extension

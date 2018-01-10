@@ -543,8 +543,9 @@ class AuiFrame(wx.Frame):
             if not pane.IsToolbar():
                 pane.Hide()
             else:  # ran added - hide toolbars as well:
-                print pane.Hide()
-                print " is toolbar "
+                # print 
+                pane.Hide()
+                # print " is toolbar "
 
     def set_manual_hide_and_show_for_deafult_panes(self):
         # manual display configurations for setting the default one:
@@ -615,15 +616,18 @@ class AuiFrame(wx.Frame):
             # self.pos = (700,900)
 
             desiredFrameSize = wx.Size(400, 300)  #todo: take from config file
-            print self.GetParent().GetParent().SetSize(desiredFrameSize)
-            print self.SetSize(desiredFrameSize)
+            # print 
+            self.GetParent().GetParent().SetSize(desiredFrameSize)
+            # print 
+            self.SetSize(desiredFrameSize)
 
-            print self
-            print self.GetPosition()
-            print self.GetParent()
-            print self.GetParent().GetPosition()
-            print self.GetParent().GetParent()
-            print self.GetParent().GetParent().GetPosition()
+            if 2==1:
+	            print self
+	            print self.GetPosition()
+	            print self.GetParent()
+	            print self.GetParent().GetPosition()
+	            print self.GetParent().GetParent()
+	            print self.GetParent().GetParent().GetPosition()
 
             # self.CenterOnScreen()
             # set size  , previousSize =
@@ -909,7 +913,7 @@ class AuiFrame(wx.Frame):
                 for path in paths:
                     print('           %s\n' % path)
                     # sort_file_action_by_type
-                    files_handler.sort_file_action_by_type(path)
+                    files_handler.file_action_by_type(path)
 
                     # todO: handle files read and relate to it's type
                     self._appDataRef
@@ -2085,7 +2089,7 @@ class AuiFrame(wx.Frame):
         # pnl.Show()
         # item1 = wx.DropTarget
 
-        obj = DD.FileDropPanel(self, log)
+        obj = DD.FileDropPanel(self, log, appDataObj)   # added extended header # todo: trim this pass by propagating events from DandD
         #todo: add button for 'back to previous or default layout'
                  #remove the text menu
         obj.Bind(wx.EVT_BUTTON, self.OnPaste)

@@ -35,7 +35,7 @@ class myAppData(dict):
         self.testField      ='c'
 
     def import_data_from_CSV(self,fileName):
-        
+
         pass
 
     def addDataFromFile(self, fileObj):
