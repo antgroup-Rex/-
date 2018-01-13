@@ -26,11 +26,11 @@ sys.path.append(os.path.split(dirName)[0])
 from Intro_html_text        import *
 from CSizeReportCtrl        import *
 from CProgressGauge         import *
+from CAppDataTree           import *
 
 import random
 import from_demo_agw.images as images
 
-# from files_handler 			import *
 import files_handler
 
 from AUI_settingsPanel import *

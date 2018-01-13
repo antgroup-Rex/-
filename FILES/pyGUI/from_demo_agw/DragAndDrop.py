@@ -125,6 +125,7 @@ class OtherDropTarget(wx.DropTarget):
             print name
             files_handler.file_action_by_type(name, self.window.Parent._appDataHolder) #new
 
+            print self.window.Parent._appDataHolder.mainDict[0].loadedData
             # self.window.Parent._appDataHolder
 
             # self.log.WriteText("%s\n" % name)

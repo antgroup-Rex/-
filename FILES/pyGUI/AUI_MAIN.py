@@ -915,7 +915,7 @@ class AuiFrame(wx.Frame):
                     # sort_file_action_by_type
                     files_handler.file_action_by_type(path)
 
-                    # todO: handle files read and relate to it's type
+                    # todo: update tree view
                     self._appDataRef
 
             # Compare this with the debug above; did we change working dirs?
@@ -972,6 +972,7 @@ class AuiFrame(wx.Frame):
             dlg.Destroy()
         elif event.EventObject._tip_item.label == "Show App Data":
             print "todo: show app data in list, with +- collapses and option to open database fields and data actions (or maybe editing)"
+            self.OnCreate_AppDataTree()
             pass
 
         pass
@@ -1709,6 +1710,18 @@ class AuiFrame(wx.Frame):
                           Caption("Tree Control").
                           Float().FloatingPosition(self.GetStartPosition()).
                           FloatingSize(wx.Size(150, 300)).MinimizeButton(True))
+        self._mgr.Update()
+
+    def OnCreate_AppDataTree(self, event=0):
+
+        frame_title = "Loaded data files"
+
+        treeCtrl = AppData_TreeCtrl(self)
+        self._mgr.AddPane(treeCtrl, aui.AuiPaneInfo().
+                          Caption(frame_title).
+                          Float().FloatingPosition(self.GetStartPosition()).
+                          FloatingSize(wx.Size(150, 300)).MinimizeButton(True))
+        treeCtrl.populateTree(self._appDataRef)
         self._mgr.Update()
 
     def OnCreateRanTree(self, event=0, name="", caption="Ran Tree Control", update=True, option=2):
