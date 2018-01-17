@@ -36,4 +36,6 @@ import files_handler
 from AUI_settingsPanel import *
 from AUI_JsonControlPanel import *
 
+import specific_files.dfgui
+
 print "wx version: "+wx.__version__

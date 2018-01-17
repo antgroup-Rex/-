@@ -4,6 +4,7 @@
 import wx
 import time
 
+import specific_files.dfgui
 
 class AppData_TreeCtrl(wx.TreeCtrl):
     def __init__(self, parent):#, appData):
@@ -84,11 +85,15 @@ class AppData_TreeCtrl(wx.TreeCtrl):
 
         if appDataRelevantFileID > -1:  #todo: change -1 to some app constant
             print 'appDataRelFileID gt -1'
-            if self.Parent._appDataRef.mainDict[appDataRelevantFileID].Type == 'DataFrame':
-                DFdata = self.Parent._appDataRef.mainDict[appDataRelevantFileID].loadedData
-                parentCtrl = self.Parent
+            if self.Parent.Parent._appDataRef.mainDict[appDataRelevantFileID].Type == 'DataFrame':
+                DFdata = self.Parent.Parent._appDataRef.mainDict[appDataRelevantFileID].loadedData
+                parentCtrl = self.Parent.Parent
                 # show data in wx table under parent, with stored identification related to main appData
+                specific_files.dfgui.show(DFdata.T)
 
+                headersList = list(DFdata.columns.values) # or list(DFdata)
+                        # can tty also sorted(DFdata)
+                
             pass
 
         # wx.MessageBox("msg box")
