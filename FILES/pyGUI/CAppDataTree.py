@@ -89,7 +89,8 @@ class AppData_TreeCtrl(wx.TreeCtrl):
                 DFdata = self.Parent.Parent._appDataRef.mainDict[appDataRelevantFileID].loadedData
                 parentCtrl = self.Parent.Parent
                 # show data in wx table under parent, with stored identification related to main appData
-                specific_files.dfgui.show(DFdata.T)
+                # specific_files.dfgui.show(DFdata.T)
+                specific_files.dfgui.show(DFdata)
 
                 headersList = list(DFdata.columns.values) # or list(DFdata)
                         # can tty also sorted(DFdata)

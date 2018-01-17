@@ -124,8 +124,11 @@ def load_CSV_to_dict(file):
         print dict_list
     return dict_list
 
-def load_CSV_to_dataframe(file):
-    df = pd.read_csv(file, sep=',', header=None)#, usecols=[2])   #update parameters. also can check built-in for header text or not ? notify as recomndation for user approval.
+def load_CSV_to_dataframe(file,headerVar = True):
+    if (headerVar == False):
+        df = pd.read_csv(file, sep=',', header=None)#, usecols=[2])   #update parameters. also can check built-in for header text or not ? notify as recomndation for user approval.
+    else:
+        df = pd.read_csv(file, sep=',')
     if __debug__==True:
         print df.values
     return df

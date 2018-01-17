@@ -360,7 +360,7 @@ class AuiFrame(wx.Frame):
         #       for button type and action and label with tooltips and relevantBMP.
         favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
         favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
-        favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4", favorites_tbar_bmp1)
+        favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4 - reload CSV", favorites_tbar_bmp1)
         favorites_tbar.AddSeparator()
         favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
         favorites_tbar.AddSimpleTool(ID_SampleItem+27, "Item 6", favorites_tbar_bmp1)
@@ -843,6 +843,7 @@ class AuiFrame(wx.Frame):
         # self.Bind(wx.EVT_BUTTON           , self.onButtonPress        , id=ID_SampleItem+24) #ran
         self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+23)  # ran
         self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+24)  # ran
+        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+25)  # ran
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+26) #ran
 
         # ran removed those Alarm bindings
@@ -971,9 +972,12 @@ class AuiFrame(wx.Frame):
             # BAD things can happen otherwise!
             dlg.Destroy()
         elif event.EventObject._tip_item.label == "Show App Data":
-            print "todo: show app data in list, with +- collapses and option to open database fields and data actions (or maybe editing)"
+            print "build app data tree"
             self.OnCreate_AppDataTree()
-            pass
+        elif event.EventObject._tip_item.label == "Item 4 - reload CSV":
+            print "reloading"
+            fileDict = files_handler.get_file_details('quad_sim.csv')
+            files_handler.load_CSV_to_appData(fileDict, self._appDataRef)
 
         pass
 

@@ -109,10 +109,8 @@ class ListCtrlDataFrame(wx.ListCtrl):
 
         if len(conditions) == 0:
             self._reset_mask()
-
         else:
             self._reset_mask()  # set all to True for destructive conjunction
-
             no_error = True
             for column, condition in conditions:
                 if condition.strip() == '':
@@ -227,15 +225,17 @@ class ListCtrlDataFrame(wx.ListCtrl):
 
             scroll_pos = self.GetScrollPos(wx.HORIZONTAL)
             # this is crucial step to get the scroll pixel units
-            unit_x, unit_y = self.GetMainWindow().GetScrollPixelsPerUnit()
-
-            col = bisect(col_locs, x + scroll_pos * unit_x) - 1
-
-            value = self.df.iloc[row, col]
+            # unit_x, unit_y = self.GetMainWindow().GetScrollPixelsPerUnit()
+            #
+            # col = bisect(col_locs, x + scroll_pos * unit_x) - 1
+            #
+            # value = self.df.iloc[row, col]
             # print(row, col, scroll_pos, value)
+            values = self.df.iloc[row]       #ran
+            print(row, scroll_pos, values)  #ran
 
             clipdata = wx.TextDataObject()
-            clipdata.SetText(str(value))
+            clipdata.SetText(str(values))
             wx.TheClipboard.Open()
             wx.TheClipboard.SetData(clipdata)
             wx.TheClipboard.Close()
@@ -307,7 +307,7 @@ class ListBoxDraggable(wx.ListBox):
         if self.HitTest(event.GetPosition()) != wx.NOT_FOUND:
             index = self.HitTest(event.GetPosition())
             self.selected_items[index] = not self.selected_items[index]
-            # doesn't really work to update selection direclty (focus issues)
+            # doesn't really work to update selection directly (focus issues)
             # instead we wait for the EVT_LISTBOX event and fix the selection
             # there...
             # self.update_selection()
