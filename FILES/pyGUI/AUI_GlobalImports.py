@@ -37,5 +37,9 @@ from AUI_settingsPanel import *
 from AUI_JsonControlPanel import *
 
 import specific_files.dfgui
+import specific_files.interpShell
 
 print "wx version: "+wx.__version__
+
+# import pydocs
+# pydocs(math)

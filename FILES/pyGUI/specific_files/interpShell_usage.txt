@@ -1,0 +1,42 @@
+usage options:
+by __main__ :
+ it created passedLocals as dictionary. it is expected to have at least :
+ {"__name__": "__Console__", \
+  "__doc__" : None}
+  
+  but any other dictionary , which can also encapsulate nested dictionaries and data, is accepted.
+  i.e:
+    class Strct():
+        a='a'
+        b={}
+    strct = Strct()
+    strct.b = {'a':1,'b':12}
+    passedLocals = {"__name__": "__RanConsole__", \
+                    "__doc__" : "None docs will be populated by ran",\
+                    "varA"    : strct}
+  
+possible usages from within the textCtrl :
+  import math
+  print varA
+  print varA.a
+  print varA.b
+  
+  output for last command will be:  
+	****************************************
+	'print varA.b' eval output is : 
+
+	{'a': 1, 'b': 12}
+	****************************************
+  
+nice debug point can be in file : 'code.py'
+  in line 103 of 'exec code in self.locals'. 
+  in that point evaluation of 'self.locals' can give:  
+   result = {dict}
+	 __len__ = {int} 6
+	 '__builtins__' (29622016) = {dict} {..}
+	 '__doc__' (29570312) = {str} 'None docs will be populated by ran'
+	 '__name__' (29564000) = {str} '__RanConsole__'
+	 '__package__' (29765968) = {NoneType} None
+	 'math' (34597384) = {module} <module 'math' (built-in)>
+	 'varA' (64304592) = {instance} Strct: <__main__.Strct instance at 0x0000000003A3BA08>
+  

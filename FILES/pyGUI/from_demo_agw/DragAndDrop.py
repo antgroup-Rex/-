@@ -10,6 +10,9 @@ import files_handler
 
 import ShapedWindows as ShpWin
 
+sys.path.append('../specific_files/')  # to find above packages
+import interpShell
+
 #----------------------------------------------------------------------
 
 class OtherDropTarget(wx.DropTarget):
@@ -186,21 +189,29 @@ class FileDropPanel(wx.Panel):
         #     0, wx.EXPAND|wx.ALL, 2
         #     )
 
-        self.text3 = wx.TextCtrl(
-                        self, -1, "",
-                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL      # |wx.TE_READONLY
-                        )
+        ### add interpreter with exampled data
+        class Strct():
+            a = 'a'
+            b = {}
+        strct = Strct()
+        strct.b = {'a': 1, 'b': 12}
+        passedLocals = {"__name__": "__RanConsole__", \
+                        "__doc__": "None docs will be populated by ran", \
+                        "varA": strct}
+        I = II(passedLocals)
+
+
+        self.text3 = PySTC(             #wx.TextCtrl(
+                        self, -1,       #"",
+                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL )
         self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
+        self.text3.Bind(wx.EVT_CHAR, self.onCtrlE)
+        self.text3.SetInter(I)
 
         dt = OtherDropTarget(self.text3, log)
         self.text3.SetDropTarget(dt)
 
-        # ID_ShrtctBtn = wx.NewId()
-        # self.Btn = wx.Button(self, ID_ShrtctBtn, " Shrtcts ")
-        # self.Bind(wx.EVT_BUTTON, self.openImageShortcutsPanel, id=ID_ShrtctBtn)
-
         sizer.Add(self.text3, 2, wx.EXPAND)
-        # sizer.Add(self.Btn  , 1, wx.EXPAND)
         ''''''
         self.SetAutoLayout(True)
         self.SetSizer(sizer)
@@ -210,6 +221,63 @@ class FileDropPanel(wx.Panel):
     #
     # def SetInsertionPointEnd(self):
     #     self.text.SetInsertionPointEnd()
+
+    def onCtrlE(self, evt):
+        # ref : https://www.blog.pythonlibrary.org/2009/08/29/wxpython-catching-key-and-char-events/
+        keyFeatures={}
+        keyFeatures['keyCode']     = evt.GetKeyCode()
+        keyFeatures['controlDown'] = evt.CmdDown()
+        keyFeatures['altDown']     = evt.AltDown()
+        keyFeatures['shiftDown']   = evt.ShiftDown()
+
+        # self.text3.GetScrollPos(wx.VERTICAL)  i.e 12 till back above to first line of text field
+        # self.text3.GetLastPosition() end of field lenght
+        print self.text3.GetInsertionPoint()
+        print self.text3.GetNumberOfLines()
+        print self.text3.GetPosition()
+        print self.text3.GetSelection()
+        print self.text3.GetStringSelection()
+        textFiled = self.text3.GetValue()
+        print textFiled
+        # insertionpoint
+        # linelenght
+        # linetext
+        # getsele
+
+        print keyFeatures
+
+        # if keyFeatures['controlDown']==False \
+        #     and keyFeatures['shiftDown'] == False \
+        #     and keyFeatures['altDown'] == False \
+        #     and keyFeatures['keyCode']!=5:
+        #     # self.text3.WriteText("%s" % chr(keyFeatures['keyCode']))
+        #     evt.Skip()
+        # else:
+        if keyFeatures['keyCode']==5 \
+            and keyFeatures['controlDown'] == True \
+            and keyFeatures['shiftDown'] == False \
+            and keyFeatures['altDown'] == False:
+            # todo get selecetion data if any , or current line if presed Enter
+            # evaluate contant as eval
+            print ("needs selected text evaluation")
+            #todo goto end of selection location
+            self.text3.WriteText(chr(10)+"selection evaluation output is : " + chr(10))
+            self.text3.WriteText("evalution.. %s" % chr(10))
+        elif keyFeatures['keyCode'] == 10 \
+            and keyFeatures['controlDown'] == True \
+            and keyFeatures['shiftDown'] == False \
+            and keyFeatures['altDown'] == False:
+            # todo get selecetion data if any , or current line if presed Enter
+            # evaluate contant as eval
+            print ("needs current line evaluation")
+            #todo goto end of line
+            self.text3.WriteText(chr(10) + "line evalution output is : " + chr(10))
+            self.text3.WriteText("evalution.. %s" % chr(10))
+            eval(textFiled)
+        else:
+            # pass event to act regularly
+            evt.Skip()
+
 
     def onPaste(self, evt):
         success = False
@@ -224,7 +292,9 @@ class FileDropPanel(wx.Panel):
             self.text3.SetInsertionPointEnd()
             self.text3.WriteText("\nPaste string : \n%s\n" % pastedStr)
 
+            ## ran
             self.openImageShortcutsPanel(pastedStr)
+            ## ran
 
         else:
             wx.MessageBox(
