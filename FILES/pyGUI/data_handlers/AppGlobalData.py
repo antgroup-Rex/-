@@ -35,6 +35,9 @@ class myAppData(dict):
         self.lastPastedUrl  = 'selfInitTest2'
         self.testField      = 'c'
         self.lastFileID     = -1
+        if __debug__:
+            print "initialized appDB"
+            print self
 
     def incFileID(self):
         self.lastFileID += 1

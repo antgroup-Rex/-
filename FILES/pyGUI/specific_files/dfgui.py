@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8
-
 from __future__ import absolute_import, division, print_function
 
 try:
     import wx
+
+    if __debug__ == True:
+        print ("imported wx from default path")
+
 except ImportError:
     import sys
     sys.path += [
@@ -12,6 +15,26 @@ except ImportError:
         "/usr/lib/python2.7/dist-packages"
     ]
     import wx
+
+    if __debug__ == True:
+        print ("imported from non default path")
+
+
+try:
+    import sys
+    sys.path += [
+        "../"
+    ]
+
+    from AUI_Agw import *
+
+    if __debug__ == True:
+        print ("imported aui from parent path")
+
+except ImportError:
+    if __debug__ == True:
+        print ("could not import aui")
+
 
 import matplotlib
 matplotlib.use('WXAgg')
@@ -38,6 +61,10 @@ except ImportError:
     except AttributeError:
         pass
 
+########## ########## ########## ########## ########## ########## ########
+
+##########################################################################
+##########################################################################
 
 class ListCtrlDataFrame(wx.ListCtrl):
 
@@ -202,6 +229,8 @@ class ListCtrlDataFrame(wx.ListCtrl):
         # delete temporary column
         del self.df[self.TMP_SELECTION_COLUMN]
 
+        self.Refresh()
+
     def _on_right_click(self, event):
         """
         Copies a cell into clipboard on right click. Unfortunately,
@@ -232,6 +261,7 @@ class ListCtrlDataFrame(wx.ListCtrl):
             # value = self.df.iloc[row, col]
             # print(row, col, scroll_pos, value)
             values = self.df.iloc[row]       #ran
+            print(" *** copying to clipboard : ")
             print(row, scroll_pos, values)  #ran
 
             clipdata = wx.TextDataObject()
@@ -271,6 +301,9 @@ class DataframePanel(wx.Panel):
         sizer.Add(self.df_list_ctrl, 1, wx.ALL | wx.EXPAND | wx.GROW, 5)
         self.SetSizer(sizer)
         self.Show()
+
+##########################################################################
+##########################################################################
 
 
 class ListBoxDraggable(wx.ListBox):
@@ -390,6 +423,8 @@ class ColumnSelectionPanel(wx.Panel):
         self.df_list_ctrl.set_columns(selected)
 
 
+##########################################################################
+
 class FilterPanel(wx.Panel):
     """
     Panel for defining filter expressions.
@@ -448,6 +483,8 @@ class FilterPanel(wx.Panel):
         # print("Num matching:", num_matching)
 
 
+##########################################################################
+
 class HistogramPlot(wx.Panel):
     """
     Panel providing a histogram plot.
@@ -502,6 +539,8 @@ class HistogramPlot(wx.Panel):
 
                 self.canvas.draw()
 
+
+##########################################################################
 
 class ScatterPlot(wx.Panel):
     """
@@ -561,17 +600,29 @@ class ScatterPlot(wx.Panel):
                 self.canvas.draw()
 
 
+##########################################################################
+
+
+########## ########## ########## ########## ########## ########## ########
+
 class MainFrame(wx.Frame):
     """
     The main GUI window.
     """
+    __notebook_type_aui = True
+
     def __init__(self, df):
+        global __notebook_type_aui
         wx.Frame.__init__(self, None, -1, "Pandas DataFrame GUI")
 
-        # Here we create a panel and a notebook on the panel
-        p = wx.Panel(self)
-        nb = wx.Notebook(p)
-        self.nb = nb
+        if self.__notebook_type_aui:
+            _prnt = self
+        else:
+            # Here we create a panel and a notebook on the panel
+            p = wx.Panel(self)
+            nb      = wx.Notebook(p)
+            self.nb = nb
+            _prnt = nb
 
         columns = df.columns[:]
 
@@ -579,29 +630,69 @@ class MainFrame(wx.Frame):
         self.SetStatusWidths([200, -1])
 
         # create the page windows as children of the notebook
-        self.page1 = DataframePanel(nb, df, self.status_bar_callback)
-        self.page2 = ColumnSelectionPanel(nb, columns, self.page1.df_list_ctrl)
-        self.page3 = FilterPanel(nb, columns, self.page1.df_list_ctrl, self.selection_change_callback)
-        self.page4 = HistogramPlot(nb, columns, self.page1.df_list_ctrl)
-        self.page5 = ScatterPlot(nb, columns, self.page1.df_list_ctrl)
+        self.page1 = DataframePanel(_prnt, df, self.status_bar_callback)
+        self.page2 = ColumnSelectionPanel(_prnt, columns, self.page1.df_list_ctrl)
+        self.page3 = FilterPanel(_prnt, columns, self.page1.df_list_ctrl, self.selection_change_callback)
+        self.page4 = HistogramPlot(_prnt, columns, self.page1.df_list_ctrl)
+        self.page5 = ScatterPlot(_prnt, columns, self.page1.df_list_ctrl)
 
         # add the pages to the notebook with the label to show on the tab
-        nb.AddPage(self.page1, "Data Frame")
-        nb.AddPage(self.page2, "Columns")
-        nb.AddPage(self.page3, "Filters")
-        nb.AddPage(self.page4, "Histogram")
-        nb.AddPage(self.page5, "Scatter Plot")
+        if self.__notebook_type_aui:
+            self.otherNotebookSuggestion()
+        else:
+            nb.AddPage(self.page1, "Data Frame")
+            nb.AddPage(self.page2, "Columns")
+            nb.AddPage(self.page3, "Filters")
+            nb.AddPage(self.page4, "Histogram")
+            nb.AddPage(self.page5, "Scatter Plot")
 
-        nb.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.on_tab_change)
+            nb.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.on_tab_change)
 
-        # finally, put the notebook in a sizer for the panel to manage
-        # the layout
-        sizer = wx.BoxSizer()
-        sizer.Add(nb, 1, wx.EXPAND)
-        p.SetSizer(sizer)
+            # finally, put the notebook in a sizer for the panel to manage
+            # the layout
+            sizer = wx.BoxSizer()
+            sizer.Add(nb, 1, wx.EXPAND)
+            p.SetSizer(sizer)
 
         self.SetSize((800, 600))
         self.Center()
+
+    def otherNotebookSuggestion(self):
+        self._mgr = aui.AuiManager()
+        # tell AuiManager to manage this frame
+        self._mgr.SetManagedWindow(self)
+
+        caption1 = "Data Frame"
+        caption2 = "Columns"
+        caption3 = "Filters"
+        caption4 = "Histogram"
+        caption5 = "Scatter Plot"
+
+        self._mgr.AddPane(self.page1, aui.AuiPaneInfo().
+                          Name("autonotebook").Caption(caption1).
+                          Bottom().Layer(1).Position(1).MinimizeButton(True))
+
+        self._mgr.AddPane(self.page2, aui.AuiPaneInfo().
+                          Name("page2").Caption(caption2).
+                          Bottom().MinimizeButton(True),
+                          target=self._mgr.GetPane("autonotebook"))  # note: using target creates tabs collection
+
+        self._mgr.AddPane(self.page3, aui.AuiPaneInfo().
+                          Name("page3").Caption(caption3).
+                          Bottom().MinimizeButton(True),
+                          target=self._mgr.GetPane("autonotebook"))  # note: using target creates tabs collection
+
+        self._mgr.AddPane(self.page4, aui.AuiPaneInfo().
+                          Name("page4").Caption(caption4).
+                          Bottom().MinimizeButton(True),
+                          target=self._mgr.GetPane("autonotebook"))  # note: using target creates tabs collection
+
+        self._mgr.AddPane(self.page5, aui.AuiPaneInfo().
+                          Name("page5").Caption(caption5).
+                          Bottom().MinimizeButton(True),
+                          target=self._mgr.GetPane("autonotebook"))  # note: using target creates tabs collection
+
+        self._mgr.Update()
 
     def on_tab_change(self, event):
         self.page2.list_box.SetFocus()
@@ -634,3 +725,17 @@ def show(df):
     frame = MainFrame(df)
     frame.Show()
     app.MainLoop()
+
+########## ########## ########## ########## ########## ########## ########
+
+def show_tabel_panel(df, parent):
+    '''
+    'stand-alone' operation of DataframePanel by external wxFrame
+    :param df:
+    :param parent:
+    :return:
+         wx.Panel type
+    '''
+
+    parentStatusBar = parent.status_bar_callback
+    return DataframePanel(parent, df, parentStatusBar)

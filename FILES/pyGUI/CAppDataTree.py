@@ -36,6 +36,7 @@ class AppData_TreeCtrl(wx.TreeCtrl):
         self.AssignImageList(imglist)
 
         self.Bind(wx.EVT_TREE_ITEM_ACTIVATED, self.treeItemActivatedCapture) # will catch mouse double click only if the above is not binded
+        self.Bind(wx.EVT_RIGHT_DOWN         , self.onRightClick)  # catch mouse right click
 
         self.root = self.AddRoot(frame_title, 0)  #todo: init with None and replace if appData not empty
         self.items = []
@@ -57,7 +58,9 @@ class AppData_TreeCtrl(wx.TreeCtrl):
         self.Expand(self.root)
 
     def treeItemActivatedCapture(self, event=None):
-        print "tree dbl clk"
+        if __debug__:
+            print "tree dbl clk"
+
         # print time.time()
         # print time.ctime()
         treeItem            = event.EventObject
@@ -86,15 +89,54 @@ class AppData_TreeCtrl(wx.TreeCtrl):
         if appDataRelevantFileID > -1:  #todo: change -1 to some app constant
             print 'appDataRelFileID gt -1'
             if self.Parent.Parent._appDataRef.mainDict[appDataRelevantFileID].Type == 'DataFrame':
-                DFdata = self.Parent.Parent._appDataRef.mainDict[appDataRelevantFileID].loadedData
-                parentCtrl = self.Parent.Parent
+                parentWindowCtrl = self.Parent.Parent
+                DFdata = parentWindowCtrl._appDataRef.mainDict[appDataRelevantFileID].loadedData
+
                 # show data in wx table under parent, with stored identification related to main appData
-                # specific_files.dfgui.show(DFdata.T)
-                specific_files.dfgui.show(DFdata)
+                ## specific_files.dfgui.show(DFdata)
 
-                headersList = list(DFdata.columns.values) # or list(DFdata)
-                        # can tty also sorted(DFdata)
-                
-            pass
+                wxPnl = specific_files.dfgui.show_tabel_panel(DFdata, parentWindowCtrl)
+                parentWindowCtrl.Create_DFtable(wxPnl)
 
+                headersList = list(DFdata.columns.values) # or list(DFdata)  # can tty also sorted(DFdata)
+        ##
+        pieces = []
+        item = treeItem.GetSelection()
+        while item:
+            piece = treeItem.GetItemText(item)
+            pieces.insert(0, piece)
+            item = treeItem.GetItemParent(item)
+        print "item path tree : "
+        print pieces
+        ##
         # wx.MessageBox("msg box")
+
+    def onRightClick(self, event):
+        if __debug__:
+            print("right clicked ")
+
+        print time.ctime()
+        treeItem        = event.EventObject
+        selectedItem    = event.EventObject.Selections[0]
+        selectedItemLabel   = treeItem.GetItemText(selectedItem)
+        selectedItemParent  = treeItem.GetItemParent(selectedItem)
+
+        appDataRelevantFileID = treeItem.GetItemData(selectedItem)
+        if appDataRelevantFileID == None:
+            appDataRelevantFileID = treeItem.GetItemData(selectedItemParent)
+
+        if appDataRelevantFileID > -1:  # todo: change -1 to some app constant
+            parentWindowCtrl = self.Parent.Parent
+            DFdata = parentWindowCtrl._appDataRef.mainDict[appDataRelevantFileID].loadedData
+            headersList = list(DFdata.columns.values)  # or list(DFdata)  # can tty also sorted(DFdata)
+
+        pieces = []
+        item = treeItem.GetSelection()
+        while item:
+            piece = treeItem.GetItemText(item)
+            pieces.insert(0, piece)
+            item = treeItem.GetItemParent(item)
+        print "item path tree : "
+        print pieces
+        pass
+        list(parentWindowCtrl._appDataRef.mainDict[0].loadedData)

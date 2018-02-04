@@ -39,6 +39,7 @@ def file_action_by_type(full_file_name, parentAppData):       # todo: act on fil
     fileDict = get_file_details(full_file_name)
 
     if fileDict['isFile']==True:
+        #todo: add file path to records
         if fileDict['extension'] == '.txt':
             # todo: ask to open as notepad and edit ?
             print "text file is given"

@@ -58,7 +58,8 @@ class AuiFrame(wx.Frame):
         self.log = log
 
         self.CreateStatusBar()
-        self.GetStatusBar().SetStatusText("Ready")
+        # self.GetStatusBar().SetStatusText("Ready")
+        self.status_bar_callback(0, "Ready by new BAR")
 
         self.BuildPanes()
         self.CreateMenuBar()
@@ -66,6 +67,8 @@ class AuiFrame(wx.Frame):
 
         self._appDataRef = appDataObj
 
+    def status_bar_callback(self, i, new_text):
+        self.GetStatusBar().SetStatusText(new_text, i)
 
     def setViewMenu(self):
         view_menu = wx.Menu()
@@ -976,8 +979,13 @@ class AuiFrame(wx.Frame):
             self.OnCreate_AppDataTree()
         elif event.EventObject._tip_item.label == "Item 4 - reload CSV":
             print "reloading"
-            fileDict = files_handler.get_file_details('quad_sim.csv')
-            files_handler.load_CSV_to_appData(fileDict, self._appDataRef)
+            fileDict1 = files_handler.get_file_details('quad_sim.csv')
+            filePath = 'C:\Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/'
+            fileDict2 = files_handler.get_file_details(u'C:/Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/titanic3.csv')
+            fileDict3 = files_handler.get_file_details(u'C:/Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/tips.csv')
+            files_handler.load_CSV_to_appData(fileDict1, self._appDataRef)
+            files_handler.load_CSV_to_appData(fileDict2, self._appDataRef)
+            files_handler.load_CSV_to_appData(fileDict3, self._appDataRef)
 
         pass
 
@@ -1728,6 +1736,17 @@ class AuiFrame(wx.Frame):
         treeCtrl.populateTree(self._appDataRef)
         self._mgr.Update()
 
+    def Create_DFtable(self, DFpanel, event=0): # activated by external CAppDataTree action
+        frame_title = "selected data file table"
+
+        tblCtrl = DFpanel
+        self._mgr.AddPane(tblCtrl, aui.AuiPaneInfo().
+                          Caption(frame_title).
+                          Float().FloatingPosition(self.GetStartPosition()).
+                          FloatingSize(wx.Size(150, 300)).MinimizeButton(True))
+
+        self._mgr.Update()
+
     def OnCreateRanTree(self, event=0, name="", caption="Ran Tree Control", update=True, option=2):
 
         if option==1:
@@ -2334,11 +2353,11 @@ if __name__ == '__main__':
     # import sys,os
     # import run
     # run.main(['', os.path.basename(sys.argv[0])] + sys.argv[1:])
-    app = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
+    app   = wx.App(False)  # Create a new app, don't redirect stdout/stderr to a window.
     frame = wx.Frame(None, wx.ID_ANY, "initial wxFrame")  # A Frame is a top-level window.
     frame.Show(False)  # Show the frame.
-    pnl = wx.Panel(frame)
-    log = Log()
+    pnl   = wx.Panel(frame)
+    log   = Log()
 
     appDataObj  = appDB.myAppData()
     appDataObj.initializeDataFields()
@@ -2348,4 +2367,6 @@ if __name__ == '__main__':
 
     win         = MainAUI(pnl, log)
     app.MainLoop()
-    pass
+
+    # appDataObj
+    # pass

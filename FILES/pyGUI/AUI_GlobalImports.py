@@ -8,6 +8,7 @@ import sys
 # import time # ran note: used directly by CProgressGauge
 
 import data_handlers.AppGlobalData         	as appDB
+import data_handlers.DataFrames_actions    	as dfActions
 
 # import specific_files.pyTesting_xml_to_nexX as rNX  #ran - TODO : set the import just as class preparation
 import from_demo_agw.ZoomBar                as zB

@@ -10,8 +10,15 @@ import files_handler
 
 import ShapedWindows as ShpWin
 
-sys.path.append('../specific_files/')  # to find above packages
-import interpShell
+if __name__=="__main__":
+    print "activated by 1 , as : " + __name__
+    sys.path.append('../specific_files/')  # to find above packages
+    import interpShell
+else:
+    print "activated by 2 , as : " + __name__
+    sys.path.append('../specific_files/')  # to find above packages
+    sys.path.append('./specific_files/')  # to find above packages
+    import interpShell
 
 #----------------------------------------------------------------------
 
@@ -198,12 +205,12 @@ class FileDropPanel(wx.Panel):
         passedLocals = {"__name__": "__RanConsole__", \
                         "__doc__": "None docs will be populated by ran", \
                         "varA": strct}
-        I = II(passedLocals)
+        I = interpShell.II(passedLocals)
 
 
-        self.text3 = PySTC(             #wx.TextCtrl(
-                        self, -1,       #"",
-                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL )
+        self.text3 = interpShell.PySTC(             #wx.TextCtrl(
+                                        self, -1,       #"",
+                                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL )
         self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
         self.text3.Bind(wx.EVT_CHAR, self.onCtrlE)
         self.text3.SetInter(I)

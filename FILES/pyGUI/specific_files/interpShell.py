@@ -2,7 +2,8 @@ import wx
 import wx.stc as stc
 import code
 import sys
-import __main__
+
+print  "entered interpShell as : " + __name__
 
 # other posiible usage (but very simple and not flexible) :
 #   x = code.InteractiveConsole()
@@ -92,6 +93,7 @@ class ecpintframe(wx.Frame):
         self.ed = PySTC(self, -1)
 
 if __name__ == '__main__':
+    print "activated by 3 : " + __name__
     Ecpint = wx.PySimpleApp(0)
     class Strct():
         a='a'
