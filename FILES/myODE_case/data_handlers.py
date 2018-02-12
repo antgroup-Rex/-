@@ -12,9 +12,26 @@ from    random          import  randint
 import  pandas          as      pd
 
 import csv
-##################################
 
-def simulation_data_to_csv(time_vetor, state_vecotr_records, output_file_name):
+import time
+##################################
+def getCurrentTimeString():
+    # time.ctime(1400000000) -> Tue May 13 19:53:20 2014
+
+    # time.localtime() ->
+    # Out[20]: time.struct_time(tm_year=2018, tm_mon=2, tm_mday=5,
+    #                            tm_hour=3, tm_min=22, tm_sec=29, tm_wday=0, tm_yday=36, tm_isdst=0)
+
+    timeStrct = time.localtime()
+    fileStr = str(timeStrct.tm_year) + "_" \
+              + str(timeStrct.tm_mon) + "_" \
+              + str(timeStrct.tm_mday) + "_" \
+              + str(timeStrct.tm_hour) + "_" \
+              + str(timeStrct.tm_min) + "_" \
+              + str(timeStrct.tm_sec) + "_quad_sim.csv"
+
+
+def simulation_data_to_csv(time_vetor, state_vecotr_records, output_file_name, csvHeaderline = None):
     '''
     :param time_vetor: ndarray type
     :param state_vecotr_records:ndarray type
@@ -33,6 +50,8 @@ def simulation_data_to_csv(time_vetor, state_vecotr_records, output_file_name):
         # one_record = np.column_stack((time_vetor[ndx], state))
         file_data = np.row_stack((file_data,one_record))
     with open(output_file_name, 'w') as csvfile:
+        if csvHeaderline:
+            csvfile.write(csvHeaderline)
         np.savetxt(csvfile, file_data, delimiter=",")
     pass
 
@@ -80,6 +99,7 @@ def print_data_table(Header, data_as_numpy_list):
 
     print tmp
 
+#####################################################
 #####################################################
 
 def pd_trial():

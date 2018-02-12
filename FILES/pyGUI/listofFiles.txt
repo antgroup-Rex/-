@@ -1,0 +1,383 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 2623-B768
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI
+
+18/01/2018  06:26    <DIR>          .
+18/01/2018  06:26    <DIR>          ..
+08/12/2017  15:37             7,582 AUI_Agw.py
+14/01/2018  01:18             1,171 AUI_GlobalImports.py
+27/12/2017  07:29            14,915 AUI_JsonControlPanel.py
+08/12/2017  11:23           105,012 AUI_MAIN - keep Copy.py
+17/01/2018  16:40           100,608 AUI_MAIN.py
+11/12/2017  23:03            13,919 AUI_settingsPanel.py
+17/01/2018  16:51             4,451 CAppDataTree.py
+29/05/2017  23:34             5,021 CProgressGauge.py
+29/05/2017  23:01             1,987 CSizeReportCtrl.py
+04/05/2017  19:04            10,202 Custom_pane_buttons.py
+18/01/2018  00:08    <DIR>          data_handlers
+17/01/2018  22:53             7,263 files_handler.py
+12/01/2018  17:57    <DIR>          from_demo_agw
+04/05/2017  19:34            15,096 Intro_html_text.py
+22/12/2017  16:04               202 JsonControlPanel - Copy (2).json
+22/12/2017  16:02               215 JsonControlPanel - Copy.json
+23/12/2017  06:53               608 JsonControlPanel.json
+18/01/2018  06:26                 0 listofFiles
+18/01/2018  00:08            15,447 perspectives.txt
+29/12/2017  17:55         1,780,484 quad_sim - Copy.csv
+17/01/2018  16:45         1,780,499 quad_sim.csv
+22/05/2017  21:38    <DIR>          runtime_outputs
+18/01/2018  00:08    <DIR>          specific_files
+22/05/2017  21:38    <DIR>          system_images
+03/06/2017  15:04    <DIR>          user_prefs
+22/05/2017  21:37    <DIR>          _ref code
+25/04/2017  22:26                 0 __init__.py
+              20 File(s)      3,864,682 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\data_handlers
+
+18/01/2018  00:08    <DIR>          .
+18/01/2018  00:08    <DIR>          ..
+13/01/2018  15:17             1,968 AppGlobalData.py
+18/01/2018  00:08             2,918 AppGlobalData.pyc
+11/12/2017  19:08               247 xml_handler.py
+25/04/2017  22:26                 0 __init__.py
+03/01/2018  18:39               171 __init__.pyc
+               5 File(s)          5,304 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\from_demo_agw
+
+12/01/2018  17:57    <DIR>          .
+12/01/2018  17:57    <DIR>          ..
+30/05/2017  12:38    <DIR>          bitmaps
+30/05/2017  10:04            15,554 DragAndDrop - Copy before trimming.py
+05/05/2017  21:03             9,618 DragAndDrop - original.py
+10/01/2018  21:06            11,087 DragAndDrop.py
+11/01/2018  18:57             9,011 DragAndDrop.pyc
+27/11/2014  14:27             1,706 DragScroller.py
+12/01/2018  17:55             4,579 example.xml
+27/11/2014  14:27           516,894 images.py
+26/12/2017  05:53           458,604 images.pyc
+30/05/2017  10:31             4,861 run.py
+03/01/2018  20:48             5,174 run.pyc
+30/05/2017  07:00             4,927 ShapedWindows.py
+26/12/2017  05:53             5,529 ShapedWindows.pyc
+11/12/2017  19:07             2,935 XMLtreeview.py
+26/12/2017  05:53             3,809 XMLtreeview.pyc
+12/01/2018  17:35             2,493 XMLtreeview__.py
+27/11/2014  14:27             7,552 ZoomBar.py
+26/12/2017  05:53             8,729 ZoomBar.pyc
+25/04/2017  22:26                 0 __init__.py
+26/12/2017  05:53               171 __init__.pyc
+              19 File(s)      1,073,233 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\from_demo_agw\bitmaps
+
+30/05/2017  12:38    <DIR>          .
+30/05/2017  12:38    <DIR>          ..
+27/02/2013  12:14            30,056 advancedsplash.png
+27/02/2013  12:14             9,328 AG00028_.gif
+27/02/2013  12:14             3,587 AG00039_.gif
+27/02/2013  12:14            13,688 AG00178_.gif
+27/02/2013  12:14            16,473 AG00183_.gif
+27/02/2013  12:14             6,743 AG00185_.gif
+27/02/2013  12:14             2,547 aquabutton.png
+27/02/2013  12:14             1,406 aquachecked.ico
+27/02/2013  12:14             1,406 aquaflagged.ico
+27/02/2013  12:14             1,406 aquanotchecked.ico
+27/02/2013  12:14             1,406 aquanotflagged.ico
+27/02/2013  12:14            12,877 BD13656_.gif
+27/02/2013  12:14               152 canada.gif
+27/02/2013  12:14               634 checked.ico
+27/02/2013  12:14               410 columns.png
+27/02/2013  12:14               804 contexthelp-16.png
+27/02/2013  12:14               872 contexthelp.png
+27/02/2013  12:14             3,781 copy.png
+08/05/2017  06:56               171 cropshot24x20.png
+27/02/2013  12:14             2,169 cut.png
+27/02/2013  12:14             1,075 editcopy.png
+27/02/2013  12:14             1,379 editcut.png
+27/02/2013  12:14             1,550 editpaste.png
+27/02/2013  14:34             3,519 empty_icon.png
+27/02/2013  12:14               876 exit-16.png
+27/02/2013  12:14             1,406 exit.ico
+27/02/2013  14:34            17,899 Explorer96.png
+27/02/2013  14:34            18,039 Explorer96Flip40.png
+27/02/2013  12:14             1,017 ffwd.png
+27/02/2013  12:14               418 ffwddisabled.png
+27/02/2013  12:14             3,422 field-16.png
+27/02/2013  12:14               410 filenew.png
+27/02/2013  12:14             1,365 fileopen.png
+27/02/2013  12:14             1,440 filesave.png
+27/02/2013  12:14               634 flagged.ico
+27/02/2013  14:34             1,336 folder.png
+27/02/2013  14:34            15,210 Folder96.png
+27/02/2013  14:34            15,658 Folder96Flip40.png
+27/02/2013  12:14             1,713 folder_new.png
+27/02/2013  12:14             1,348 ghost.png
+27/02/2013  12:14             2,739 gradientbutton.png
+27/02/2013  12:14             3,567 help-16.png
+27/02/2013  12:14             1,406 help.ico
+08/05/2017  06:56            63,587 honeycomb300.png
+27/02/2013  12:14            57,138 image.bmp
+27/02/2013  12:14             7,116 image.gif
+08/05/2017  06:56            67,646 image.ico
+27/02/2013  12:14             8,087 image.jpg
+27/02/2013  12:14            17,905 image.png
+08/05/2017  06:56            58,092 image.tif
+27/02/2013  12:14               119 italy.gif
+27/02/2013  12:14             2,509 lbadd.png
+27/02/2013  12:14             2,989 lbcharge.png
+27/02/2013  12:14             2,025 lbdecrypted.png
+27/02/2013  12:14             2,758 lbnews.png
+27/02/2013  12:14             2,434 lbroll.png
+27/02/2013  12:14             1,278 minus1.ico
+27/02/2013  12:14             1,346 minus2.ico
+27/02/2013  12:14             1,262 minus3.ico
+27/02/2013  12:14               258 minus4.ico
+27/02/2013  12:14             1,346 minus5.ico
+27/02/2013  14:34            12,868 Monitor96.png
+27/02/2013  14:34            12,659 Monitor96Flip40.png
+27/02/2013  12:14             3,090 month-16.png
+27/02/2013  14:34            18,227 Music96.png
+27/02/2013  14:34            18,095 Music96Flip40.png
+27/02/2013  12:14             1,857 new_file.png
+27/02/2013  12:14             1,952 new_folder.png
+27/02/2013  12:14               634 notchecked.ico
+27/02/2013  12:14               634 notflagged.ico
+27/02/2013  12:14             3,318 ok-16.png
+27/02/2013  12:14             2,238 open_folder.png
+27/02/2013  12:14             1,458 paste.png
+27/02/2013  12:14               966 pause.png
+27/02/2013  12:14               258 pausedisabled.png
+08/05/2017  06:56             2,710 phoenix_title.png
+08/05/2017  06:56            74,192 phoenix_top.png
+27/02/2013  14:34            14,807 Photo96.png
+27/02/2013  14:34            14,908 Photo96Flip40.png
+27/02/2013  12:14               958 play.png
+27/02/2013  12:14               350 playdisabled.png
+27/02/2013  12:14             1,278 plus1.ico
+27/02/2013  12:14             1,346 plus2.ico
+27/02/2013  12:14             1,262 plus3.ico
+27/02/2013  12:14               258 plus4.ico
+27/02/2013  12:14             1,346 plus5.ico
+27/02/2013  12:14               996 record.png
+27/02/2013  12:14               432 recorddisabled.png
+27/02/2013  12:14             1,031 rewind.png
+27/02/2013  12:14               423 rewinddisabled.png
+27/02/2013  12:14             1,171 round.png
+27/02/2013  12:14             2,346 save.png
+27/02/2013  14:34             9,247 Search96.png
+27/02/2013  14:34             9,004 Search96Flip40.png
+27/02/2013  14:34             1,251 separator.gif
+27/02/2013  14:34             1,584 separatorflip.png
+27/02/2013  12:14             2,238 smfuel.ico
+27/02/2013  12:14             2,238 smpi.ico
+27/02/2013  12:14             2,238 smtemp.ico
+08/05/2017  06:56            52,066 snakey_render.png
+27/02/2013  12:14            64,072 splash.png
+27/02/2013  12:14               975 stop.png
+27/02/2013  12:14               222 stopdisabled.png
+27/02/2013  12:14            13,373 sttbutton.png
+27/02/2013  12:14             7,252 sttfont.png
+27/02/2013  12:14               869 sttheader.png
+27/02/2013  12:14             1,187 stthelp.png
+30/05/2017  12:39           614,400 Thumbs.db
+27/02/2013  12:14            21,806 toucan.png
+27/02/2013  12:14             2,224 view1.png
+27/02/2013  12:14             2,223 view2.png
+27/02/2013  12:14               589 viewmag-16.png
+27/02/2013  12:14             3,457 viewmag-m-16.png
+27/02/2013  12:14             3,434 viewmag-p-16.png
+27/02/2013  12:14             3,433 viewmagfit-16.png
+27/02/2013  12:14             1,310 view_choose.png
+27/02/2013  12:14             1,117 view_detailed.png
+27/02/2013  12:14             1,314 view_icon.png
+27/02/2013  12:14             1,309 view_multicolumn.png
+27/02/2013  14:34            11,767 Wizard96.png
+27/02/2013  14:34            12,057 Wizard96Flip40.png
+             121 File(s)      1,551,561 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\runtime_outputs
+
+22/05/2017  21:38    <DIR>          .
+22/05/2017  21:38    <DIR>          ..
+29/05/2017  19:32             3,525 jsonGout.json
+29/05/2017  19:32             7,319 jsonGwVout.json
+29/05/2017  19:32            18,649 system_graph.png
+29/05/2017  19:32           138,626 system_graph_with_VirtEdges.png
+08/12/2017  10:49            25,600 Thumbs.db
+               5 File(s)        193,719 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\specific_files
+
+18/01/2018  00:08    <DIR>          .
+18/01/2018  00:08    <DIR>          ..
+14/12/2017  22:19               233 checkVpython.py
+17/01/2018  23:50            21,957 dfgui.py
+18/01/2018  00:08            23,526 dfgui.pyc
+14/01/2018  01:04             1,457 dfgui_demo.py
+07/04/2017  22:29             2,729 example.xml
+28/04/2017  08:54             3,884 mathtext_wx.py
+28/04/2017  14:03             1,341 netXinWx.py
+29/05/2017  19:30            17,768 pyTesting_xml_to_nexX.py
+04/06/2017  05:11            10,081 show_tiff.py
+08/12/2017  10:52    <DIR>          tif
+25/04/2017  22:26                 0 __init__.py
+26/12/2017  05:53               172 __init__.pyc
+              11 File(s)         83,148 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\specific_files\tif
+
+08/12/2017  10:52    <DIR>          .
+08/12/2017  10:52    <DIR>          ..
+16/05/2017  19:24            11,082 CCITT_2.TIF
+16/05/2017  19:24            19,378 CCITT_8.TIF
+16/05/2017  19:24            46,371 FLAG_T24.TIF
+02/01/2018  19:05            58,368 Thumbs.db
+16/05/2017  19:24           118,248 XING_T24.TIF
+               5 File(s)        253,447 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\system_images
+
+22/05/2017  21:38    <DIR>          .
+22/05/2017  21:38    <DIR>          ..
+28/03/2017  22:51           132,542 quad.jpg
+28/03/2017  23:12             2,490 slung-load.jpg
+02/01/2018  19:04            33,280 Thumbs.db
+               3 File(s)        168,312 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\user_prefs
+
+03/06/2017  15:04    <DIR>          .
+03/06/2017  15:04    <DIR>          ..
+10/05/2017  21:38               106 buying_categpries.json
+03/06/2017  15:04               979 demoScriptBlender.txt - 2nd.py
+03/06/2017  15:02             4,590 demoScriptBlender.txt.py
+28/05/2017  16:07         1,981,654 Designing-Data-Intensive-Applications-Mesosphere.pdf
+29/05/2017  19:25                61 icon_menu_user_items.json
+03/06/2017  15:14             2,833 phys_system_items.xml
+29/05/2017  19:25                61 subject_categories.json
+28/05/2017  06:42               439 userUrLinks - example.txt.json
+10/12/2017  22:47               196 userUrLinks.txt
+               9 File(s)      1,990,919 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+22/05/2017  21:37    <DIR>          blender_scripts-master
+16/05/2017  23:30             8,581 filedrop.py
+22/05/2017  21:37    <DIR>          FilesDirsDrop_Demo
+22/05/2017  21:37    <DIR>          wxDnD
+               1 File(s)          8,581 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\blender_scripts-master
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+07/05/2017  21:51               483 .gitattributes
+07/05/2017  21:51             1,970 .gitignore
+07/05/2017  21:51             2,651 add_archimedian_spiral.py
+07/05/2017  21:51             1,028 align_by_boundobx.py
+07/05/2017  21:51             1,087 align_faces.py
+07/05/2017  21:51             1,230 align_with_edge.py
+07/05/2017  21:51               972 attach_objects.py
+07/05/2017  21:51             2,720 calc_edge_angles.py
+07/05/2017  21:51             1,064 calc_triangle_from_3_faces.py
+07/05/2017  21:51               345 change_particles_position.py
+07/05/2017  21:51             2,481 check_intersections_and_inside_volume.py
+07/05/2017  21:51               841 circle_hex_grid.py
+07/05/2017  21:51               680 curve_slice.py
+22/05/2017  21:37    <DIR>          fibonacci_generator
+07/05/2017  21:51               347 find_bounbox_and_bbcenter.py
+07/05/2017  21:51               483 game_screenshot.py
+07/05/2017  21:51             8,635 gml_importer.py
+07/05/2017  21:51         1,657,664 hexes.blend
+07/05/2017  21:51             1,376 intersect_and_add_vert.py
+07/05/2017  21:51               320 material_transp_anim.py
+07/05/2017  21:51             8,957 mesh_guided_duplication.py
+07/05/2017  21:51               488 print_keyframe_data.py
+22/05/2017  21:37    <DIR>          pycon2016il
+07/05/2017  21:51             1,567 random_circles.py
+22/05/2017  21:37    <DIR>          random_material_assigners
+07/05/2017  21:51             4,719 render_from_game.py
+07/05/2017  21:51               833 render_movie_to_images.py
+07/05/2017  21:51               378 save_by_number_of_verts.py
+07/05/2017  21:51               613 select_by_volume.py
+07/05/2017  21:51               275 select_closest_face_to_cursor.py
+07/05/2017  21:51             7,902 snowflake_generator.py
+07/05/2017  21:51                 5 test.py
+07/05/2017  21:51             1,863 text_to_mesh_updater.py
+07/05/2017  21:51               520 text_to_mesh_updater_framehandler.py
+07/05/2017  21:51             1,107 uvIslands.py
+07/05/2017  21:51             2,751 vertexMover.py
+07/05/2017  21:51             3,398 vertex_guided_duplication.py
+07/05/2017  21:51               944 vert_weight_from_distance.py
+22/05/2017  21:37    <DIR>          vse_tools
+              35 File(s)      1,722,697 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\blender_scripts-master\fibonacci_generator
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+07/05/2017  21:51             7,378 fibonacci_spiral.py
+               1 File(s)          7,378 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\blender_scripts-master\pycon2016il
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+07/05/2017  21:51            63,494 3DBars.png
+07/05/2017  21:51             1,372 csv2blender.py
+07/05/2017  21:51             2,042 csv2blender_animated.py
+07/05/2017  21:51           515,680 csvExample.blend
+07/05/2017  21:51               824 sin_mesh.py
+07/05/2017  21:51               915 sin_mesh_noNumpy.py
+               6 File(s)        584,327 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\blender_scripts-master\random_material_assigners
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+07/05/2017  21:51             2,896 random_material_assigner_for_objects.py
+07/05/2017  21:51             4,990 random_material_assigner_per_face_addon.py
+07/05/2017  21:51             9,442 random_material_assigner_per_face_new_features.py
+07/05/2017  21:51           537,896 test_material_assigner.blend
+07/05/2017  21:51           540,300 test_material_assigner.blend1
+07/05/2017  21:51           540,300 test_material_assigner.blend2
+               6 File(s)      1,635,824 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\blender_scripts-master\vse_tools
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+07/05/2017  21:51             6,106 vse_tools.py
+               1 File(s)          6,106 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\FilesDirsDrop_Demo
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+01/06/2012  15:38             5,770 DndDropTargets.py
+05/06/2012  14:16            20,173 FilesDirsDropCtrl.py
+05/06/2012  13:57            15,925 FilesDirsDrop_Demo.py
+06/05/2017  12:42            12,613 FilesDirsDrop_Demo.zip
+05/06/2012  14:11             5,027 FolderDropCtrl.py
+               5 File(s)         59,508 bytes
+
+ Directory of C:\Users\Ran_the_User\Documents\GitHub\pyFiles\FILES\pyGUI\_ref code\wxDnD
+
+22/05/2017  21:37    <DIR>          .
+22/05/2017  21:37    <DIR>          ..
+20/06/2012  17:55             2,736 dnd_file.py
+07/05/2017  22:59             1,461 dnd_fromCode.py
+20/06/2012  22:05             3,931 dnd_olv.py
+20/06/2012  16:33             2,121 dnd_text.py
+20/06/2012  17:32             3,749 dnd_url.py
+07/05/2017  19:00             3,757 wxDnD.zip
+               6 File(s)         17,755 bytes
+
+     Total Files Listed:
+             259 File(s)     13,226,501 bytes
+              50 Dir(s)     583,139,328 bytes free

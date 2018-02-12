@@ -1,0 +1,11 @@
+Folder PATH listing
+Volume serial number is 2623-B768
+C:.
+|   data_handlers.py
+|   gui_plots.py
+|   myNotebook.ipynb
+|   project_MAIN.py
+|   quadSys.py
+|   treePaths.txt
+|   treeStructure.txt
+|   __init__.py

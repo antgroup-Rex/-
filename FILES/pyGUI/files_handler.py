@@ -125,7 +125,7 @@ def load_CSV_to_dict(file):
         print dict_list
     return dict_list
 
-def load_CSV_to_dataframe(file,headerVar = True):
+def load_CSV_to_dataframe(file, headerVar = True):
     if (headerVar == False):
         df = pd.read_csv(file, sep=',', header=None)#, usecols=[2])   #update parameters. also can check built-in for header text or not ? notify as recomndation for user approval.
     else:
@@ -149,9 +149,9 @@ def add_df_to_appData(file_details, new_df, appDataBase):
     appDataBase.addDataFromFile(newObj)
 
 
-def load_CSV_to_appData(file_details, appDataBase):
+def load_CSV_to_appData(file_details, appDataBase, headerVar = True):
     # csv_dict = load_CSV_to_dict(full_file_name) 
-    csv_df   = load_CSV_to_dataframe(file_details['originalGivenName'])
+    csv_df   = load_CSV_to_dataframe(file_details['originalGivenName'], headerVar)
     print csv_df
     print "available DataFrame actions are: "
     print dir(pd.DataFrame)

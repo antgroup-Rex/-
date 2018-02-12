@@ -10,6 +10,8 @@ import sys
 import data_handlers.AppGlobalData         	as appDB
 import data_handlers.DataFrames_actions    	as dfActions
 
+import display_handlers.gui_plots            as gui_plots
+
 # import specific_files.pyTesting_xml_to_nexX as rNX  #ran - TODO : set the import just as class preparation
 import from_demo_agw.ZoomBar                as zB
 import from_demo_agw.XMLtreeview            as Xtr
@@ -37,7 +39,7 @@ import files_handler
 from AUI_settingsPanel import *
 from AUI_JsonControlPanel import *
 
-import specific_files.dfgui
+import specific_files.dfgui        # incorparates : table, list..
 import specific_files.interpShell
 
 print "wx version: "+wx.__version__

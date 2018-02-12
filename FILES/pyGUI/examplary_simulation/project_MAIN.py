@@ -38,16 +38,8 @@ from    scipy.integrate import  odeint
 from    math            import  sqrt
 from    random          import  randint
 
-# plotting package elements
-import  matplotlib.pyplot       as      plt
-from    mpl_toolkits.mplot3d    import  Axes3D
-from    matplotlib.patches      import  FancyArrowPatch, Circle, Rectangle
-import  mpl_toolkits.mplot3d.art3d as   art3d
-from    mpl_toolkits.mplot3d    import  proj3d
-
 # local packages or classes
 import quadSys              # the dynamic model
-import gui_plots            # the custom plots for me
 import data_handlers        # file outputs functions
 
 ##################################
@@ -86,18 +78,4 @@ headString = quads.getHeaderStringForCSV()
 data_handlers.simulation_data_to_csv(timeVector, stateSol, fileStr, headString)
 
 # data_handlers.simulation_data_to_csv(timeVector, stateSol, fileStr)  # dont pass headString: write csv without header line
-
-##################################
-# conduct plots
-
-fig1 = gui_plots.plot_Phase_Space(stateSol[:,0] , stateSol[:,1], xLb='x', xDtLb='x dot') # todo: option to combine the 3 in 1 fig
-fig2 = gui_plots.plot_Phase_Space(stateSol[:,2] , stateSol[:,3], xLb='y', xDtLb='y dot')
-fig3 = gui_plots.plot_Phase_Space(stateSol[:,4] , stateSol[:,5], xLb='theta', xDtLb='theta dot')
-
-fig4 = gui_plots.plot_Var_Vs_Time(stateSol[:,2], timeVector, lgndStr='yp(t)' , title='y vs time')
-
-print stateSol
-fig5 = gui_plots.plot_quad_system_geometry(stateSol, 0)
-
-gui_plots.show_the_constructed_plots()
 
