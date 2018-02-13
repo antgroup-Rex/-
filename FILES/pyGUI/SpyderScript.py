@@ -63,7 +63,7 @@ c= dfActions.get_header(testDF)  # get header. maybe find a better not questiona
 print c
 
 ##########################################
-y = dfActions.get_columns_by_name(testDF, 0) 
-t = dfActions.get_columns_by_name(testDF, 1) 
+t = dfActions.get_columns_by_name(testDF, 0) 
+y = dfActions.get_columns_by_name(testDF, 1) 
 fig1 = gui_plots.plot_Var_Vs_Time(y , t, title='Ran trial') # todo:
 gui_plots.show_the_constructed_plots()
