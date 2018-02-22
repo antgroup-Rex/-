@@ -208,12 +208,16 @@ class FileDropPanel(wx.Panel):
         I = interpShell.II(passedLocals)
 
 
-        self.text3 = interpShell.PySTC(             #wx.TextCtrl(
+        # self.text3 = interpShell.PySTC(
+        self.text3 =        wx.TextCtrl(
                                         self, -1,       #"",
                                         style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL )
-        self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
+
+        # sys.stdout = self.text3
+        # sys.stderr = self.text3
+        # todo : add apropriate handler for paste action . self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
         self.text3.Bind(wx.EVT_CHAR, self.onCtrlE)
-        self.text3.SetInter(I)
+        # self.text3.SetInter(I)
 
         dt = OtherDropTarget(self.text3, log)
         self.text3.SetDropTarget(dt)
@@ -239,19 +243,21 @@ class FileDropPanel(wx.Panel):
 
         # self.text3.GetScrollPos(wx.VERTICAL)  i.e 12 till back above to first line of text field
         # self.text3.GetLastPosition() end of field lenght
-        print self.text3.GetInsertionPoint()
-        print self.text3.GetNumberOfLines()
-        print self.text3.GetPosition()
-        print self.text3.GetSelection()
-        print self.text3.GetStringSelection()
-        textFiled = self.text3.GetValue()
-        print textFiled
+        selectionRange = self.text3.GetSelection() # type of tuple, len of 2. from start or end pos to pos where key was pressed
+        selectedString = self.text3.GetStringSelection()
+        textFiled = self.text3.GetValue()  # returns the whole text field string
+        if 1==2:
+            print self.text3.GetInsertionPoint()
+            print self.text3.GetNumberOfLines()
+            print self.text3.GetPosition()
+            print selectionRange
+            print selectedString
+            print textFiled
         # insertionpoint
         # linelenght
         # linetext
         # getsele
-
-        print keyFeatures
+            print keyFeatures
 
         # if keyFeatures['controlDown']==False \
         #     and keyFeatures['shiftDown'] == False \
@@ -270,17 +276,27 @@ class FileDropPanel(wx.Panel):
             #todo goto end of selection location
             self.text3.WriteText(chr(10)+"selection evaluation output is : " + chr(10))
             self.text3.WriteText("evalution.. %s" % chr(10))
-        elif keyFeatures['keyCode'] == 10 \
+        elif (keyFeatures['keyCode'] == 10 or keyFeatures['keyCode'] == 13) \
             and keyFeatures['controlDown'] == True \
             and keyFeatures['shiftDown'] == False \
             and keyFeatures['altDown'] == False:
-            # todo get selecetion data if any , or current line if presed Enter
+            # todo get selecetion data if any , or current line if pressed Enter
             # evaluate contant as eval
-            print ("needs current line evaluation")
+            # print ("needs current line evaluation")
             #todo goto end of line
-            self.text3.WriteText(chr(10) + "line evalution output is : " + chr(10))
-            self.text3.WriteText("evalution.. %s" % chr(10))
-            eval(textFiled)
+            ##self.text3.WriteText(chr(10) + "line evalution output is : " + chr(10))
+            # https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
+            try:
+                # recursion : self.text3.Value
+                self.text3.WriteText( str(eval(textFiled)) )
+                self.text3.WriteText('used successfuly eval() function ')
+            except:
+                ##self.text3.WriteText(chr(10) + "exception in evaluation of : " + textFiled + chr(10))
+                try:
+                    exec (textFiled)
+                    self.text3.WriteText('used successfuly exec() function ' )
+                except:
+                    self.text3.WriteText(chr(10) + "exception in eval() and in exec() of : " + textFiled + chr(10))
         else:
             # pass event to act regularly
             evt.Skip()
@@ -323,7 +339,8 @@ class FileDropPanel(wx.Panel):
         winLocations        = [(x + avgLoc[0], y + avgLoc[1]) for (x, y) in deltaLoc]
 
         for icon, func, loc in zip(iconNames, functionsToLaunch, winLocations):
-            iName = "from_demo_agw/bitmaps/" + icon + ".ico"
+            # todo: get current path and add known relative
+            iName = "./from_demo_agw/bitmaps/" + icon + ".ico"
             win = ShpWin.ShapedWindowByImage(pnl, imageFileName=iName, launchFunction=func, initialLocation=loc)
             win.Show(True)
 #----------------------------------------------------------------------

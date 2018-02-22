@@ -1,0 +1,106 @@
+Folder PATH listing
+Volume serial number is 2623-B768
+C:.
+|   AUI_Agw.py
+|   AUI_GlobalImports.py
+|   AUI_JsonControlPanel.py
+|   AUI_MAIN - keep Copy.py
+|   AUI_MAIN.py
+|   AUI_settingsPanel.py
+|   CAppDataTree.py
+|   CProgressGauge.py
+|   CSizeReportCtrl.py
+|   Custom_pane_buttons.py
+|   files_handler.py
+|   Intro_html_text.py
+|   JsonControlPanel - Copy (2).json
+|   JsonControlPanel - Copy.json
+|   JsonControlPanel.json
+|   launch jupyter.bat
+|   listofFiles.txt
+|   myNotebook.ipynb
+|   perspectives.txt
+|   SpyderScript.py
+|   treePaths.txt
+|   treeStructure.txt
+|   work flow.graphml
+|   __init__.py
+|   
++---data_handlers
+|   |   AppGlobalData.py
+|   |   DataFrames_actions.py
+|   |   df_data_example.csv
+|   |   myNotebook.ipynb
+|   |   xml_handler.py
+|   |   __init__.py
+|   |           
++---from_demo_agw
+|   |   DragAndDrop - Copy before trimming.py
+|   |   DragAndDrop - original.py
+|   |   DragAndDrop.py
+|   |   DragScroller.py
+|   |   example.xml
+|   |   images.py
+|   |   run.py
+|   |   ShapedWindows.py
+|   |   XMLtreeview.py
+|   |   XMLtreeview__.py
+|   |   ZoomBar.py
+|   |   __init__.py
+|   |       
++---runtime_outputs
+|       jsonGout.json
+|       jsonGwVout.json
+|       system_graph.png
+|       system_graph_with_VirtEdges.png
+|       
++---simOutputsData
+|       2018_2_5_3_28_47_quad_sim.csv
+|       2018_2_5_3_29_25_quad_sim.csv
+|       2018_2_5_3_30_33_quad_sim.csv
+|       2018_2_5_3_31_24_quad_sim.csv
+|       co2-ppm-mauna-loa.csv
+|       iris.csv
+|       miRNA.csv
+|       pima.csv
+|       quad_sim - Copy.csv
+|       quad_sim.csv
+|       tips.csv
+|       titanic3.csv
+|       
++---specific_files
+|   |   checkVpython.py
+|   |   dfgui.py
+|   |   dfgui_demo.py
+|   |   example.xml
+|   |   interpShell.py
+|   |   interpShell_usage.txt
+|   |   mathtext_wx.py
+|   |   matlabAct.py
+|   |   matlabAction.m
+|   |   netXinWx.py
+|   |   pyTesting_xml_to_nexX.py
+|   |   show_tiff.py
+|   |   stdExample.py
+|   |   __init__.py
+|   |   
+|   \---tif
+|           CCITT_2.TIF
+|           CCITT_8.TIF
+|           FLAG_T24.TIF
+|           XING_T24.TIF
+|           
++---system_images
+|       quad.jpg
+|       slung-load.jpg
+|       
++---user_prefs
+|       buying_categpries.json
+|       demoScriptBlender.txt - 2nd.py
+|       demoScriptBlender.txt.py
+|       Designing-Data-Intensive-Applications-Mesosphere.pdf
+|       icon_menu_user_items.json
+|       phys_system_items.xml
+|       subject_categories.json
+|       userUrLinks - example.txt.json
+|       userUrLinks.txt    

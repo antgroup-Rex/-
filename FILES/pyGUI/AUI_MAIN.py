@@ -979,7 +979,8 @@ class AuiFrame(wx.Frame):
             self.OnCreate_AppDataTree()
         elif event.EventObject._tip_item.label == "Item 4 - reload CSV":
             print "reloading"
-            fileDict1 = files_handler.get_file_details('quad_sim.csv')
+            basicPath = './simOutputsData/'
+            fileDict1 = files_handler.get_file_details(basicPath + 'quad_sim.csv')
             filePath = 'C:\Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/'
             fileDict2 = files_handler.get_file_details(u'C:/Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/titanic3.csv')
             fileDict3 = files_handler.get_file_details(u'C:/Users\Ran_the_User\Documents\RAN\python\pandastable-master\pandastable\datasets/tips.csv')

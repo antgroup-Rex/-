@@ -85,21 +85,51 @@ def plot_Phase_Space(x, xDot, xLb='', xDtLb='', title = 'Phase-Space plot'):
 
     return fig
 
-def plot_Var_Vs_Time(y,t, lgndStr='', title='Var vs Time'):
+def plot_Var_Vs_Time(y,t, displayParams=None, fig=None):
     '''
+    https://matplotlib.org/2.0.2/api/lines_api.html
     main inputs:
-    t
-    y
+    t - the time vector (for x-axis)
+    y - the variable
+    displayParams : dictionary of several parameters. if empty - stays with defauls
+    fig : can add to given figure
     returns:
     fig - as new figure
     '''
+    #defaults:
+    lgndStr  = 'y var'
+    title    = 'Var vs Time'
+    xLabel   = 'time [sec]'
+    yLabel   = 'y var'
+    alpha    = 1
+    lineStyle = '-'
+    lineColor = 'r'
+    #change from defaults:
+    if displayParams!=None:
+        if displayParams['lgndStr']!='':
+            lgndStr = displayParams['lgndStr']
+        if displayParams['title']!='':
+            title   = displayParams['title']
+        if displayParams['x-label']!='':
+            xLabel  = displayParams['x-label']
+        if displayParams['y-label']!='':
+            yLabel  = displayParams['y-label']
+        if displayParams['alpha']!='':
+            alpha  = displayParams['alpha']
+        if displayParams['lineStyle']!='':
+            lineStyle = displayParams['lineStyle'] 
+        if displayParams['lineColor']!='':
+            lineColor = displayParams['lineColor'] 
+        
     #3rd figure
-    fig = plt.figure(figsize=(13, 8))
-    ax  = fig.gca()
-    plt.plot(t, y, 'g', label=lgndStr)
+    if fig==None:
+        fig = plt.figure(figsize=(13, 8))
+    ax = fig.gca()
+#    plt.plot(t, y, 'g', label=lgndStr)  # todo: allow optional color
+    plt.plot(t, y,ls=lineStyle, color=lineColor, alpha=alpha ,label=lgndStr)
     plt.legend(loc='best')
-    plt.xlabel('t')
-    # plt.ylabel(title)
+    plt.xlabel(xLabel) 
+    plt.ylabel(yLabel)
     plt.title(title)
     plt.grid()
 
@@ -107,6 +137,13 @@ def plot_Var_Vs_Time(y,t, lgndStr='', title='Var vs Time'):
 
 def show_the_constructed_plots():
     plt.show()
+    
+    
+def close_the_opened_plots(fig=None):
+    if fig==None:
+        plt.close("all")
+    else:
+        plt.close(fig)
 
 
 # # Spaceship's orbit

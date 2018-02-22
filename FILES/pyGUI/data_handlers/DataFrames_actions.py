@@ -39,6 +39,7 @@ def get_only_head_and_tail(pd, lines=-1):
     if lines == -1:
         return pd.head().append( pd.tail() )
     else:
+        lines = int(lines/2)
         return pd.head(lines).append( pd.tail(lines) )
     
     pass
@@ -66,6 +67,7 @@ def get_rows_by_index(pd, req_row_start=None, req_row_end=None):
 
 def get_header(pd):
     """
+    returns list of variables names
     return type: list(ndarray)
     """
     return list(pd.columns.values)
@@ -77,6 +79,27 @@ def print_DataFrame_info(pd):
              memory usage of the object.
     """
     return pd.info()
+
+def get_DF_statistics(pd):
+    """
+    returns type of DataFrame
+    """
+    return testDF.describe()
+
+def get_trimmed_DF(pd, rows, cols):
+    """
+    input:
+        pd : the input dataframe
+        rows : number of total rows to select
+        cols : total Num Of Columns to select
+    output:
+        the trimmed DataFrame
+    """
+    cols = int(cols/2)
+    numOfVars = len(list(pd))  # any more efficient method? 
+    colRange  = range(0, cols) + range(numOfVars-cols, numOfVars)
+    trimmedDF = get_only_head_and_tail(pd.iloc[:, colRange], rows)
+    return trimmedDF
 ##################################################
 
 if __name__=='__main__':
@@ -105,3 +128,9 @@ if __name__=='__main__':
     print get_header(testDF)
     
     print_DataFrame_info(testDF)
+    
+    tmp = get_DF_statistics(testDF)
+    print tmp
+    
+#    testDF.plot()
+    

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
-  <!--Created by yEd 3.16.1-->
+  <!--Created by yEd 3.17.2-->
   <key attr.name="Description" attr.type="string" for="graph" id="d0"/>
   <key for="port" id="d1" yfiles.type="portgraphics"/>
   <key for="port" id="d2" yfiles.type="portgeometry"/>
@@ -52,7 +52,6 @@ estimation for findings
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="89.0" width="224.0" x="107.0" y="284.0"/>
@@ -71,7 +70,6 @@ get EquationsOfMotion<y:LabelModel>
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="89.0" width="203.0" x="375.0" y="284.0"/>
@@ -89,7 +87,6 @@ get EquationsOfMotion<y:LabelModel>
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="89.0" width="203.0" x="616.0" y="284.0"/>
@@ -107,7 +104,6 @@ get EquationsOfMotion<y:LabelModel>
       </data>
     </node>
     <node id="n5">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="72.0" width="261.0" x="857.0" y="292.5"/>
@@ -124,9 +120,160 @@ get EquationsOfMotion<y:LabelModel>
         </y:ShapeNode>
       </data>
     </node>
+    <node id="n6">
+      <data key="d4"/>
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="1493.8758082346674" width="439.8661137440759" x="-344.5426540284361" y="-1129.3758082346674"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="1430.013671875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="323.939453125" x="27.986285429274176" y="31.931068179833574">Folder PATH listing
+Volume serial number is 2623-B768
+C:.
+|   AUI_Agw.py
+|   AUI_GlobalImports.py
+|   AUI_JsonControlPanel.py
+
+|   AUI_MAIN.py
+|   AUI_settingsPanel.py
+|   CAppDataTree.py
+
+|   CProgressGauge.py
+|   CSizeReportCtrl.py
+|   Custom_pane_buttons.py
+|   files_handler.py
+
+|   Intro_html_text.py
+
+|   JsonControlPanel.json
+
+|   launch jupyter.bat
+|   listofFiles.txt
+|   myNotebook.ipynb
+
+|   perspectives.txt
+
+|   SpyderScript.py
+
+|   treePaths.txt
+|   treeStructure.txt
+|   work flow.graphml
+|   __init__.py
+|   
++---data_handlers
+|   |   AppGlobalData.py
+|   |   DataFrames_actions.py
+
+|   |   df_data_example.csv
+|   |   myNotebook.ipynb
+
+|   |   xml_handler.py
+|   |   __init__.py
+|   |           
++---from_demo_agw
+|   |   DragAndDrop.py
+|   |   DragScroller.py
+
+|   |   example.xml
+
+|   |   images.py
+|   |   run.py
+
+|   |   ShapedWindows.py
+|   |   XMLtreeview.py
+|   |   XMLtreeview__.py
+|   |   ZoomBar.py
+|   |   __init__.py
+|   |       
++---runtime_outputs
+|       jsonGout.json
+|       jsonGwVout.json
+|       system_graph.png
+|       system_graph_with_VirtEdges.png
+|       
++---simOutputsData
+|      *.csv
+
++---specific_files
+|   |   checkVpython.py
+|   |   dfgui.py
+|   |   dfgui_demo.py
+|   |   example.xml
+|   |   interpShell.py
+|   |   interpShell_usage.txt
+|   |   mathtext_wx.py
+|   |   matlabAct.py
+|   |   matlabAction.m
+|   |   netXinWx.py
+|   |   pyTesting_xml_to_nexX.py
+|   |   show_tiff.py
+|   |   stdExample.py
+|   |   __init__.py
+|   |   
+|    
++---system_images
+|       *.jpg
+|       
++---user_prefs
+|       buying_categpries.json
+|       demoScriptBlender.txt - 2nd.py
+|       demoScriptBlender.txt.py
+|       Designing-Data-Intensive-Applications-Mesosphere.pdf
+|       icon_menu_user_items.json
+|       phys_system_items.xml
+|       subject_categories.json
+|       userUrLinks - example.txt.json
+|       userUrLinks.txt    
+<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-0.06815038472753349" nodeRatioY="-5.551115123125783E-17" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n7">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="117.78922505201547" x="217.4796728203919" y="-830.2661194957263"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.705078125" x="18.542073463507734" y="5.6494140625">json dictionary<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n8">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="117.78922505201547" x="391.72798315090745" y="-830.2661194957263"/>
+          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="36.666015625" x="40.561604713507734" y="5.6494140625">xls list<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="rectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
     <edge id="e0" source="n2" target="n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -138,7 +285,6 @@ get EquationsOfMotion<y:LabelModel>
     </edge>
     <edge id="e1" source="n3" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -150,7 +296,6 @@ get EquationsOfMotion<y:LabelModel>
     </edge>
     <edge id="e2" source="n4" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="6.75" tx="29.0" ty="6.75"/>
