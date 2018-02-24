@@ -56,6 +56,8 @@ testDF = fileA - fileB
 
 print testDF.describe()
 
+print testDF.dtypes
+
 a = testDF.head()
 b = testDF.tail()
 headWithTail = a.append(b)
@@ -125,3 +127,38 @@ Out[74]: [0, 1, 2]
 #trimmedDF = dfActions.get_only_head_and_tail(fileA.iloc[:,colRange], 10)
 
 trimmedDF2 = dfActions.get_trimmed_DF(fileA, 15, 6)
+
+# selection of rows, by general condition on a column value:
+trimmedDF2.loc[trimmedDF2[1]>1]
+trimmedDF2.loc[trimmedDF2[1]>1, 1]  # returned Series type
+trimmedDF2.loc[trimmedDF2[1]>1, [1]]  # returned DataFrame type
+trimmedDF2.loc[trimmedDF2[1]>1, [2,5]]  # with specific columns to return
+trimmedDF2.loc[trimmedDF2[1]>1, 2:5]  # with specific columns to return
+
+
+idxCnd = trimmedDF2[4].apply(lambda x: x>1) # returns bool list
+# Select only the True values in 'idx' and only the 3 columns specified:
+trimmedDF2.loc[idxCnd, :]
+
+trimmedDF2[2].value_counts() # seperate values available in the data
+
+trimmedDF2[2][trimmedDF2[1]<1] # more filtering syntax option
+
+trimmedDF2[2].nunique()  # number of unique numbers
+
+trimmedDF2.groupby([1]).groups.keys()
+trimmedDF2.groupby([1]).first()
+trimmedDF2.groupby([1])[2].sum()  # not sure what it gives..
+trimmedDF2.groupby([1]).count()
+
+############
+#users.set_index('user_id', inplace=True)
+#users.reset_index(inplace=True)
+#pd.merge(left_frame, right_frame, on='key', how='inner') , left,right,outer
+#pd.concat([left_frame, right_frame])
+############
+myEPS = 1E-7
+boolEpsDF = (trimmedDF2> myEPS)
+print boolEpsDF
+EpsDFtrue = boolEpsDF.max() # True is higher then False 
+EpsDFfalse = boolEpsDF.min() # False is lower then True
