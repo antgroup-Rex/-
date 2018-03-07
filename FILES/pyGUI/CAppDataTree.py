@@ -94,8 +94,9 @@ class AppData_TreeCtrl(wx.TreeCtrl):
 
                 # show data in wx table under parent, with stored identification related to main appData
                 ## specific_files.dfgui.show(DFdata)
-
-                wxPnl = specific_files.dfgui.show_tabel_panel(DFdata, parentWindowCtrl)
+                trimmedDF = dfActions.get_trimmed_DF(DFdata, 15, 6) # todo: put as constants from INI
+                # wxPnl = specific_files.dfgui.show_tabel_panel(DFdata, parentWindowCtrl)
+                wxPnl = specific_files.dfgui.show_tabel_panel(trimmedDF, parentWindowCtrl)
                 parentWindowCtrl.Create_DFtable(wxPnl)
 
                 headersList = list(DFdata.columns.values) # or list(DFdata)  # can tty also sorted(DFdata)

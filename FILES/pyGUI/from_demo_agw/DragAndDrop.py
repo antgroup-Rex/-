@@ -21,6 +21,9 @@ else:
     import interpShell
 
 #----------------------------------------------------------------------
+def magic_getDF():
+    print "got to magic function"
+#----------------------------------------------------------------------
 
 class OtherDropTarget(wx.DropTarget):
     def __init__(self, window, log):
@@ -216,7 +219,7 @@ class FileDropPanel(wx.Panel):
         # sys.stdout = self.text3
         # sys.stderr = self.text3
         # todo : add apropriate handler for paste action . self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
-        self.text3.Bind(wx.EVT_CHAR, self.onCtrlE)
+        self.text3.Bind(wx.EVT_CHAR, self.onCharPressed)
         # self.text3.SetInter(I)
 
         dt = OtherDropTarget(self.text3, log)
@@ -233,8 +236,9 @@ class FileDropPanel(wx.Panel):
     # def SetInsertionPointEnd(self):
     #     self.text.SetInsertionPointEnd()
 
-    def onCtrlE(self, evt):
+    def onCharPressed(self, evt):
         # ref : https://www.blog.pythonlibrary.org/2009/08/29/wxpython-catching-key-and-char-events/
+        ''' search mainly for pressed Ctrl-E '''
         keyFeatures={}
         keyFeatures['keyCode']     = evt.GetKeyCode()
         keyFeatures['controlDown'] = evt.CmdDown()
@@ -266,10 +270,17 @@ class FileDropPanel(wx.Panel):
         #     # self.text3.WriteText("%s" % chr(keyFeatures['keyCode']))
         #     evt.Skip()
         # else:
+        if keyFeatures['keyCode']==1 \
+            and keyFeatures['controlDown'] == True \
+            and keyFeatures['shiftDown'] == False \
+            and keyFeatures['altDown'] == False:
+            ''' Ctrl-A '''
+            evt.Skip(False)
         if keyFeatures['keyCode']==5 \
             and keyFeatures['controlDown'] == True \
             and keyFeatures['shiftDown'] == False \
             and keyFeatures['altDown'] == False:
+            ''' all relates to ^-E '''
             # todo get selecetion data if any , or current line if presed Enter
             # evaluate contant as eval
             print ("needs selected text evaluation")
@@ -289,12 +300,12 @@ class FileDropPanel(wx.Panel):
             try:
                 # recursion : self.text3.Value
                 self.text3.WriteText( str(eval(textFiled)) )
-                self.text3.WriteText('used successfuly eval() function ')
+                self.text3.WriteText('\nused successfuly eval() function ')
             except:
                 ##self.text3.WriteText(chr(10) + "exception in evaluation of : " + textFiled + chr(10))
                 try:
                     exec (textFiled)
-                    self.text3.WriteText('used successfuly exec() function ' )
+                    self.text3.WriteText('\nused successfuly exec() function ' )
                 except:
                     self.text3.WriteText(chr(10) + "exception in eval() and in exec() of : " + textFiled + chr(10))
         else:
@@ -343,6 +354,10 @@ class FileDropPanel(wx.Panel):
             iName = "./from_demo_agw/bitmaps/" + icon + ".ico"
             win = ShpWin.ShapedWindowByImage(pnl, imageFileName=iName, launchFunction=func, initialLocation=loc)
             win.Show(True)
+    #------------------ ------------------ ------------------ ---------
+    ''' local magic function. for connecting the consule to the outside world '''
+    def getDFlist(self):
+        print "got to inner magic func"    
 #----------------------------------------------------------------------
 #----------------------------------------------------------------------
 
