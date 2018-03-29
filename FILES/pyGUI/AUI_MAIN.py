@@ -917,10 +917,7 @@ class AuiFrame(wx.Frame):
                 for path in paths:
                     print('           %s\n' % path)
                     # sort_file_action_by_type
-                    files_handler.file_action_by_type(path)
-
-                    # todo: update tree view
-                    self._appDataRef
+                    files_handler.file_action_by_type(path, self._appDataRef)
 
             # Compare this with the debug above; did we change working dirs?
             print ("CWD: %s\n" % os.getcwd())

@@ -1,4 +1,5 @@
 #cls 
+#%clear
 #%matplotlib wx
 
 from AUI_GlobalImports import *

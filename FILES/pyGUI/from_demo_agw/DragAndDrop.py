@@ -21,8 +21,11 @@ else:
     import interpShell
 
 #----------------------------------------------------------------------
-def magic_getDF():
+def magic_getDF(theCallerSelf):
+    var1 = theCallerSelf._appDataHolder.mainDict
+    var2 = theCallerSelf.text3
     print "got to magic function"
+    return var1
 #----------------------------------------------------------------------
 
 class OtherDropTarget(wx.DropTarget):
@@ -214,8 +217,8 @@ class FileDropPanel(wx.Panel):
         # self.text3 = interpShell.PySTC(
         self.text3 =        wx.TextCtrl(
                                         self, -1,       #"",
-                                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL )
-
+                                        style = wx.TE_MULTILINE|wx.HSCROLL|wx.VSCROLL)
+        self.text3.SetBackgroundColour('light gray')
         # sys.stdout = self.text3
         # sys.stderr = self.text3
         # todo : add apropriate handler for paste action . self.text3.Bind(wx.EVT_TEXT_PASTE, self.onPaste)
@@ -238,6 +241,7 @@ class FileDropPanel(wx.Panel):
 
     def onCharPressed(self, evt):
         # ref : https://www.blog.pythonlibrary.org/2009/08/29/wxpython-catching-key-and-char-events/
+        # https: // wxpython.org / Phoenix / docs / html / wx.TextCtrl.html
         ''' search mainly for pressed Ctrl-E '''
         keyFeatures={}
         keyFeatures['keyCode']     = evt.GetKeyCode()
@@ -275,8 +279,8 @@ class FileDropPanel(wx.Panel):
             and keyFeatures['shiftDown'] == False \
             and keyFeatures['altDown'] == False:
             ''' Ctrl-A '''
-            evt.Skip(False)
-        if keyFeatures['keyCode']==5 \
+            self.text3.SetSelection(-1, -1)  # it doesn't work otherwise for some reason
+        elif keyFeatures['keyCode']==5 \
             and keyFeatures['controlDown'] == True \
             and keyFeatures['shiftDown'] == False \
             and keyFeatures['altDown'] == False:
@@ -297,17 +301,22 @@ class FileDropPanel(wx.Panel):
             #todo goto end of line
             ##self.text3.WriteText(chr(10) + "line evalution output is : " + chr(10))
             # https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python
+            if selectedString!='':
+                cmdToEvaluate = selectedString
+            else:
+                cmdToEvaluate = textFiled
             try:
                 # recursion : self.text3.Value
-                self.text3.WriteText( str(eval(textFiled)) )
-                self.text3.WriteText('\nused successfuly eval() function ')
+                self.text3.WriteText( str(eval(cmdToEvaluate)) )
+                self.text3.WriteText('\nused successfuly eval() function ')   # todo: update the status bar instead. and for about 3 sec. and change status to ready
+                                                                                # status_bar_callback(0, "used successfuly eval() function")
             except:
                 ##self.text3.WriteText(chr(10) + "exception in evaluation of : " + textFiled + chr(10))
                 try:
-                    exec (textFiled)
+                    exec (cmdToEvaluate)
                     self.text3.WriteText('\nused successfuly exec() function ' )
                 except:
-                    self.text3.WriteText(chr(10) + "exception in eval() and in exec() of : " + textFiled + chr(10))
+                    self.text3.WriteText(chr(10) + "exception in eval() and in exec() of : " + cmdToEvaluate + chr(10))
         else:
             # pass event to act regularly
             evt.Skip()
