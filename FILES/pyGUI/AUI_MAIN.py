@@ -15,6 +15,12 @@ http://doc.frapp.fr/doku.php?id=en:programmation:python:boa:help:boagettingstart
 AvoPlot : https://openresearchsoftware.metajnl.com/articles/10.5334/jors.ai/
 
 
+31/03/18:
+OBJECTIVES:
+...TBD...
+LITERATURE REVIEW :
+...TBD...
+
 '''
 ''''''
 from AUI_GlobalImports import *
