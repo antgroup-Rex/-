@@ -1,7 +1,8 @@
 ''''''
 # import wx # ran note: used directly by CSizeReportCtrl
 import wx.html
-import wx.grid
+#import wx.grid
+import wx
 
 import os
 import sys
@@ -41,6 +42,8 @@ from AUI_JsonControlPanel import *
 
 import specific_files.dfgui        # incorparates : table, list..
 import specific_files.interpShell
+
+import data_handlers.formats_converters as fConverters
 
 print "wx version: "+wx.__version__
 

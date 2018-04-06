@@ -3,6 +3,11 @@ from AUI_Agw import *
 
 import json
 
+import sys
+sys.path.append('../')
+import data_handlers.formats_converters as fConverters
+# import AUI_GlobalImports
+
 # note: this class depends on the controls IDs.
 class JsonControlPanel(wx.Panel):
 
@@ -31,7 +36,7 @@ class JsonControlPanel(wx.Panel):
         wx.Panel.__init__(self, parent)
         self._frame             = frame
 
-        self._json_requirements = self.load_requirements_from_json_file(self.JsonControlPanel_fileName)
+        self._json_requirements = fConverters.load_JSON_file_to_Dict(self.JsonControlPanel_fileName)
 
         #todo:count number of requirements, and decide grid size. and init s[] in adequate length
         s=[0,0,0]
@@ -302,16 +307,16 @@ class JsonControlPanel(wx.Panel):
         self._frame.GetDockArt().SetColour(var, dlg.GetColourData().GetColour())
         self._frame.DoUpdate()
         self.UpdateColours()
-
-    def load_requirements_from_json_file(self, input_file_name):
-
-        from pprint import pprint
-
-        json_dict = json.load(open(input_file_name))
-
-        pprint(json_dict)  # condition in _debug only
-
-        return json_dict
+    # 2 delete:
+    # def load_requirements_from_json_file(self, input_file_name):
+    #
+    #     from pprint import pprint
+    #
+    #     json_dict = json.load(open(input_file_name))
+    #
+    #     pprint(json_dict)  # condition in _debug only
+    #
+    #     return json_dict
 
     def save_new_requirements_to_json_file(self, file_name):
      	pass
@@ -325,6 +330,18 @@ if __name__=='__main__':
     parsed_json = json.loads(json_string)
     print(parsed_json['first_name'])
     print(json.dumps(parsed_json))
+
+    import os
+    import sys
+    print "file: "+__file__
+    print "abspath: "+os.path.abspath(__file__)
+    dirName = os.path.dirname(os.path.abspath(__file__))
+    print "to add: "
+    print os.path.split(dirName)
+    sys.path.append(os.path.split(dirName)[0])
+
+    sys.path.append('../')
+    import AUI_GlobalImports
 
 else:
     ## print __name__

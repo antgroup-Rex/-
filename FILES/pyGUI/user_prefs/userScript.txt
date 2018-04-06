@@ -1,0 +1,3 @@
+tmp = magic_getDF(self)
+print tmp
+print tmp[0].loadedData

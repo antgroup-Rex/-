@@ -281,8 +281,7 @@ class AuiFrame(wx.Frame):
     def BuildPanes(self):
         '''
         create and add all desired panes windows .
-        created in stock, only some are shown by hiden or show property.
-
+        created in stock, only some are shown by hidden or show property.
         '''
         # min size for the frame itself isn't completely done.
         # see the end up AuiManager.Update() for the test
@@ -359,16 +358,28 @@ class AuiFrame(wx.Frame):
         tb3.Realize()
 
         ''''''
+        self._user_settings_file = './user_prefs/settings_Toolbars_Items.json'
+        user_ToolBars = fConverters.load_JSON_file_to_Dict(self._user_settings_file)
+
         favorites_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
-                             agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
+                             # agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
+                             agwStyle=eval(user_ToolBars['tb_1']['tb_properties']))
         favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
         favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
         favorites_tbar_bmp2 = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_OTHER, wx.Size(16, 16))
         # favorites_tbar.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", favorites_tbar_bmp1) #ran marked this line. keep of for future use.
         # todo: build this from json user file or .py definitions file.
         #       for button type and action and label with tooltips and relevantBMP.
-        favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
-        favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
+        start_ndx = 23
+        for ndx, btn_props in enumerate(user_ToolBars['tb_1']['buttons']):
+            # favorites_tbar.AddSimpleTool(ID_SampleItem + start_ndx + ndx, btn_props['btn_label'], btn_props['btn_icon'], btn_props['btn_tooltip'])
+            btn = btn_props[btn_props.keys()[0]]
+            favorites_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
+            # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem + 23)
+            self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
+
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
         favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4 - reload CSV", favorites_tbar_bmp1)
         favorites_tbar.AddSeparator()
         favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
@@ -850,8 +861,8 @@ class AuiFrame(wx.Frame):
 
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+23) #ran
         # self.Bind(wx.EVT_BUTTON           , self.onButtonPress        , id=ID_SampleItem+24) #ran
-        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+23)  # ran
-        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+24)  # ran
+        # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+23)  # ran
+        # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+24)  # ran
         self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+25)  # ran
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+26) #ran
 
