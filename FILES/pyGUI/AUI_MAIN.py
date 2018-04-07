@@ -277,6 +277,24 @@ class AuiFrame(wx.Frame):
 
         self.SetMenuBar(mb)
 
+    def BuildToolBar(self, tb_prop):
+
+        # tb_prop = user_ToolBars['tb_2']  current_tBar
+        tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
+                              agwStyle=eval(tb_prop['tb_properties']))
+
+        for ndx, btn_props in enumerate(tb_prop['buttons']):
+            key = btn_props.keys()[0]
+            if key != 'seperator':
+                btn = btn_props[key]
+                tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
+                self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
+            else:
+                tbar.AddSeparator()
+
+        tbar.Realize()
+
+        return tbar
 
     def BuildPanes(self):
         '''
@@ -300,6 +318,7 @@ class AuiFrame(wx.Frame):
         item = aui.AuiToolBarItem()
         item.SetKind(wx.ITEM_NORMAL)
         item.SetId(ID_CustomizeToolbar)
+        # item.SetShortHelp("this is a short help string ")  running over the Label string..
         item.SetLabel("Customize...")
         append_items.append(item)
 
@@ -357,57 +376,78 @@ class AuiFrame(wx.Frame):
         tb3.SetCustomOverflowItems(prepend_items, append_items)
         tb3.Realize()
 
-        ''''''
+        """
+        build from json user definitions file.
+        TODO: it still depends deeply on function 'OnButtonPress' content 
+        """
         self._user_settings_file = './user_prefs/settings_Toolbars_Items.json'
         user_ToolBars = fConverters.load_JSON_file_to_Dict(self._user_settings_file)
 
-        favorites_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
-                             # agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_TEXT | aui.AUI_TB_HORZ_TEXT)
-                             agwStyle=eval(user_ToolBars['tb_1']['tb_properties']))
-        favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
-        favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
-        favorites_tbar_bmp2 = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_OTHER, wx.Size(16, 16))
+        ''''''
+        tb_prop = user_ToolBars['tb_1']
+        # favorites_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
+        #                      agwStyle=eval(tb_prop['tb_properties']))
+        favorites_tbar = self.BuildToolBar(tb_prop)
+        # favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
+        # favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
+        # favorites_tbar_bmp2 = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN  , wx.ART_OTHER, wx.Size(16, 16))
+
         # favorites_tbar.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", favorites_tbar_bmp1) #ran marked this line. keep of for future use.
-        # todo: build this from json user file or .py definitions file.
-        #       for button type and action and label with tooltips and relevantBMP.
-        start_ndx = 23
-        for ndx, btn_props in enumerate(user_ToolBars['tb_1']['buttons']):
-            # favorites_tbar.AddSimpleTool(ID_SampleItem + start_ndx + ndx, btn_props['btn_label'], btn_props['btn_icon'], btn_props['btn_tooltip'])
-            btn = btn_props[btn_props.keys()[0]]
-            favorites_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
-            # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem + 23)
-            self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
+        # favorites_tbar.SetToolDropDown(ID_DropDownToolbarItem, True)   # connected to line in build_events function
+
+        # for ndx, btn_props in enumerate(tb_prop['buttons']):
+        #     key = btn_props.keys()[0]
+        #     if key!='seperator':
+        #         btn = btn_props[key]
+        #         favorites_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
+        #         self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
+        #     else:
+        #         favorites_tbar.AddSeparator()
 
         # favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
         # favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
-        favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Item 4 - reload CSV", favorites_tbar_bmp1)
-        favorites_tbar.AddSeparator()
-        favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
-        favorites_tbar.AddSimpleTool(ID_SampleItem+27, "Item 6", favorites_tbar_bmp1)
-        favorites_tbar.AddSimpleTool(ID_SampleItem+28, "Item 7", favorites_tbar_bmp1)
-        favorites_tbar.AddSimpleTool(ID_SampleItem+29, "Item 8", favorites_tbar_bmp1)
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Reload CSV", favorites_tbar_bmp1)
 
-        choice = wx.Choice(favorites_tbar, -1, choices=["One choice", "Another choice"])
-        favorites_tbar.AddControl(choice)
+        # favorites_tbar.AddSeparator()
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+27, "Item 6", favorites_tbar_bmp1)
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+28, "Item 7", favorites_tbar_bmp1)
+        # favorites_tbar.AddSimpleTool(ID_SampleItem+29, "Item 8", favorites_tbar_bmp1)
 
-        favorites_tbar.SetToolDropDown(ID_DropDownToolbarItem, True)
-        favorites_tbar.Realize()
+        # choice = wx.Choice(favorites_tbar, -1, choices=["One choice", "Another choice"])  # item.id = control.GetId()
+        # print "choice.GetId(): "+str(choice.GetId())
+        # favorites_tbar.AddControl(choice, "choiseControl")
+
+        # favorites_tbar.Realize()
         ''''''
 
-        vertical_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
-                             agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_VERTICAL)
+        ''''''
+        tb_prop = user_ToolBars['tb_2']
+        # vertical_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
+        #                      agwStyle = eval(tb_prop['tb_properties']))
+        vertical_tbar = self.BuildToolBar(tb_prop)
+        # szX  =32 #48
+        # szX2 =16
+        # vertical_tbar.SetToolBitmapSize(wx.Size(szX2, szX2))# it doesn't do anything in wx yet..
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+30, "Test", wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER,  wx.Size(szX2, szX2)))
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+31, "Test", wx.ArtProvider.GetBitmap(wx.ART_QUESTION,  wx.ART_OTHER, wx.Size(szX2, szX2)))
+        # vertical_tbar.AddSeparator()
+        ### vertical_tbar.AddSimpleTool(ID_SampleItem+32, "Test", wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, wx.Size(szX2, szX2)))
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+33, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING,  wx.ART_OTHER, wx.Size(szX, szX)))
+        # vertical_tbar.AddSimpleTool(ID_SampleItem+34, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE,  wx.ART_OTHER, wx.Size(szX, szX)))
+        # vertical_tbar.SetCustomOverflowItems(prepend_items, append_items)
 
-        szX=48
-        szX2=16
-        vertical_tbar.SetToolBitmapSize(wx.Size(szX, szX))#(48, 48)
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+30, "Test", wx.ArtProvider.GetBitmap(wx.ART_ERROR), wx.ART_OTHER,  wx.Size(szX, szX))
-        vertical_tbar.AddSimpleTool(ID_SampleItem+31, "Test", wx.ArtProvider.GetBitmap(wx.ART_QUESTION),  wx.ART_OTHER, wx.Size(szX2, szX2))
-        vertical_tbar.AddSeparator()
-        vertical_tbar.AddSimpleTool(ID_SampleItem+32, "Test", wx.ArtProvider.GetBitmap(wx.ART_INFORMATION))#,  wx.ART_OTHER, wx.Size(szX, szX))
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+33, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING),  wx.ART_OTHER, wx.Size(szX, szX))
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+34, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE),  wx.ART_OTHER, wx.Size(szX, szX))
-        vertical_tbar.SetCustomOverflowItems(prepend_items, append_items)
-        vertical_tbar.Realize()
+        # for ndx, btn_props in enumerate(tb_prop['buttons']):
+        #     key = btn_props.keys()[0]
+        #     if key!='seperator':
+        #         btn = btn_props[key]
+        #         vertical_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
+        #         self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
+        #     else:
+        #         vertical_tbar.AddSeparator()
+        #
+        # vertical_tbar.Realize()
+        ''''''
 
         tb6 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_OVERFLOW | aui.AUI_TB_VERT_TEXT)
@@ -579,8 +619,8 @@ class AuiFrame(wx.Frame):
         self._mgr.GetPane("favorites_tbar").Show()  # ran
 
         self._mgr.GetPane("test8").Show().Left().Layer(0).Row(0).Position(0)
-        self._mgr.GetPane("__notebook_%d" % self._mgr.GetPane("test10").notebook_id).Show().Bottom().Layer(0).Row(
-            0).Position(0)
+        self._mgr.GetPane("__notebook_%d" % self._mgr.GetPane("test10").notebook_id).\
+                                   Show().Bottom().Layer(0).Row(0).Position(0)
         self._mgr.GetPane("autonotebook").Show()
         self._mgr.GetPane("thirdauto").Show()
         self._mgr.GetPane("test10").Show()
@@ -863,7 +903,7 @@ class AuiFrame(wx.Frame):
         # self.Bind(wx.EVT_BUTTON           , self.onButtonPress        , id=ID_SampleItem+24) #ran
         # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+23)  # ran
         # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+24)  # ran
-        self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+25)  # ran
+        # self.Bind(wx.EVT_MENU, self.OnButtonPress, id=ID_SampleItem+25)  # ran
         # self.Bind(aui.EVT_AUI_PANE_BUTTON           , self.onButtonPress        , id=ID_SampleItem+26) #ran
 
         # ran removed those Alarm bindings
@@ -991,7 +1031,7 @@ class AuiFrame(wx.Frame):
         elif event.EventObject._tip_item.label == "Show App Data":
             print "build app data tree"
             self.OnCreate_AppDataTree()
-        elif event.EventObject._tip_item.label == "Item 4 - reload CSV":
+        elif event.EventObject._tip_item.label == "Reload CSV":
             print "reloading"
             basicPath = './simOutputsData/'
             fileDict1 = files_handler.get_file_details(basicPath + 'quad_sim.csv')
