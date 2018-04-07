@@ -57,7 +57,7 @@
 			}
 		},
 		{ "seperator" : {
-			"btn_type"	  : "regular",
+			"btn_type"	  : "todo",
 			"btn_icon"	  : "list",
 			"btn_tooltip" : "show tree view of the loaded data objects",
 			"ID_string"	  : "ID_tb_btn_show_data",
@@ -65,7 +65,7 @@
 			}
 		},
 		{ "seperator" : {
-			"btn_type"	  : "regular",
+			"btn_type"	  : "todo",
 			"btn_icon"	  : "list",
 			"btn_tooltip" : "load pre selected files",
 			"ID_string"	  : "ID_tb_btn_load_pre_defined_data",
@@ -73,7 +73,7 @@
 			}
 		},
 		{ "seperator" : {
-			"btn_type"	  : "regular",
+			"btn_type"	  : "todo",
 			"btn_icon"	  : "list",
 			"btn_tooltip" : "run script from given file",
 			"ID_string"	  : "ID_tb_btn_run_script_file",

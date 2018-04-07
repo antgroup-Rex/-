@@ -292,7 +292,7 @@ class AuiFrame(wx.Frame):
             else:
                 tbar.AddSeparator()
 
-        tbar.Realize()
+        # tbar.Realize()
 
         return tbar
 
@@ -334,7 +334,7 @@ class AuiFrame(wx.Frame):
         tb1.AddSimpleTool(ID_SampleItem+4, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING))
         tb1.AddSimpleTool(ID_SampleItem+5, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE))
         tb1.SetCustomOverflowItems(prepend_items, append_items)
-        tb1.Realize()
+        # tb1.Realize()
 
         tb2 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_DEFAULT_STYLE | aui.AUI_TB_OVERFLOW)
@@ -354,7 +354,7 @@ class AuiFrame(wx.Frame):
         tb2.AddSimpleTool(ID_SampleItem+14, "Test", tb2_bmp1)
         tb2.AddSimpleTool(ID_SampleItem+15, "Test", tb2_bmp1)
         tb2.SetCustomOverflowItems(prepend_items, append_items)
-        tb2.Realize()
+        # tb2.Realize()
 
         tb3 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
                              agwStyle=aui.AUI_TB_DEFAULT_STYLE | aui.AUI_TB_OVERFLOW)
@@ -374,79 +374,21 @@ class AuiFrame(wx.Frame):
         tb3.AddSimpleTool(ID_SampleItem+25, "Radio 3 (Group 2)", tb3_bmp1, "Radio 3 (Group 2)", aui.ITEM_RADIO)
 
         tb3.SetCustomOverflowItems(prepend_items, append_items)
-        tb3.Realize()
+        # tb3.Realize()
 
         """
         build from json user definitions file.
         TODO: it still depends deeply on function 'OnButtonPress' content 
         """
+        ''''''
         self._user_settings_file = './user_prefs/settings_Toolbars_Items.json'
         user_ToolBars = fConverters.load_JSON_file_to_Dict(self._user_settings_file)
 
-        ''''''
         tb_prop = user_ToolBars['tb_1']
-        # favorites_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
-        #                      agwStyle=eval(tb_prop['tb_properties']))
         favorites_tbar = self.BuildToolBar(tb_prop)
-        # favorites_tbar.SetToolBitmapSize(wx.Size(16, 16))
-        # favorites_tbar_bmp1 = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
-        # favorites_tbar_bmp2 = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN  , wx.ART_OTHER, wx.Size(16, 16))
 
-        # favorites_tbar.AddSimpleTool(ID_DropDownToolbarItem, "Item 1", favorites_tbar_bmp1) #ran marked this line. keep of for future use.
-        # favorites_tbar.SetToolDropDown(ID_DropDownToolbarItem, True)   # connected to line in build_events function
-
-        # for ndx, btn_props in enumerate(tb_prop['buttons']):
-        #     key = btn_props.keys()[0]
-        #     if key!='seperator':
-        #         btn = btn_props[key]
-        #         favorites_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
-        #         self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
-        #     else:
-        #         favorites_tbar.AddSeparator()
-
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+23, "Open", favorites_tbar_bmp2, "open file(s), of any kind. treat them accordingly")
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+24, "Show App Data", favorites_tbar_bmp1,"Show App Data in floating list")
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+25, "Reload CSV", favorites_tbar_bmp1)
-
-        # favorites_tbar.AddSeparator()
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+26, "Item 5", favorites_tbar_bmp1)
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+27, "Item 6", favorites_tbar_bmp1)
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+28, "Item 7", favorites_tbar_bmp1)
-        # favorites_tbar.AddSimpleTool(ID_SampleItem+29, "Item 8", favorites_tbar_bmp1)
-
-        # choice = wx.Choice(favorites_tbar, -1, choices=["One choice", "Another choice"])  # item.id = control.GetId()
-        # print "choice.GetId(): "+str(choice.GetId())
-        # favorites_tbar.AddControl(choice, "choiseControl")
-
-        # favorites_tbar.Realize()
-        ''''''
-
-        ''''''
         tb_prop = user_ToolBars['tb_2']
-        # vertical_tbar = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
-        #                      agwStyle = eval(tb_prop['tb_properties']))
         vertical_tbar = self.BuildToolBar(tb_prop)
-        # szX  =32 #48
-        # szX2 =16
-        # vertical_tbar.SetToolBitmapSize(wx.Size(szX2, szX2))# it doesn't do anything in wx yet..
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+30, "Test", wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER,  wx.Size(szX2, szX2)))
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+31, "Test", wx.ArtProvider.GetBitmap(wx.ART_QUESTION,  wx.ART_OTHER, wx.Size(szX2, szX2)))
-        # vertical_tbar.AddSeparator()
-        ### vertical_tbar.AddSimpleTool(ID_SampleItem+32, "Test", wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER, wx.Size(szX2, szX2)))
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+33, "Test", wx.ArtProvider.GetBitmap(wx.ART_WARNING,  wx.ART_OTHER, wx.Size(szX, szX)))
-        # vertical_tbar.AddSimpleTool(ID_SampleItem+34, "Test", wx.ArtProvider.GetBitmap(wx.ART_MISSING_IMAGE,  wx.ART_OTHER, wx.Size(szX, szX)))
-        # vertical_tbar.SetCustomOverflowItems(prepend_items, append_items)
-
-        # for ndx, btn_props in enumerate(tb_prop['buttons']):
-        #     key = btn_props.keys()[0]
-        #     if key!='seperator':
-        #         btn = btn_props[key]
-        #         vertical_tbar.AddSimpleTool(eval(btn['ID_string']), btn['btn_label'], eval(btn['btn_icon']), btn['btn_tooltip'])
-        #         self.Bind(wx.EVT_MENU, eval(btn['action_to_be_evaluated']), id=eval(btn['ID_string']))
-        #     else:
-        #         vertical_tbar.AddSeparator()
-        #
-        # vertical_tbar.Realize()
         ''''''
 
         tb6 = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize,
@@ -458,7 +400,7 @@ class AuiFrame(wx.Frame):
         tb6.AddSimpleTool(ID_DropDownToolbarItem, "Clockwise 3", wx.ArtProvider.GetBitmap(wx.ART_WARNING, wx.ART_OTHER, wx.Size(16, 16)))
         tb6.SetCustomOverflowItems(prepend_items, append_items)
         tb6.SetToolDropDown(ID_DropDownToolbarItem, True)
-        tb6.Realize()
+        # tb6.Realize()
 
         # add a bunch of panes
 
@@ -556,6 +498,10 @@ class AuiFrame(wx.Frame):
         self._mgr.AddPane(favorites_tbar, aui.AuiPaneInfo().Name("favorites_tbar").Caption("Sample Bookmark Toolbar").
                           # ToolbarPane().Top().Row(2))
                           ToolbarPane().Top().Row(1))
+
+        self._mgr.AddPane(vertical_tbar, aui.AuiPaneInfo().Name("vertical_tbar").Caption("Sample Vertical Toolbar").
+                          ToolbarPane().Left().GripperTop())
+
         if 1==1:    #choosing toolbars to add
             # pass
             self._mgr.AddPane(tb1, aui.AuiPaneInfo().Name("tb1").Caption("Big Toolbar").
@@ -567,8 +513,6 @@ class AuiFrame(wx.Frame):
             self._mgr.AddPane(tb3, aui.AuiPaneInfo().Name("tb3").Caption("Toolbar 3").
                               ToolbarPane().Top().Row(1).Position(1))
 
-            self._mgr.AddPane(vertical_tbar, aui.AuiPaneInfo().Name("vertical_tbar").Caption("Sample Vertical Toolbar").
-                              ToolbarPane().Left().GripperTop())
 
             self._mgr.AddPane(tb6, aui.AuiPaneInfo().
                               Name("tb6").Caption("Sample Vertical Clockwise Rotated Toolbar").
@@ -682,12 +626,12 @@ class AuiFrame(wx.Frame):
             self.SetSize(desiredFrameSize)
 
             if 2==1:
-	            print self
-	            print self.GetPosition()
-	            print self.GetParent()
-	            print self.GetParent().GetPosition()
-	            print self.GetParent().GetParent()
-	            print self.GetParent().GetParent().GetPosition()
+                print self
+                print self.GetPosition()
+                print self.GetParent()
+                print self.GetParent().GetPosition()
+                print self.GetParent().GetParent()
+                print self.GetParent().GetParent().GetPosition()
 
             # self.CenterOnScreen()
             # set size  , previousSize =
