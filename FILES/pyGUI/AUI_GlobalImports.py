@@ -47,5 +47,7 @@ import data_handlers.formats_converters as fConverters
 
 print "wx version: "+wx.__version__
 
+import skimage
+
 # import pydocs
 # pydocs(math)
