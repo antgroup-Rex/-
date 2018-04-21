@@ -8,7 +8,15 @@ from xml.parsers import expat
 
 class XMLTree(wx.TreeCtrl):
     def __init__(self, parent, ID):
-        wx.TreeCtrl.__init__(self, parent, ID)
+        # consider ID as tID = wx.NewId()
+        wx.TreeCtrl.__init__(self, parent, ID
+                             , wx.DefaultPosition, wx.DefaultSize,
+                               wx.TR_HAS_BUTTONS
+                               | wx.TR_EDIT_LABELS
+                               | wx.TR_MULTIPLE
+                               #| wx.TR_HIDE_ROOT
+                               #, self.log
+                             )
         self._root = self.AddRoot("Root")
         self.nodeStack = [self._root]
 
@@ -17,10 +25,123 @@ class XMLTree(wx.TreeCtrl):
         self.SetImageList(self.il)
 
         # event handlers for DnD
-        self.Bind(wx.EVT_TREE_BEGIN_DRAG, self.OnBeginDrag)
-        self.Bind(wx.EVT_TREE_END_DRAG, self.OnEndDrag)
+        self.Bind(wx.EVT_TREE_BEGIN_DRAG,       self.OnBeginDrag)
+        self.Bind(wx.EVT_TREE_END_DRAG,         self.OnEndDrag)
 
+        # event handlers for tree items
+        self.Bind(wx.EVT_TREE_ITEM_EXPANDED,    self.OnItemExpanded)#,  self.tree)
+        self.Bind(wx.EVT_TREE_ITEM_COLLAPSED,   self.OnItemCollapsed)#, self.tree)
+        self.Bind(wx.EVT_TREE_SEL_CHANGED,      self.OnSelChanged)#,    self.tree)
+        self.Bind(wx.EVT_TREE_BEGIN_LABEL_EDIT, self.OnBeginEdit)#,     self.tree)
+        self.Bind(wx.EVT_TREE_END_LABEL_EDIT,   self.OnEndEdit)#,       self.tree)
+        self.Bind(wx.EVT_TREE_ITEM_ACTIVATED,   self.OnActivate)#,      self.tree)
 
+        self.Bind(wx.EVT_LEFT_DCLICK,      self.OnLeftDClick)
+        self.Bind(wx.EVT_RIGHT_DOWN,       self.OnRightDown)
+        self.Bind(wx.EVT_RIGHT_UP,         self.OnRightUp)
+
+###################################################
+
+    def OnRightDown(self, event):
+        pt = event.GetPosition();
+        item, flags = self.HitTest(pt)
+        if item:
+#            self.log.WriteText
+            print ("OnRightClickDown: %s, %s, %s\n" %
+                               (self.GetItemText(item), type(item), item.__class__))
+            self.SelectItem(item)
+
+    def OnRightUp(self, event):
+        pt = event.GetPosition();
+        item, flags = self.HitTest(pt)
+        if item:        
+#            self.log.WriteText
+            print ("OnRightUp: %s (manually starting label edit)\n"
+                               % self.GetItemText(item))
+            self.EditLabel(item)  #todo:replace with pop up menu
+
+    def OnBeginEdit(self, event):
+#        self.log.WriteText
+        print("OnEdit Begin\n")
+        # show how to prevent edit...
+        item = event.GetItem()
+        if item and self.GetItemText(item) == "The Root Item":
+            wx.Bell()
+#            self.log.WriteText
+            print ("You can't edit this one...\n")
+
+#            # Lets just see what's visible of its children
+#            cookie = 0
+#            root = event.GetItem()
+#            (child, cookie) = self.GetFirstChild(root)
+#
+#            while child.IsOk():
+##                self.log.WriteText
+#                print ("Child [%s] visible = %d" %
+#                                   (self.GetItemText(child),
+#                                    self.IsVisible(child)))
+#                (child, cookie) = self.GetNextChild(root, cookie)
+
+            event.Veto()
+
+    def OnEndEdit(self, event):
+#        self.log.WriteText
+        print("OnEdit end: %s %s\n" %
+                           (event.IsEditCancelled(), event.GetLabel()) )
+#        # show how to reject edit, we'll not allow any digits
+#        for x in event.GetLabel():
+#            if x in string.digits:
+##                self.log.WriteText
+#                print("You can't enter digits...\n")
+#                event.Veto()
+#                return
+
+    def OnLeftDClick(self, event):
+        pt = event.GetPosition();
+        item, flags = self.HitTest(pt)
+        # sort childrens items . todo: activate self.EditLabel(item)
+        if item:
+#            self.log.WriteText
+            print("OnLeftDClick: %s\n" % self.GetItemText(item))
+            parent = self.GetItemParent(item)
+            if parent.IsOk():
+                self.SortChildren(parent)
+        event.Skip()
+
+    def OnSize(self, event):
+        print "size event visit"
+        pass
+#        w,h = self.GetClientSizeTuple()
+#        self.SetDimensions(0, 0, w, h)
+
+    def OnItemExpanded(self, event):
+        item = event.GetItem()
+#        if item:
+#            self.log.WriteText("OnItemExpanded: %s\n" % self.tree.GetItemText(item))
+
+    def OnItemCollapsed(self, event):
+        item = event.GetItem()
+#        if item:
+#            self.log.WriteText("OnItemCollapsed: %s\n" % self.tree.GetItemText(item))
+
+    def OnSelChanged(self, event):
+        pass
+#        self.item = event.GetItem()
+#        if self.item:
+#            self.log.WriteText("OnSelChanged: %s\n" % self.tree.GetItemText(self.item))
+#            if wx.Platform == '__WXMSW__':
+#                self.log.WriteText("BoundingRect: %s\n" %
+#                                   self.tree.GetBoundingRect(self.item, True))
+#            #items = self.tree.GetSelections()
+#            #print map(self.tree.GetItemText, items)
+#        event.Skip()
+
+    def OnActivate(self, event):
+        if self.item:
+#            self.log.WriteText
+            print("OnActivate: %s\n" % self.GetItemText(self.item))
+
+###################################################
     def OnBeginDrag(self, event):
         item = event.GetItem()
 
@@ -75,7 +196,7 @@ class XMLTree(wx.TreeCtrl):
 
             self.AppendItem(self.nodeStack[-1], data)
 
-
+#####################################################
     def LoadTree(self, filename):
         # Create a parser
         Parser = expat.ParserCreate()

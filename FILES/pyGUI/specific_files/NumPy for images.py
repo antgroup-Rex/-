@@ -52,6 +52,9 @@ if __name__=='__main__':
     reddish = cat[0][:, :, 0] > 160
     cat[0][reddish] = [0, 255, 0]
     plt.imshow(cat[0])
+    for img in cat:
+        plt.figure()
+        plt.imshow(img)
 
 #    sys.exit(0)
     num=1
@@ -59,6 +62,50 @@ if __name__=='__main__':
     print ('image #{}'.format(num))
            
            
+#####
+import skimage.io as io
+from skimage import data_dir
+coll = io.ImageCollection(data_dir + '/chess*.png')
+len(coll)
+coll[0].shape
+ic = io.ImageCollection('/tmp/work/*.png:/tmp/other/*.jpg')
+
+#############
+
+from skimage import viewer
+coins = data.coins()
+
+new_viewer = viewer.ImageViewer(coins) 
+new_viewer.show()
+
+new_viewer = viewer.ImageViewer(coins) 
+from skimage.viewer.plugins import lineprofile
+new_viewer += lineprofile.LineProfile() 
+new_viewer.show() 
+
+check = np.zeros((9, 9))
+check[::2, 1::2] = 1
+check[1::2, ::2] = 1
+plt.matshow(check, cmap='gray')
+plt.show()
+
+from skimage import exposure
+camera = data.camera()
+camera_equalized = exposure.equalize_hist(camera)
+
+plt.figure(figsize=(7, 3))
+
+plt.subplot(121)
+plt.imshow(camera, cmap='gray', interpolation='nearest')
+plt.axis('off')
+plt.subplot(122)
+plt.imshow(camera_equalized, cmap='gray', interpolation='nearest')
+plt.axis('off')
+plt.tight_layout()
+plt.show()
+
+           
+sys.exit()           
     
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
